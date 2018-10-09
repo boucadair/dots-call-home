@@ -1,0 +1,859 @@
+<?xml version="1.0" encoding="US-ASCII"?>
+<!DOCTYPE rfc SYSTEM "rfc2629.dtd">
+<?rfc toc="yes"?>
+<?rfc tocompact="yes"?>
+<?rfc tocdepth="3"?>
+<?rfc tocindent="yes"?>
+<?rfc symrefs="yes"?>
+<?rfc sortrefs="yes"?>
+<?rfc comments="yes"?>
+<?rfc inline="yes"?>
+<?rfc compact="yes"?>
+<?rfc subcompact="no"?>
+<rfc category="std" docName="draft-reddy-dots-home-network-00"
+     ipr="trust200902">
+  <front>
+    <title abbrev="DOTS signal Call Home">Denial-of-Service Open Threat
+    Signaling (DOTS) Signal and Data Channels Call Home</title>
+
+    <author fullname="Tirumaleswar Reddy" initials="T." surname="Reddy">
+      <organization abbrev="McAfee">McAfee, Inc.</organization>
+
+      <address>
+        <postal>
+          <street>Embassy Golf Link Business Park</street>
+
+          <city>Bangalore</city>
+
+          <region>Karnataka</region>
+
+          <code>560071</code>
+
+          <country>India</country>
+        </postal>
+
+        <email>kondtir@gmail.com</email>
+      </address>
+    </author>
+
+    <author fullname="Mohamed Boucadair" initials="M." surname="Boucadair">
+      <organization>Orange</organization>
+
+      <address>
+        <postal>
+          <street></street>
+
+          <city>Rennes</city>
+
+          <code>35000</code>
+
+          <country>France</country>
+        </postal>
+
+        <email>mohamed.boucadair@orange.com</email>
+      </address>
+    </author>
+
+    <author fullname="Joshi Harsha" initials="J." surname="Harsha">
+      <organization abbrev="McAfee">McAfee, Inc.</organization>
+
+      <address>
+        <postal>
+          <street>Embassy Golf Link Business Park</street>
+
+          <city>Bangalore</city>
+
+          <region>Karnataka</region>
+
+          <code>560071</code>
+
+          <country>India</country>
+        </postal>
+
+        <email>harsha_joshi@mcafee.com</email>
+      </address>
+    </author>
+
+    <date />
+
+    <workgroup>DOTS</workgroup>
+
+    <abstract>
+      <t>This document presents DOTS Call Home service, which enables a DOTS
+      agent to initiate a secure connection to a DOTS peer, and to convey the
+      attack traffic information from the DOTS peer (acting as a DOTS server).
+      The DOTS server in turn uses the attack traffic information to identify
+      the compromised devices launching the outgoing DDOS attack and takes
+      appropriate mitigation action.</t>
+    </abstract>
+  </front>
+
+  <middle>
+    <section anchor="introduction" title="Introduction">
+      <t></t>
+
+      <section anchor="problem" title="The Problem">
+        <t>The DOTS signal channel protocol <xref
+        target="I-D.ietf-dots-signal-channel"></xref> is used to carry
+        information about a network resource or a network (or a part thereof)
+        that is under a Distributed Denial of Service (DDoS) attack. Such
+        information is sent by a DOTS client to one or multiple DOTS servers
+        so that appropriate mitigation actions are undertaken on traffic
+        deemed suspicious. Likewise, the DOTS data channel protocol <xref
+        target="I-D.ietf-dots-data-channel"></xref> is used to install
+        filtering rules that may be instantiated immediately or when an attack
+        is encountered. Various use cases are discussed in <xref
+        target="I-D.ietf-dots-use-cases"></xref>.</t>
+
+        <t>IoT devices are becoming more and more prevalent in home networks,
+        and with compute and memory becoming cheaper and cheaper, various
+        types of IoT devices are available in the consumer market at
+        affordable price. But on the downside, the main threat being most of
+        these IoT devices are bought off-the-shelf and most manufacturers
+        haven't considered security in the product design. IoT devices
+        deployed in home networks can be easily compromised, they do not have
+        easy mechanism to upgrade, and IoT manufactures may shut shop and
+        discontinue patching vulnerabilities on IoT devices. However, these
+        vulnerable and compromised devices will continue be used for a long
+        period of time in the home, and the end-user does not know that IoT
+        devices in his/her home are compromised. The compromised IoT devices
+        are typically used for launching DDoS attacks on the victim while the
+        owner/administrator of the home network is not aware about such
+        misbehaviors. Similar to other DDoS attack, the victim in this attack
+        can be an application server, a host, a router, a firewall, or an
+        entire network.</t>
+
+        <t>Nowadays, network devices in a home network offer network security,
+        for instance, firewall/IPS service on a home router or gateway to
+        protect the devices connected to the home network from external and
+        internal attacks. Over the years several techniques have been
+        identified to detect DDoS attacks, some of these techniques can be
+        used enabled on home network devices but most of them are used in the
+        Internet Service Provider (ISP)'s network. The ISP offering DDoS
+        mitigation service can detect outgoing DDoS attacks and may receive
+        filtering rules from upstream service providers using, for example,
+        BGP flowspec <xref target="RFC5575"></xref> to filter, block, or
+        rate-limit DDoS attack traffic originating from a home network.</t>
+
+        <t>Some of the DDoS attacks like spoofed RST or FIN packets,
+        Slowloris, and TLS re-negotiation are difficult to detect on the home
+        network devices without adversely affecting its performance. The
+        reason is typically home routers have fast path to boost the
+        throughput. For every new TCP/UDP flow, only the first few packets are
+        punted through the slow path. Hence, it is not possible to detect
+        various DDoS attacks in the slow path, since the attack payload is
+        sent to the target server after the flow is switched to fast path.
+        Deep packet inspection (DPI) of all the packets of a flow would be
+        able to detect some of the attacks. However, a full-fledged DPI to
+        detect these type of DDoS attacks is operationally not possible for
+        all the devices attached to the home network owing to the memory and
+        CPU limitations of the home routers. Further, for certain DDoS attacks
+        the ability to distinguish legitimate traffic from attacker traffic on
+        a per packet basis is complex. This complexity originates from the
+        fact that the packet itself may look "legitimate" and no attack
+        signature can be identified. The anomaly can be identified only after
+        detailed statistical analysis.</t>
+
+        <t>The ISP on the other hand can detect the DDoS attack originating
+        from a home network, but the ISP does not have a mechanism to detect
+        which device in the home network is generating the DDoS attack
+        traffic. The primary reason being devices in a IPv4 Home network are
+        behind NAT. Even in case of a IPv6 Home network, though the ISP can
+        identify the infected device in the Home network launching the DDoS
+        traffic using its unique IPv6 address, but the infected device can
+        easily change the IP address to evade remediation.</t>
+
+        <t>Also, the DDoS mitigation service enabled at the ISP network does
+        not know whether some traffic is consented or is a suspicious one;
+        this may be exacerbated by the unavailability of some control messages
+        used by emerging transport protocol (and which were used to be sent in
+        clear in TCP, for example). The lack for a clear consent message and
+        its association with packets belong to that flow make impose some
+        additional requirement on how suspects packets have to be processed by
+        the ISP while increasing the security of its own infrastructure and
+        avoid negative reputation of its IP resources if more and more
+        machines, known to be source of DDoS, are hosted in its network.</t>
+
+        <t>Existing approaches are still suffering from misusing access
+        network resources by abusing devices; the support of means for
+        blocking such attacks close to the sources are missing. In particular,
+        the DOTS signal/data channel protocols do not discuss cooperative DDoS
+        mitigation between the home network and ISP to the suppress the
+        outbound DDoS attack traffic originating from the home network.</t>
+      </section>
+
+      <section title="The Solution">
+        <t>This specification addresses the problems discussed in <xref
+        target="problem"></xref> and presents DOTS signal/data channel Call
+        Home extension, which enables the DOTS server to initiate a secure
+        connection to the DOTS client, and the DOTS client conveys the attack
+        traffic information to the DOTS server. The DOTS server uses the DDoS
+        attack traffic information to identify the compromised device
+        launching the DDoS attack, notifies the network administrator, and
+        takes appropriate mitigation action. The mitigation action can be to
+        quarantine the compromised device or block its traffic to the attack
+        target until the mitigation request is withdrawn.</t>
+
+        <t>Abuse traffic can be filtered at the boundaries of the home network
+        or at the ISP network. This document defines means to allow for both
+        deployment models.</t>
+      </section>
+    </section>
+
+    <section anchor="notation" title="Notational Conventions and Terminology">
+      <t>The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT",
+      "SHOULD", "SHOULD NOT", "RECOMMENDED", "NOT RECOMMENDED", "MAY", and
+      "OPTIONAL" in this document are to be interpreted as described in BCP 14
+      <xref target="RFC2119"></xref><xref target="RFC8174"></xref> when, and
+      only when, they appear in all capitals, as shown here.</t>
+
+      <t>The reader should be familiar with the terms defined in <xref
+      target="I-D.ietf-dots-requirements"></xref>.</t>
+    </section>
+
+    <section title="DOTS Signal Channel Call Home">
+      <section title="Procedure">
+        <t>DOTS signal channel Call Home preserves all but one of the DOTS
+        client/server roles in the DOTS protocol stack, as compared to DOTS
+        client-initiated DOTS signal channel protocol. The one and only role
+        reversal that occurs are at the TCP/TLS and DTLS layers; that is, the
+        DOTS server acts as a DTLS client and the DOTS client acts as a DTLS
+        server or the DOTS server acts as a TCP/TLS client and the DOTS client
+        acts as a TCP/TLS server. The DOTS server initiates TCP/TLS handshake
+        or DTLS handshake to the DOTS client.</t>
+
+        <t>For example, a home network element (e.g., home router) co-located
+        with a DOTS server (likely, a client-domain DOTS gateway) is the
+        TCP/TLS server and DTLS server. However, when calling home, the DOTS
+        server initially assumes the role of the TCP/TLS client and DTLS
+        client, but the network element's role as a DOTS server remains the
+        same. Further, existing certificate chains and mutual authentication
+        mechanisms between the DOTS agents are unaffected by Call Home
+        function. This Call Home function enables the DOTS server co-located
+        with a network element (possibly behind NATs and firewalls) reachable
+        by only the intended DOTS client and the DOTS server cannot be
+        subjected to DDoS attacks. Other motivations for introducing Call Home
+        are discussed in Section 1.1 of <xref target="RFC8071"></xref>.</t>
+
+        <t><xref target="signalch"></xref> illustrates sample Call Home flow
+        exchange:</t>
+
+        <t><figure align="center" anchor="signalch"
+            title="Signal Channel Call Home Sequence Diagram">
+            <artwork><![CDATA[
+                DOTS                                DOTS 
+               Server                              Client
+                 |                                    |
+                 |         1. (D)TLS connection       |
+                 |----------------------------------->|
+                 |         2. Mitigation request      |
+                 |<-----------------------------------|
+                 |                                    |
+]]></artwork>
+          </figure>This diagram makes the following points:</t>
+
+        <t><list style="numbers">
+            <t>If UDP transport is used, the DOTS server begins by initiating
+            a DTLS connection to the DOTS client. The DOTS client MUST support
+            accepting DTLS connection on the IANA-assigned port defined in
+            <xref target="port"></xref>, but MAY be configured to listen to a
+            different port. If TCP is used, the DOTS server begins by
+            initiating a TCP connection to the DOTS client. The DOTS client
+            MUST support accepting TCP connections on the IANA-assigned port
+            defined in <xref target="port"></xref>, but MAY be configured to
+            listen to a different port. Using this TCP connection, the DOTS
+            server initiates an TLS connection to the DOTS client.</t>
+
+            <t>Using this (D)TLS connection, the DOTS client requests,
+            withdraws, or retrieves the status of mitigation requests.</t>
+          </list></t>
+      </section>
+
+      <section title="DOTS Signal Channel Extension">
+        <section title="Mitigation Request">
+          <t>This specification extends the mitigation request defined in
+          <xref target="I-D.ietf-dots-signal-channel"></xref> to convey the
+          attacker source prefixes and source port numbers. The DOTS client in
+          the mitigation request conveys the following new parameters in the
+          CBOR body of the mitigation request:<list style="hanging">
+              <t hangText="source-prefix:">A list of attacker prefixes used to
+              attack the target. Prefixes are represented using Classless
+              Inter-Domain Routing (CIDR) notation <xref
+              target="RFC4632"></xref>. <vspace blankLines="0" />As a
+              reminder, the prefix length MUST be less than or equal to 32
+              (resp. 128) for IPv4 (resp. IPv6).<vspace blankLines="1" />The
+              prefix list MUST NOT include broadcast, loopback, or multicast
+              addresses. These addresses are considered as invalid values. In
+              addition, the DOTS client MUST validate that attacker prefixes
+              are within the scope of the DOTS server's domain.<vspace
+              blankLines="1" />This is an optional attribute.</t>
+
+              <t hangText="source-port-range:">A list of port numbers used by
+              the attack traffic flows. <vspace blankLines="1" />A port range
+              is defined by two bounds, a lower port number (lower-port) and
+              an upper port number (upper-port). When only 'lower-port' is
+              present, it represents a single port number. <vspace
+              blankLines="1" />For TCP, UDP, Stream Control Transmission
+              Protocol (SCTP) <xref target="RFC4960"></xref>, or Datagram
+              Congestion Control Protocol (DCCP) <xref
+              target="RFC4340"></xref>, a range of ports can be, for example,
+              0-1023, 1024-65535, or 1024-49151. <vspace blankLines="1" />This
+              is an optional attribute.</t>
+            </list></t>
+
+          <t>The 'source-prefix', 'source-port-range', 'target-prefix',
+          'target-port-range', and 'target-protocol' parameters are mandatory
+          attributes when the attack traffic information is signaled by the
+          DOTS client.</t>
+
+          <t>The DOTS server uses the attack traffic information to find the
+          pre-NAT source IP address of the compromised device and blocks the
+          traffic from the compromised device traffic to the attack target
+          until the mitigation request is withdrawn. The DOTS server informs
+          the DOTS client that the attack traffic is blocked.</t>
+
+          <t>If the DOTS server is co-located with a home router, it can
+          program the packet processor to punt all the traffic from the
+          compromised device to the target to slow path. The home router
+          inspects the punted slow path traffic to detect and block the
+          outgoing DDoS attack traffic or quarantine the device (e.g., using
+          MAC level filtering) until it is remediated, and notify the home
+          administrator about the compromised device.</t>
+
+          <t>If the DOTS server is co-located with a home router is not able
+          to enforce appropriate filtering rules within the local network, the
+          DOTS server (acting now as a DOTS client) may use the DOTS data
+          channel to request explicit filtering from the peer DOTS agent.</t>
+
+          <t>TBD: Do we also want to convey Attack Name/type or ID (the home
+          router may not be capable of detecting new emerging/sophisticated
+          attacks) ?</t>
+        </section>
+
+        <section anchor="YANG" title="DOTS Signal Call Home YANG Module ">
+          <section title="Mitigation Request Tree Structure">
+            <t>This document augments the "dots-signal-channel" DOTS signal
+            YANG module defined in <xref
+            target="I-D.ietf-dots-signal-channel"></xref> for signaling the
+            attack traffic information. This document defines the YANG module
+            "ietf-dots-signal-call-home", which has the following
+            structure:<figure>
+                <artwork><![CDATA[module: ietf-dots-signal-call-home
+  augment /ietf-signal:dots-signal:
+    +--rw source-prefix*       inet:ip-prefix
+    +--rw source-port-range* [lower-port upper-port]
+       +--rw lower-port    inet:port-number
+       +--rw upper-port    inet:port-number]]></artwork>
+              </figure></t>
+          </section>
+
+          <section title="Call Home Mitigation Request YANG Module ">
+            <t><figure>
+                <artwork><![CDATA[<CODE BEGINS> file "ietf-dots-signal-call-home@2018-09-28.yang"
+
+module ietf-dots-signal-call-home {
+  yang-version 1.1;
+  namespace "urn:ietf:params:xml:ns:yang:ietf-dots-signal-call-home";
+  prefix signal-call-home;
+
+  import ietf-inet-types {
+    prefix inet;
+    reference
+      "Section 4 of RFC 6991";
+  }
+  import ietf-dots-signal-channel {
+    prefix ietf-signal;
+    reference
+      "RFC XXXX: Distributed Denial-of-Service Open Threat
+                 Signaling (DOTS) Signal Channel Specification";
+  }
+
+  organization
+    "IETF DDoS Open Threat Signaling (DOTS) Working Group";
+  contact
+    "WG Web:   <https://datatracker.ietf.org/wg/dots/>
+     WG List:  <mailto:dots@ietf.org>
+     
+     Editor:  Konda, Tirumaleswar Reddy
+              <mailto:TirumaleswarReddy_Konda@McAfee.com>";
+
+     Editor:  Mohamed Boucadair
+              <mailto:mohamed.boucadair@orange.com>";
+     
+  description
+    "This module contains YANG definition for the signaling
+     messages exchanged between a DOTS client and a DOTS server.
+     
+     Copyright (c) 2018 IETF Trust and the persons identified as
+     authors of the code.  All rights reserved.
+     
+     Redistribution and use in source and binary forms, with or
+     without modification, is permitted pursuant to, and subject
+     to the license terms contained in, the Simplified BSD License
+     set forth in Section 4.c of the IETF Trust's Legal Provisions
+     Relating to IETF Documents
+     (http://trustee.ietf.org/license-info).
+     
+     This version of this YANG module is part of RFC XXXX; see
+     the RFC itself for full legal notices.";
+
+  revision 2018-09-28 {
+    description
+      "Initial revision.";
+    reference
+      "RFC XXXX: Distributed Denial-of-Service Open Threat
+                 Signaling (DOTS) Signal Channel Call Home";
+  }
+
+  augment "/ietf-signal:dots-signal" {
+    when "message-type='mitigation-scope'";
+    description "Attacker source details";
+
+    leaf-list source-prefix {
+      type inet:ip-prefix;
+      description
+        "IPv4 or IPv6 prefix identifying the attacker(s).";
+    }
+    list source-port-range {
+      key "lower-port upper-port";
+      description
+        "Port range. When only lower-port is
+         present, it represents a single port number.";
+      leaf lower-port {
+        type inet:port-number;
+        mandatory true;
+        description
+          "Lower port number of the port range.";
+      }
+      leaf upper-port {
+        type inet:port-number;
+        must ". >= ../lower-port" {
+           error-message
+             "The upper port number must be greater than
+              or equal to lower port number.";
+        }
+        description
+          "Upper port number of the port range.";
+      }
+    }
+  }
+}]]></artwork>
+              </figure></t>
+          </section>
+        </section>
+      </section>
+    </section>
+
+    <section title="DOTS Data Channel Call Home">
+      <t></t>
+
+      <section title="Procedure">
+        <t><xref target="dcch"></xref> shows the main steps that may be
+        observed when a Call Home service is enabled between too peer DOTS
+        agents.</t>
+
+        <t><figure align="center" anchor="dcch"
+            title="DOTS Call Home: Data Channel Overview">
+            <artwork><![CDATA[
+  +------------+                       +------------+
+  | DOTS agent |                       | DOTS agent |
+  +------------+                       +------------+
+  role=DOTS client                     role=DOTS server
+        |                                    |
+        |-(1)--Retrieve DOTS Capabilities--->|
+        |                ...                 |
+        |-(2)--Subscribe to DOTS Call Home-->|
+        |                ...                 |
+  role=DOTS server                    role=DOTS client
+        |                                    |
+        |<---Request Filtering Sources--(3)--|
+        |                ...                 |
+  (4) Enforce filters locally, or
+
+  role=DOTS client                     role=DOTS server
+        |                                    |
+        |-(5)--Request Filtering Sources---->|
+        |                ...                 |
+        |                ...                 |  
+
+]]></artwork>
+          </figure></t>
+
+        <t>At bootstrapping, the first DOTS agent #1, acting as a DOTS client,
+        contacts its peer DOTS agent #2 (acting as a DOTS server) as per the
+        procedure specified in <xref
+        target="I-D.ietf-dots-data-channel"></xref>. Then, the DOTS client
+        sends a request to retrieve the capabilities of the peer DOTS agent
+        #2. If that peer agent supports the Call Home service (<xref
+        target="capa"></xref>), the DOTS client sends a request to the peer
+        DOTS agent #2 to subscribe to the Call Home service (see <xref
+        target="reg"></xref> for further details).</t>
+
+        <t>Once the subscription is validated and put into effect, the DOTS
+        agent #2 may act as a DOTS client at any moment if it detects some
+        suspicious traffic originating from the client domain #1. In order to
+        avoid disrupting the service offered to that domain, DOTS agent #2
+        sends a request to DOTS agent #1 by means of <xref
+        target="I-D.ietf-dots-data-channel"></xref> to request some filtering
+        rules to be enforced at the boundaries of the client domain.</t>
+
+        <t>Upon receipt of that request, the DOTS agent #1 may enforce the
+        requested filtering rules, relay the request to an administrator, or
+        echo the request back to the DOTS agent #2 as per normal DOTS data
+        channel procedure.</t>
+      </section>
+
+      <section title="DOTS Data Channel Extension">
+        <t></t>
+
+        <section anchor="capa" title="DOTS Call Home Capability">
+          <t>As specified in <xref
+          target="I-D.ietf-dots-signal-channel"></xref>, a DOTS client sends a
+          GET request to retrieve the filtering capabilities supported by a
+          DOTS server. <xref target="cap"></xref> shows an example of such
+          request.</t>
+
+          <t><figure anchor="cap"
+              title="GET to Retrieve the Capabilities of a DOTS Server">
+              <artwork align="left"><![CDATA[  GET /restconf/data/ietf-dots-data-channel:dots-data\
+      /capabilities HTTP/1.1
+  Host: {host}:{port}
+  Accept: application/yang-data+json
+]]></artwork>
+            </figure></t>
+
+          <t>A DOTS server which supports the Call Home functionality replies
+          with a response such as the one depicted in <xref
+          target="capex"></xref>.</t>
+
+          <t><figure anchor="capex" title="DOTS Server Capabilities">
+              <artwork align="left"><![CDATA[ Content-Type: application/yang-data+json
+ {
+  "ietf-dots-data-channel:capabilities": {
+    "forwarding-actions": ["drop", "accept"],
+    "rate-limit": true,
+    "transport-protocols": [1, 6, 17, 58],
+    "ipv4": {
+      "length": true,
+      "protocol": true,
+      "destination-prefix": true,
+      "source-prefix": true,
+      "fragment": true
+    },
+    "ipv6": {
+      "length": true,
+      "protocol": true,
+      "destination-prefix": true,
+      "source-prefix": true,
+      "fragment": true
+    },
+    "tcp": {
+      "flags-bitmask": true,
+      "source-port": true,
+      "destination-port": true,
+      "port-range": true
+    },
+    "udp": {
+      "length": true,
+      "source-port": true,
+      "destination-port": true,
+      "port-range": true
+    },
+    "icmp": {
+      "type": true,
+      "code": true
+    }
+    "call-home-support": true,
+  }
+}]]></artwork>
+            </figure></t>
+
+          <t>All the attributes listed in <xref target="capex"></xref> except
+          'call-home-support', are defined in <xref
+          target="I-D.ietf-dots-signal-channel"></xref>. The meaning of
+          'call-home-support' parameter is described below:</t>
+
+          <t><list style="hanging">
+              <t hangText="call-home-support:">This attribute is used by a
+              DOTS server to indicate whether it supports the Call Home
+              functionality, when set to 'true'.<vspace blankLines="1" />This
+              is an optional attribute.</t>
+            </list></t>
+
+          <t></t>
+        </section>
+
+        <section anchor="reg" title="Registration to The Call Home Service">
+          <t>In order to make use of DOTS Call Home function, a DOTS client
+          MUST register to its DOTS server(s) by creating a DOTS client
+          ('dots-client') resource and setting the 'call-home-enable'
+          parameter to 'true'. To that aim, DOTS clients send a POST request
+          shown in <xref target="register"></xref>.</t>
+
+          <t><figure anchor="register" title="Register to Call Home">
+              <artwork align="left"><![CDATA[ POST /restconf/data/ietf-dots-data-channel:dots-data HTTP/1.1
+ Host: {host}:{port}
+ Content-Type: application/yang-data+json
+ {
+   "ietf-dots-data-channel:dots-client": [
+     {
+       "cuid": "string",
+       "call-home-enable": boolean
+     }
+   ]
+ }]]></artwork>
+            </figure>The 'call-home-enable' parameter is described below:<list
+              style="hanging">
+              <t hangText="call-home-enable:">If set to 'true', this means the
+              DOTS client requests subscribing to the DOTS Call Home service.
+              <vspace blankLines="1" />This is an optional attribute.</t>
+            </list></t>
+
+          <t>A DOTS client can disable its subscription to the Call Home
+          service either by de-registering the 'dots-client' resource or by
+          sending a registration refresh request with 'call-home-enable' set
+          to 'false'.</t>
+
+          <t>A DOTS client which subscribed to a Call Home service should be
+          prepared to receive incoming unsolicited requests from the peer DOTS
+          agent.</t>
+
+          <t>&lt;&lt;&lt;&lt;some text about source port/nat
+          traversal&gt;&gt;&gt;&gt;&gt;&gt;</t>
+        </section>
+
+        <section title="Tree Structure">
+          <t>This document augments the DOTS data channel YANG module defined
+          in <xref target="I-D.ietf-dots-data-channel"></xref> as
+          follows:<figure>
+              <artwork><![CDATA[module: ietf-dots-data-call-home
+  augment /ietf-data:dots-data/dots-client:
+    +--rw call-home-enable*       boolean
+  augment /ietf-data:dots-data/capabilities:
+    +--rw call-home-support*      boolean
+]]></artwork>
+            </figure></t>
+        </section>
+
+        <section title="YANG Module">
+          <t><figure>
+              <artwork><![CDATA[<CODE BEGINS> file "ietf-dots-data-call-home@2018-09-28.yang"
+
+module ietf-dots-data-call-home {
+  yang-version 1.1;
+  namespace "urn:ietf:params:xml:ns:yang:ietf-dots-data-call-home";
+  prefix data-call-home;
+
+  import ietf-inet-types {
+    prefix inet;
+    reference
+      "Section 4 of RFC 6991";
+  }
+  import ietf-dots-data-channel {
+    prefix ietf-data;
+    reference
+      "RFC XXXX: Distributed Denial-of-Service Open Threat
+                 Signaling (DOTS) Data Channel Specification";
+  }
+
+  organization
+    "IETF DDoS Open Threat Signaling (DOTS) Working Group";
+  contact
+    "WG Web:   <https://datatracker.ietf.org/wg/dots/>
+     WG List:  <mailto:dots@ietf.org>
+     
+     Editor:  Mohamed Boucadair
+              <mailto:mohamed.boucadair@orange.com>";
+
+     Editor:  Konda, Tirumaleswar Reddy
+              <mailto:TirumaleswarReddy_Konda@McAfee.com>";
+     
+  description
+    "This module contains YANG definition for the signaling
+     messages exchanged between a DOTS client and a DOTS server.
+     
+     Copyright (c) 2018 IETF Trust and the persons identified as
+     authors of the code.  All rights reserved.
+     
+     Redistribution and use in source and binary forms, with or
+     without modification, is permitted pursuant to, and subject
+     to the license terms contained in, the Simplified BSD License
+     set forth in Section 4.c of the IETF Trust's Legal Provisions
+     Relating to IETF Documents
+     (http://trustee.ietf.org/license-info).
+     
+     This version of this YANG module is part of RFC XXXX; see
+     the RFC itself for full legal notices.";
+
+  revision 2018-09-28 {
+    description
+      "Initial revision.";
+    reference
+      "RFC XXXX: Distributed Denial-of-Service Open Threat
+                 Signaling (DOTS) Data Channel Call Home";
+  }
+
+  augment "/ietf-data:dots-data/ietf-data:capabilities" {
+    description 
+      "Augments the DOTS data channel with Call Home capability.";
+
+    leaf call-home-support {
+      type boolean;
+      description
+        "DOTS Call Home feature is a capability which is meant 
+         to allow a home network to receive requests from the ISP
+         network.";
+    }
+  }
+
+  augment "/ietf-data:dots-data/ietf-data:dots-client" {
+    when "/ietf-data:dots-data/ietf-data:capabilities/" +
+         "data-call-home:call-home-support='true'";
+    description 
+      "Allows a DOTS client to enable/disable Call Home 
+       functionality.";
+
+    leaf call-home-enable {
+      type boolean;
+      description
+        "When set to 'true', this means the DOTS client registers
+         to the Call Home functionality.";
+    }
+  }
+}]]></artwork>
+            </figure></t>
+        </section>
+      </section>
+    </section>
+
+    <section anchor="IANA" title="IANA Considerations">
+      <section anchor="port"
+               title="DOTS Signal Channel Call Home UDP and TCP Port Number">
+        <t>IANA is requested to assign the port number TBD to the DOTS signal
+        channel Call Home protocol for both UDP and TCP from the "Service Name
+        and Transport Protocol Port Number Registry" available at:
+        https://www.iana.org/assignments/service-names-port-numbers/service-names-port-numbers.xhtml.</t>
+
+        <t>The assignment of port number 4647 is strongly suggested (DOTS
+        signal channel uses port number 4646).</t>
+      </section>
+
+      <section anchor="map" title="DOTS Signal Channel CBOR Mappings Registry">
+        <t>This specification registers the 'source-prefix' and
+        'source-port-range' parameters in the IANA "DOTS Signal Channel CBOR
+        Mappings" registry established by <xref
+        target="I-D.ietf-dots-signal-channel"></xref>.</t>
+
+        <t>The source-prefix and source-port-range are comprehension-optional
+        parameters.</t>
+
+        <t><figure>
+            <artwork><![CDATA[+-------------------+-------------+---------+---------------+--------+
+| Parameter Name    | YANG        | CBOR    | CBOR Major    | JSON   |
+|                   | Type        | Key     |    Type &     | Type   |
+|                   |             |         | Information   |        |
++-------------------+-------------+---------+---------------+--------+
+| source-prefix     | leaf-list   |   0x8000| 4 array       | Array  |
+|                   | inet:       |   (TBD) |               |        |
+|                   |  ip-prefix  |         | 3 text string | String |
+| source-port-range | list        |   0x8001| 4 array       | Array  |
+|                   |             |   (TBD) |               |        | 
++-------------------+-------------+---------+---------------+--------+
+
+    Table 4: CBOR Mappings Used in DOTS Signal Channel Messages]]></artwork>
+          </figure></t>
+      </section>
+
+      <section anchor="yang" title="DOTS Signal Channel YANG Module">
+        <t>This document requests IANA to register the following URIs in the
+        "IETF XML Registry" <xref target="RFC3688"></xref>: <figure>
+            <artwork><![CDATA[         URI: urn:ietf:params:xml:ns:yang:ietf-dots-signal-call-home
+         Registrant Contact: The IESG.
+         XML: N/A; the requested URI is an XML namespace.
+
+         URI: urn:ietf:params:xml:ns:yang:ietf-dots-data-call-home
+         Registrant Contact: The IESG.
+         XML: N/A; the requested URI is an XML namespace.
+]]></artwork>
+          </figure> This document requests IANA to register the following YANG
+        modules in the "YANG Module Names" registry <xref
+        target="RFC7950"></xref>.<figure>
+            <artwork><![CDATA[         name: ietf-signal-call-home
+         namespace: urn:ietf:params:xml:ns:yang:ietf-dots-signal-call-home
+         prefix: signal-call-home
+         reference: RFC XXXX
+
+         name: ietf-data-call-home
+         namespace: urn:ietf:params:xml:ns:yang:ietf-dots-data-call-home
+         prefix: data-call-home
+         reference: RFC XXXX
+]]></artwork>
+          </figure></t>
+      </section>
+    </section>
+
+    <section anchor="security" title="Security Considerations">
+      <t>This document deviates from standard DOTS signal channel usage by
+      having the DOTS server initiate the TCP/TLS or DTLS connection. DOTS
+      signal channel related security considerations discussed in Section 10
+      of <xref target="I-D.ietf-dots-signal-channel"></xref> MUST be
+      considered. DOTS agents MUST authenticate each other using (D)TLS before
+      a DOTS signal channel session is considered valid.</t>
+
+      <t>An attacker may launch a DoS attack on the DOTS client by having it
+      perform computationally expensive operations, before deducing that the
+      attacker doesn't possess a valid key. For instance, in TLS 1.3 <xref
+      target="RFC8446"></xref>, the ServerHello message contains a Key Share
+      value based on an expensive asymmetric key operation for key
+      establishment. Common precautions mitigating DoS attacks are
+      recommended, such as temporarily blacklisting the source address after a
+      set number of unsuccessful authentication attempts.</t>
+    </section>
+
+    <section anchor="ack" title="Acknowledgements">
+      <t>TBC.</t>
+    </section>
+  </middle>
+
+  <back>
+    <references title="Normative References">
+      <?rfc include="reference.RFC.2119"?>
+
+      <?rfc include="reference.I-D.ietf-dots-data-channel" ?>
+
+      <?rfc include="reference.RFC.7252"?>
+
+      <?rfc include="reference.RFC.7950"?>
+
+      <?rfc include="reference.RFC.3688"?>
+
+      <?rfc include="reference.RFC.8446"?>
+
+      <?rfc include='reference.RFC.8174'?>
+
+      <?rfc include='reference.RFC.8071'?>
+
+      <?rfc include="reference.I-D.ietf-dots-signal-channel" ?>
+    </references>
+
+    <references title="Informative References">
+      <?rfc include="reference.RFC.4732"?>
+
+      <?rfc include="reference.RFC.7049"?>
+
+      <?rfc include="reference.RFC.4632"?>
+
+      <?rfc include="reference.RFC.8071"?>
+
+      <?rfc include="reference.RFC.4960"?>
+
+      <?rfc include="reference.RFC.4340"?>
+
+      <?rfc include="reference.RFC.5575"?>
+
+      <?rfc include="reference.I-D.ietf-dots-requirements"?>
+
+      <?rfc include='reference.I-D.ietf-dots-use-cases'?>
+    </references>
+  </back>
+</rfc>
