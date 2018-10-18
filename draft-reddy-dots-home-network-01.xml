@@ -324,12 +324,11 @@
           call home scenario. The 'target-uri' or 'target-fqdn' parameters can
           be included in the mitigation request for diagnostic purpose to
           notify the DOTS server domain administrator, but SHOULD NOT be used
-          to determine the target IP addresses. Because <xref
-          target="I-D.ietf-dots-signal-channel"></xref> requires
-          'target-prefix', 'target-fqdn','target-uri', or 'alias-name' to be
-          present in a PUT request, and given the recommendation on target IP
-          addresses, 'target-prefix' must be present in a call home request.
-          </t>
+          to determine the target IP addresses. Note that 'target-prefix'
+          becomes a mandatory attribute in the mitigation request signaling
+          the attack information because 'target-uri' and 'target-fqdn' are
+          optional attributes and 'alias-name' will not be conveyed in the
+          mitigation request. </t>
 
           <t>When a translator is on-path, the DOTS server uses the attack
           traffic information to find the internal source IP address (or
