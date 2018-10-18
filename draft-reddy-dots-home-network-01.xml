@@ -334,16 +334,14 @@
           traffic information to find the internal source IP address (or
           internal source port numbers, if needed) of the compromised device
           and blocks the traffic from the compromised device traffic to the
-          attack target. Triggers for the withdrawal of the corresponding
-          filters are policy-based, for example, filters may be permanent or
-          be removed when the mitigation request is withdrawn. The DOTS server
-          domain administrator consent MAY be required to block the traffic
-          from the compromised device to the attack target. An implementation
-          MAY have a configuration knob to block the traffic from the
-          compromised device to the attack target with or without DOTS server
-          domain administrator consent. If the attack traffic is blocked, the
-          DOTS server informs the DOTS client that the attack is being
-          mitigated.</t>
+          attack target until the mitigation request is withdrawn. The DOTS
+          server domain administrator consent MAY be required to block the
+          traffic from the compromised device to the attack target. An
+          implementation MAY have a configuration knob to block the traffic
+          from the compromised device to the attack target with or without
+          DOTS server domain administrator consent. If the attack traffic is
+          blocked, the DOTS server informs the DOTS client that the attack is
+          being mitigated.</t>
 
           <t>If the attack traffic information is identified by the DOTS
           server or the DOTS server domain administrator as legitimate

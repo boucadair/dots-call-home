@@ -354,10 +354,8 @@ Internet-Draft            DOTS signal Call Home             October 2018
    When a translator is on-path, the DOTS server uses the attack traffic
    information to find the internal source IP address (or internal
    source port numbers, if needed) of the compromised device and blocks
-   the traffic from the compromised device traffic to the attack target.
-   Triggers for the withdrawal of the corresponding filters are policy-
-   based, for example, filters may be permanent or be removed when the
-   mitigation request is withdrawn.  The DOTS server domain
+   the traffic from the compromised device traffic to the attack target
+   until the mitigation request is withdrawn.  The DOTS server domain
    administrator consent MAY be required to block the traffic from the
    compromised device to the attack target.  An implementation MAY have
    a configuration knob to block the traffic from the compromised device
@@ -386,6 +384,8 @@ Internet-Draft            DOTS signal Call Home             October 2018
 
    TBD:
 
+   a) Do we also want to convey Attack Name/type or ID (the home router
+   may not be capable of detecting new emerging/sophisticated attacks) ?
 
 
 
@@ -393,9 +393,6 @@ Reddy, et al.            Expires April 21, 2019                 [Page 7]
 
 Internet-Draft            DOTS signal Call Home             October 2018
 
-
-   a) Do we also want to convey Attack Name/type or ID (the home router
-   may not be capable of detecting new emerging/sophisticated attacks) ?
 
    b) Is DOTS data channel Call Home service required (if required, can
    RESTCONF Call Home defined in RFC8071 be used) ?
@@ -442,6 +439,9 @@ module: ietf-dots-signal-call-home
                     Signaling (DOTS) Signal Channel Specification";
      }
 
+     organization
+       "IETF DDoS Open Threat Signaling (DOTS) Working Group";
+     contact
 
 
 
@@ -450,9 +450,6 @@ Reddy, et al.            Expires April 21, 2019                 [Page 8]
 Internet-Draft            DOTS signal Call Home             October 2018
 
 
-     organization
-       "IETF DDoS Open Threat Signaling (DOTS) Working Group";
-     contact
        "WG Web:   <https://datatracker.ietf.org/wg/dots/>
         WG List:  <mailto:dots@ietf.org>
 
@@ -498,6 +495,9 @@ Internet-Draft            DOTS signal Call Home             October 2018
      }
 
      augment "/ietf-signal:dots-signal/ietf-signal:message-type/" +
+             "ietf-signal:mitigation-scope/ietf-signal:scope" {
+       if-feature source-signaling;
+       description "Attacker source details";
 
 
 
@@ -505,10 +505,6 @@ Reddy, et al.            Expires April 21, 2019                 [Page 9]
 
 Internet-Draft            DOTS signal Call Home             October 2018
 
-
-             "ietf-signal:mitigation-scope/ietf-signal:scope" {
-       if-feature source-signaling;
-       description "Attacker source details";
 
        leaf-list source-prefix {
          type inet:ip-prefix;
@@ -554,6 +550,10 @@ Internet-Draft            DOTS signal Call Home             October 2018
               error-message
                 "The upper ICMP type must be greater than
                 or equal to lower ICMP type.";
+           }
+           description
+             "Upper type of the ICMP type range.";
+         }
 
 
 
@@ -562,10 +562,6 @@ Reddy, et al.            Expires April 21, 2019                [Page 10]
 Internet-Draft            DOTS signal Call Home             October 2018
 
 
-           }
-           description
-             "Upper type of the ICMP type range.";
-         }
        }
      }
    }
@@ -610,6 +606,10 @@ Internet-Draft            DOTS signal Call Home             October 2018
 | upper-type                | uint8       |   0x8004| 0 unsigned    | Number |
 |                           |             |   (TBD) |               |        |
 +---------------------------+-------------+---------+---------------+--------+
+
+
+
+
 
 
 
