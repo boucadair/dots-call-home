@@ -549,8 +549,9 @@ module ietf-dots-signal-call-home {
         Mappings" registry established by <xref
         target="I-D.ietf-dots-signal-channel"></xref>.</t>
 
-        <t>The 'source-prefix' and 'source-port-range' are
-        comprehension-optional parameters.</t>
+        <t>The 'source-prefix', 'source-port-range', and
+        &lsquo;source-icmp-type-range' are comprehension-optional
+        parameters.</t>
 
         <t><figure>
             <artwork><![CDATA[+---------------------------+-------------+---------+---------------+--------+

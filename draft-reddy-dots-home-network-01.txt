@@ -590,8 +590,8 @@ Internet-Draft            DOTS signal Call Home             October 2018
    range' parameters in the IANA "DOTS Signal Channel CBOR Mappings"
    registry established by [I-D.ietf-dots-signal-channel].
 
-   The 'source-prefix' and 'source-port-range' are comprehension-
-   optional parameters.
+   The 'source-prefix', 'source-port-range', and 'source-icmp-type-
+   range' are comprehension-optional parameters.
 
 +---------------------------+-------------+---------+---------------+--------+
 | Parameter Name            | YANG        | CBOR    | CBOR Major    | JSON   |
