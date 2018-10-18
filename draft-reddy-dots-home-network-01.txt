@@ -5,11 +5,11 @@
 DOTS                                                            T. Reddy
 Internet-Draft                                                 J. Harsha
 Intended status: Standards Track                                  McAfee
-Expires: April 20, 2019                                     M. Boucadair
+Expires: April 21, 2019                                     M. Boucadair
                                                                   Orange
                                                               J. Shallow
                                                                NCC Group
-                                                        October 17, 2018
+                                                        October 18, 2018
 
 
 Denial-of-Service Open Threat Signaling (DOTS) Signal Channel Call Home
@@ -39,7 +39,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on April 20, 2019.
+   This Internet-Draft will expire on April 21, 2019.
 
 Copyright Notice
 
@@ -53,7 +53,7 @@ Copyright Notice
 
 
 
-Reddy, et al.            Expires April 20, 2019                 [Page 1]
+Reddy, et al.            Expires April 21, 2019                 [Page 1]
 
 Internet-Draft            DOTS signal Call Home             October 2018
 
@@ -75,17 +75,17 @@ Table of Contents
      3.2.  DOTS Signal Channel Extension . . . . . . . . . . . . . .   6
        3.2.1.  Mitigation Request  . . . . . . . . . . . . . . . . .   6
        3.2.2.  DOTS Signal Call Home YANG Module . . . . . . . . . .   8
-   4.  IANA Considerations . . . . . . . . . . . . . . . . . . . . .  10
+   4.  IANA Considerations . . . . . . . . . . . . . . . . . . . . .  11
      4.1.  DOTS Signal Channel Call Home UDP and TCP Port Number . .  11
      4.2.  DOTS Signal Channel CBOR Mappings Registry  . . . . . . .  11
-     4.3.  New DOTS Conflict Cause . . . . . . . . . . . . . . . . .  11
+     4.3.  New DOTS Conflict Cause . . . . . . . . . . . . . . . . .  12
      4.4.  DOTS Signal Channel YANG Module . . . . . . . . . . . . .  12
    5.  Security Considerations . . . . . . . . . . . . . . . . . . .  12
    6.  Acknowledgements  . . . . . . . . . . . . . . . . . . . . . .  13
    7.  References  . . . . . . . . . . . . . . . . . . . . . . . . .  13
      7.1.  Normative References  . . . . . . . . . . . . . . . . . .  13
-     7.2.  Informative References  . . . . . . . . . . . . . . . . .  13
-   Authors' Addresses  . . . . . . . . . . . . . . . . . . . . . . .  14
+     7.2.  Informative References  . . . . . . . . . . . . . . . . .  14
+   Authors' Addresses  . . . . . . . . . . . . . . . . . . . . . . .  15
 
 1.  Introduction
 
@@ -109,7 +109,7 @@ Table of Contents
 
 
 
-Reddy, et al.            Expires April 20, 2019                 [Page 2]
+Reddy, et al.            Expires April 21, 2019                 [Page 2]
 
 Internet-Draft            DOTS signal Call Home             October 2018
 
@@ -165,7 +165,7 @@ Internet-Draft            DOTS signal Call Home             October 2018
 
 
 
-Reddy, et al.            Expires April 20, 2019                 [Page 3]
+Reddy, et al.            Expires April 21, 2019                 [Page 3]
 
 Internet-Draft            DOTS signal Call Home             October 2018
 
@@ -221,7 +221,7 @@ Internet-Draft            DOTS signal Call Home             October 2018
 
 
 
-Reddy, et al.            Expires April 20, 2019                 [Page 4]
+Reddy, et al.            Expires April 21, 2019                 [Page 4]
 
 Internet-Draft            DOTS signal Call Home             October 2018
 
@@ -277,7 +277,7 @@ Internet-Draft            DOTS signal Call Home             October 2018
 
 
 
-Reddy, et al.            Expires April 20, 2019                 [Page 5]
+Reddy, et al.            Expires April 21, 2019                 [Page 5]
 
 Internet-Draft            DOTS signal Call Home             October 2018
 
@@ -333,7 +333,7 @@ Internet-Draft            DOTS signal Call Home             October 2018
 
 
 
-Reddy, et al.            Expires April 20, 2019                 [Page 6]
+Reddy, et al.            Expires April 21, 2019                 [Page 6]
 
 Internet-Draft            DOTS signal Call Home             October 2018
 
@@ -342,24 +342,28 @@ Internet-Draft            DOTS signal Call Home             October 2018
 
    The 'source-prefix' parameter is a mandatory attribute when the
    attack traffic information is signaled by the DOTS client in the call
-   home scenario.  The 'target-prefix', 'target-uri', or 'target-fqdn'
-   parameters can be included in the mitigation request for diagnostic
-   purpose to notify the DOTS server domain administrator, but SHOULD
-   NOT be used to determine the target IP addresses.
+   home scenario.  The 'target-uri' or 'target-fqdn' parameters can be
+   included in the mitigation request for diagnostic purpose to notify
+   the DOTS server domain administrator, but SHOULD NOT be used to
+   determine the target IP addresses.  Because
+   [I-D.ietf-dots-signal-channel] requires 'target-prefix', 'target-
+   fqdn','target-uri', or 'alias-name' to be present in a PUT request,
+   and given the recommendation on target IP addresses, 'target-prefix'
+   must be present in a call home request.
 
-   When a transaltor is on-path, the DOTS server uses the attack traffic
+   When a translator is on-path, the DOTS server uses the attack traffic
    information to find the internal source IP address (or internal
-   source port numbers) of the compromised device and blocks the traffic
-   from the compromised device traffic to the attack target.  Triggers
-   for the withdrawal of the corresponding filters are policy-based, for
-   example, filters may be permanent or be removed when the mitigation
-   request is withdrawn.  The DOTS server domain administrator consent
-   MAY be required to block the traffic from the compromised device to
-   the attack target.  An implementation MAY have a configuration knob
-   to block the traffic from the compromised device to the attack target
-   with or without DOTS server domain administrator consent.  If the
-   attack traffic is blocked, the DOTS server informs the DOTS client
-   that the attack is being mitigated.
+   source port numbers, if needed) of the compromised device and blocks
+   the traffic from the compromised device traffic to the attack target.
+   Triggers for the withdrawal of the corresponding filters are policy-
+   based, for example, filters may be permanent or be removed when the
+   mitigation request is withdrawn.  The DOTS server domain
+   administrator consent MAY be required to block the traffic from the
+   compromised device to the attack target.  An implementation MAY have
+   a configuration knob to block the traffic from the compromised device
+   to the attack target with or without DOTS server domain administrator
+   consent.  If the attack traffic is blocked, the DOTS server informs
+   the DOTS client that the attack is being mitigated.
 
    If the attack traffic information is identified by the DOTS server or
    the DOTS server domain administrator as legitimate traffic, the
@@ -382,17 +386,16 @@ Internet-Draft            DOTS signal Call Home             October 2018
 
    TBD:
 
-   a) Do we also want to convey Attack Name/type or ID (the home router
-   may not be capable of detecting new emerging/sophisticated attacks) ?
 
 
 
-
-
-Reddy, et al.            Expires April 20, 2019                 [Page 7]
+Reddy, et al.            Expires April 21, 2019                 [Page 7]
 
 Internet-Draft            DOTS signal Call Home             October 2018
 
+
+   a) Do we also want to convey Attack Name/type or ID (the home router
+   may not be capable of detecting new emerging/sophisticated attacks) ?
 
    b) Is DOTS data channel Call Home service required (if required, can
    RESTCONF Call Home defined in RFC8071 be used) ?
@@ -406,15 +409,17 @@ Internet-Draft            DOTS signal Call Home             October 2018
    attack traffic information.  This document defines the YANG module
    "ietf-dots-signal-call-home", which has the following tree structure:
 
-   module: ietf-dots-signal-call-home
-     augment /ietf-signal:dots-signal:
-       +--rw source-prefix*       inet:ip-prefix
-       +--rw source-port-range* [lower-port upper-port]
-          +--rw lower-port    inet:port-number
-          +--rw upper-port    inet:port-number
-       +--rw source-icmp-type-range* [lower-type upper-type]
-          +--rw lower-type    uint8
-          +--rw upper-type    uint8
+module: ietf-dots-signal-call-home
+  augment /ietf-signal:dots-signal/ietf-signal:message-type
+          /ietf-signal:mitigation-scope/ietf-signal:scope:
+    +--rw source-prefix*            inet:ip-prefix {source-signaling}?
+    +--rw source-port-range* [lower-port upper-port] {source-signaling}?
+    |  +--rw lower-port    inet:port-number
+    |  +--rw upper-port    inet:port-number
+    +--rw source-icmp-type-range* [lower-type upper-type] {source-signaling}?
+       +--rw lower-type    uint8
+       +--rw upper-type    uint8
+
 
 3.2.2.2.  Call Home Mitigation Request YANG Module
 
@@ -437,18 +442,19 @@ Internet-Draft            DOTS signal Call Home             October 2018
                     Signaling (DOTS) Signal Channel Specification";
      }
 
+
+
+
+Reddy, et al.            Expires April 21, 2019                 [Page 8]
+
+Internet-Draft            DOTS signal Call Home             October 2018
+
+
      organization
        "IETF DDoS Open Threat Signaling (DOTS) Working Group";
      contact
        "WG Web:   <https://datatracker.ietf.org/wg/dots/>
         WG List:  <mailto:dots@ietf.org>
-
-
-
-Reddy, et al.            Expires April 20, 2019                 [Page 8]
-
-Internet-Draft            DOTS signal Call Home             October 2018
-
 
         Editor:  Konda, Tirumaleswar Reddy
                  <mailto:TirumaleswarReddy_Konda@McAfee.com>;
@@ -485,8 +491,23 @@ Internet-Draft            DOTS signal Call Home             October 2018
                     Signaling (DOTS) Signal Channel Call Home";
      }
 
-     augment "/ietf-signal:dots-signal" {
-       when "message-type='mitigation-scope'";
+     feature source-signaling {
+       description
+         "This feature means that source-related information
+          can be supplied in mitigation requests.";
+     }
+
+     augment "/ietf-signal:dots-signal/ietf-signal:message-type/" +
+
+
+
+Reddy, et al.            Expires April 21, 2019                 [Page 9]
+
+Internet-Draft            DOTS signal Call Home             October 2018
+
+
+             "ietf-signal:mitigation-scope/ietf-signal:scope" {
+       if-feature source-signaling;
        description "Attacker source details";
 
        leaf-list source-prefix {
@@ -498,14 +519,6 @@ Internet-Draft            DOTS signal Call Home             October 2018
          key "lower-port upper-port";
          description
            "Port range. When only lower-port is
-
-
-
-Reddy, et al.            Expires April 20, 2019                 [Page 9]
-
-Internet-Draft            DOTS signal Call Home             October 2018
-
-
             present, it represents a single port number.";
          leaf lower-port {
            type inet:port-number;
@@ -541,6 +554,14 @@ Internet-Draft            DOTS signal Call Home             October 2018
               error-message
                 "The upper ICMP type must be greater than
                 or equal to lower ICMP type.";
+
+
+
+Reddy, et al.            Expires April 21, 2019                [Page 10]
+
+Internet-Draft            DOTS signal Call Home             October 2018
+
+
            }
            description
              "Upper type of the ICMP type range.";
@@ -548,19 +569,9 @@ Internet-Draft            DOTS signal Call Home             October 2018
        }
      }
    }
+   <CODE ENDS>
 
 4.  IANA Considerations
-
-
-
-
-
-
-
-Reddy, et al.            Expires April 20, 2019                [Page 10]
-
-Internet-Draft            DOTS signal Call Home             October 2018
-
 
 4.1.  DOTS Signal Channel Call Home UDP and TCP Port Number
 
@@ -600,23 +611,17 @@ Internet-Draft            DOTS signal Call Home             October 2018
 |                           |             |   (TBD) |               |        |
 +---------------------------+-------------+---------+---------------+--------+
 
+
+
+Reddy, et al.            Expires April 21, 2019                [Page 11]
+
+Internet-Draft            DOTS signal Call Home             October 2018
+
+
 4.3.  New DOTS Conflict Cause
 
    This document requests IANA to assign a new code from the "DOTS
    Conflict Cause Codes" registry:
-
-
-
-
-
-
-
-
-
-Reddy, et al.            Expires April 20, 2019                [Page 11]
-
-Internet-Draft            DOTS signal Call Home             October 2018
-
 
    +------+------------------+-----------------------------+-----------+
    | Code | Label            | Description                 | Reference |
@@ -661,18 +666,18 @@ Internet-Draft            DOTS signal Call Home             October 2018
    perform computationally expensive operations, before deducing that
    the attacker doesn't possess a valid key.  For instance, in TLS 1.3
    [RFC8446], the ServerHello message contains a Key Share value based
+
+
+
+Reddy, et al.            Expires April 21, 2019                [Page 12]
+
+Internet-Draft            DOTS signal Call Home             October 2018
+
+
    on an expensive asymmetric key operation for key establishment.
    Common precautions mitigating DoS attacks are recommended, such as
    temporarily blacklisting the source address after a set number of
    unsuccessful authentication attempts.
-
-
-
-
-Reddy, et al.            Expires April 20, 2019                [Page 12]
-
-Internet-Draft            DOTS signal Call Home             October 2018
-
 
 6.  Acknowledgements
 
@@ -715,6 +720,16 @@ Internet-Draft            DOTS signal Call Home             October 2018
               Version 1.3", RFC 8446, DOI 10.17487/RFC8446, August 2018,
               <https://www.rfc-editor.org/info/rfc8446>.
 
+
+
+
+
+
+Reddy, et al.            Expires April 21, 2019                [Page 13]
+
+Internet-Draft            DOTS signal Call Home             October 2018
+
+
 7.2.  Informative References
 
    [I-D.ietf-dots-requirements]
@@ -722,13 +737,6 @@ Internet-Draft            DOTS signal Call Home             October 2018
               Denial of Service (DDoS) Open Threat Signaling
               Requirements", draft-ietf-dots-requirements-15 (work in
               progress), August 2018.
-
-
-
-Reddy, et al.            Expires April 20, 2019                [Page 13]
-
-Internet-Draft            DOTS signal Call Home             October 2018
-
 
    [I-D.ietf-dots-use-cases]
               Dobbins, R., Migault, D., Fouant, S., Moskowitz, R.,
@@ -768,6 +776,16 @@ Internet-Draft            DOTS signal Call Home             October 2018
               RFC 8071, DOI 10.17487/RFC8071, February 2017,
               <https://www.rfc-editor.org/info/rfc8071>.
 
+
+
+
+
+
+Reddy, et al.            Expires April 21, 2019                [Page 14]
+
+Internet-Draft            DOTS signal Call Home             October 2018
+
+
 Authors' Addresses
 
    Tirumaleswar Reddy
@@ -777,13 +795,6 @@ Authors' Addresses
    India
 
    Email: kondtir@gmail.com
-
-
-
-
-Reddy, et al.            Expires April 20, 2019                [Page 14]
-
-Internet-Draft            DOTS signal Call Home             October 2018
 
 
    Joshi Harsha
@@ -826,15 +837,4 @@ Internet-Draft            DOTS signal Call Home             October 2018
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-Reddy, et al.            Expires April 20, 2019                [Page 15]
+Reddy, et al.            Expires April 21, 2019                [Page 15]

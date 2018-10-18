@@ -321,25 +321,29 @@
 
           <t>The 'source-prefix' parameter is a mandatory attribute when the
           attack traffic information is signaled by the DOTS client in the
-          call home scenario. The 'target-prefix', 'target-uri', or
-          'target-fqdn' parameters can be included in the mitigation request
-          for diagnostic purpose to notify the DOTS server domain
-          administrator, but SHOULD NOT be used to determine the target IP
-          addresses.</t>
+          call home scenario. The 'target-uri' or 'target-fqdn' parameters can
+          be included in the mitigation request for diagnostic purpose to
+          notify the DOTS server domain administrator, but SHOULD NOT be used
+          to determine the target IP addresses. Because <xref
+          target="I-D.ietf-dots-signal-channel"></xref> requires
+          'target-prefix', 'target-fqdn','target-uri', or 'alias-name' to be
+          present in a PUT request, and given the recommendation on target IP
+          addresses, 'target-prefix' must be present in a call home request.
+          </t>
 
-          <t>When a transaltor is on-path, the DOTS server uses the attack
+          <t>When a translator is on-path, the DOTS server uses the attack
           traffic information to find the internal source IP address (or
-          internal source port numbers) of the compromised device and blocks
-          the traffic from the compromised device traffic to the attack
-          target. Triggers for the withdrawal of the corresponding filters are
-          policy-based, for example, filters may be permanent or be removed
-          when the mitigation request is withdrawn. The DOTS server domain
-          administrator consent MAY be required to block the traffic from the
-          compromised device to the attack target. An implementation MAY have
-          a configuration knob to block the traffic from the compromised
-          device to the attack target with or without DOTS server domain
-          administrator consent. If the attack traffic is blocked, the DOTS
-          server informs the DOTS client that the attack is being
+          internal source port numbers, if needed) of the compromised device
+          and blocks the traffic from the compromised device traffic to the
+          attack target. Triggers for the withdrawal of the corresponding
+          filters are policy-based, for example, filters may be permanent or
+          be removed when the mitigation request is withdrawn. The DOTS server
+          domain administrator consent MAY be required to block the traffic
+          from the compromised device to the attack target. An implementation
+          MAY have a configuration knob to block the traffic from the
+          compromised device to the attack target with or without DOTS server
+          domain administrator consent. If the attack traffic is blocked, the
+          DOTS server informs the DOTS client that the attack is being
           mitigated.</t>
 
           <t>If the attack traffic information is identified by the DOTS
@@ -383,14 +387,17 @@
             "ietf-dots-signal-call-home", which has the following tree
             structure:<figure>
                 <artwork><![CDATA[module: ietf-dots-signal-call-home
-  augment /ietf-signal:dots-signal:
-    +--rw source-prefix*       inet:ip-prefix
-    +--rw source-port-range* [lower-port upper-port]
-       +--rw lower-port    inet:port-number
-       +--rw upper-port    inet:port-number
-    +--rw source-icmp-type-range* [lower-type upper-type]
+  augment /ietf-signal:dots-signal/ietf-signal:message-type
+          /ietf-signal:mitigation-scope/ietf-signal:scope:
+    +--rw source-prefix*            inet:ip-prefix {source-signaling}?
+    +--rw source-port-range* [lower-port upper-port] {source-signaling}?
+    |  +--rw lower-port    inet:port-number
+    |  +--rw upper-port    inet:port-number
+    +--rw source-icmp-type-range* [lower-type upper-type] {source-signaling}?
        +--rw lower-type    uint8
-       +--rw upper-type    uint8]]></artwork>
+       +--rw upper-type    uint8
+
+]]></artwork>
               </figure></t>
           </section>
 
@@ -456,8 +463,15 @@ module ietf-dots-signal-call-home {
                  Signaling (DOTS) Signal Channel Call Home";
   }
 
-  augment "/ietf-signal:dots-signal" {
-    when "message-type='mitigation-scope'";
+  feature source-signaling {
+    description
+      "This feature means that source-related information
+       can be supplied in mitigation requests.";
+  }
+
+  augment "/ietf-signal:dots-signal/ietf-signal:message-type/" + 
+          "ietf-signal:mitigation-scope/ietf-signal:scope" {
+    if-feature source-signaling;
     description "Attacker source details";
 
     leaf-list source-prefix {
@@ -510,7 +524,8 @@ module ietf-dots-signal-call-home {
       }
     }
   }
-}]]></artwork>
+}
+<CODE ENDS>]]></artwork>
               </figure></t>
           </section>
         </section>
