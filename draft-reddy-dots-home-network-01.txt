@@ -354,6 +354,8 @@ Internet-Draft            DOTS signal Call Home             October 2018
    In order to ease attack mitigation by the DOTS server, the DOTS
    client should include in its mitigation request additional
    information such as 'source-port-range' or 'source-icmp-type-range'.
+   It is strongly RECOMMENDED to include such information if 'source-
+   prefix' conveys an IPv4 address.
 
    When a translator is on-path, the DOTS server uses the attack traffic
    information to find the internal source IP address of the compromised
@@ -383,8 +385,6 @@ Internet-Draft            DOTS signal Call Home             October 2018
    device to the target to slow path.  The home router inspects the
    punted slow path traffic to detect and block the outgoing DDoS attack
    traffic or quarantine the device (e.g., using MAC level filtering)
-   until it is remediated, and notifies the home administrator about the
-   compromised device.
 
 
 
@@ -393,6 +393,9 @@ Reddy, et al.            Expires April 21, 2019                 [Page 7]
 
 Internet-Draft            DOTS signal Call Home             October 2018
 
+
+   until it is remediated, and notifies the home administrator about the
+   compromised device.
 
    TBD:
 
@@ -439,9 +442,6 @@ module: ietf-dots-signal-call-home
      }
      import ietf-dots-signal-channel {
        prefix ietf-signal;
-       reference
-         "RFC XXXX: Distributed Denial-of-Service Open Threat
-                    Signaling (DOTS) Signal Channel Specification";
 
 
 
@@ -450,6 +450,9 @@ Reddy, et al.            Expires April 21, 2019                 [Page 8]
 Internet-Draft            DOTS signal Call Home             October 2018
 
 
+       reference
+         "RFC XXXX: Distributed Denial-of-Service Open Threat
+                    Signaling (DOTS) Signal Channel Specification";
      }
 
      organization
@@ -495,9 +498,6 @@ Internet-Draft            DOTS signal Call Home             October 2018
 
      feature source-signaling {
        description
-         "This feature means that source-related information
-          can be supplied in mitigation requests.";
-     }
 
 
 
@@ -505,6 +505,10 @@ Reddy, et al.            Expires April 21, 2019                 [Page 9]
 
 Internet-Draft            DOTS signal Call Home             October 2018
 
+
+         "This feature means that source-related information
+          can be supplied in mitigation requests.";
+     }
 
      augment "/ietf-signal:dots-signal/ietf-signal:message-type/" +
              "ietf-signal:mitigation-scope/ietf-signal:scope" {
@@ -550,10 +554,6 @@ Internet-Draft            DOTS signal Call Home             October 2018
              "Lower ICMP type of the ICMP type range.";
          }
          leaf upper-type {
-           type uint8;
-           must ". >= ../lower-type" {
-              error-message
-                "The upper ICMP type must be greater than
 
 
 
@@ -562,6 +562,10 @@ Reddy, et al.            Expires April 21, 2019                [Page 10]
 Internet-Draft            DOTS signal Call Home             October 2018
 
 
+           type uint8;
+           must ". >= ../lower-type" {
+              error-message
+                "The upper ICMP type must be greater than
                 or equal to lower ICMP type.";
            }
            description
@@ -593,10 +597,6 @@ Internet-Draft            DOTS signal Call Home             October 2018
 
    The 'source-prefix', 'source-port-range', and 'source-icmp-type-
    range' are comprehension-optional parameters.
-
-
-
-
 
 
 

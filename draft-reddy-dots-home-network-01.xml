@@ -332,8 +332,9 @@
 
           <t>In order to ease attack mitigation by the DOTS server, the DOTS
           client should include in its mitigation request additional
-          information such as 'source-port-range' or
-          'source-icmp-type-range'.</t>
+          information such as 'source-port-range' or 'source-icmp-type-range'.
+          It is strongly RECOMMENDED to include such information if
+          'source-prefix' conveys an IPv4 address. </t>
 
           <t>When a translator is on-path, the DOTS server uses the attack
           traffic information to find the internal source IP address of the
