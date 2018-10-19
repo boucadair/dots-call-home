@@ -328,20 +328,24 @@
           becomes a mandatory attribute in the mitigation request signaling
           the attack information because 'target-uri' and 'target-fqdn' are
           optional attributes and 'alias-name' will not be conveyed in the
-          mitigation request. </t>
+          mitigation request.</t>
+
+          <t>In order to ease attack mitigation by the DOTS server, the DOTS
+          client should include in its mitigation request additional
+          information such as 'source-port-range' or
+          'source-icmp-type-range'.</t>
 
           <t>When a translator is on-path, the DOTS server uses the attack
-          traffic information to find the internal source IP address (or
-          internal source port numbers, if needed) of the compromised device
-          and blocks the traffic from the compromised device traffic to the
-          attack target until the mitigation request is withdrawn. The DOTS
-          server domain administrator consent MAY be required to block the
-          traffic from the compromised device to the attack target. An
-          implementation MAY have a configuration knob to block the traffic
-          from the compromised device to the attack target with or without
-          DOTS server domain administrator consent. If the attack traffic is
-          blocked, the DOTS server informs the DOTS client that the attack is
-          being mitigated.</t>
+          traffic information to find the internal source IP address of the
+          compromised device and blocks the traffic from the compromised
+          device traffic to the attack target until the mitigation request is
+          withdrawn. The DOTS server domain administrator consent MAY be
+          required to block the traffic from the compromised device to the
+          attack target. An implementation MAY have a configuration knob to
+          block the traffic from the compromised device to the attack target
+          with or without DOTS server domain administrator consent. If the
+          attack traffic is blocked, the DOTS server informs the DOTS client
+          that the attack is being mitigated.</t>
 
           <t>If the attack traffic information is identified by the DOTS
           server or the DOTS server domain administrator as legitimate
