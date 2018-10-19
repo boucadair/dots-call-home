@@ -5,11 +5,11 @@
 DOTS                                                            T. Reddy
 Internet-Draft                                                 J. Harsha
 Intended status: Standards Track                                  McAfee
-Expires: April 21, 2019                                     M. Boucadair
+Expires: April 22, 2019                                     M. Boucadair
                                                                   Orange
                                                               J. Shallow
                                                                NCC Group
-                                                        October 18, 2018
+                                                        October 19, 2018
 
 
 Denial-of-Service Open Threat Signaling (DOTS) Signal Channel Call Home
@@ -39,7 +39,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on April 21, 2019.
+   This Internet-Draft will expire on April 22, 2019.
 
 Copyright Notice
 
@@ -53,7 +53,7 @@ Copyright Notice
 
 
 
-Reddy, et al.            Expires April 21, 2019                 [Page 1]
+Reddy, et al.            Expires April 22, 2019                 [Page 1]
 
 Internet-Draft            DOTS signal Call Home             October 2018
 
@@ -109,7 +109,7 @@ Table of Contents
 
 
 
-Reddy, et al.            Expires April 21, 2019                 [Page 2]
+Reddy, et al.            Expires April 22, 2019                 [Page 2]
 
 Internet-Draft            DOTS signal Call Home             October 2018
 
@@ -165,7 +165,7 @@ Internet-Draft            DOTS signal Call Home             October 2018
 
 
 
-Reddy, et al.            Expires April 21, 2019                 [Page 3]
+Reddy, et al.            Expires April 22, 2019                 [Page 3]
 
 Internet-Draft            DOTS signal Call Home             October 2018
 
@@ -221,7 +221,7 @@ Internet-Draft            DOTS signal Call Home             October 2018
 
 
 
-Reddy, et al.            Expires April 21, 2019                 [Page 4]
+Reddy, et al.            Expires April 22, 2019                 [Page 4]
 
 Internet-Draft            DOTS signal Call Home             October 2018
 
@@ -277,7 +277,7 @@ Internet-Draft            DOTS signal Call Home             October 2018
 
 
 
-Reddy, et al.            Expires April 21, 2019                 [Page 5]
+Reddy, et al.            Expires April 22, 2019                 [Page 5]
 
 Internet-Draft            DOTS signal Call Home             October 2018
 
@@ -333,7 +333,7 @@ Internet-Draft            DOTS signal Call Home             October 2018
 
 
 
-Reddy, et al.            Expires April 21, 2019                 [Page 6]
+Reddy, et al.            Expires April 22, 2019                 [Page 6]
 
 Internet-Draft            DOTS signal Call Home             October 2018
 
@@ -351,7 +351,7 @@ Internet-Draft            DOTS signal Call Home             October 2018
    attributes and 'alias-name' will not be conveyed in the mitigation
    request.
 
-   In order to ease attack source identification by the DOTS server, the
+   In order to help attack source identification by the DOTS server, the
    DOTS client should include in its mitigation request additional
    information such as 'source-port-range' or 'source-icmp-type-range'.
    It is strongly RECOMMENDED to include such information if 'source-
@@ -389,7 +389,7 @@ Internet-Draft            DOTS signal Call Home             October 2018
 
 
 
-Reddy, et al.            Expires April 21, 2019                 [Page 7]
+Reddy, et al.            Expires April 22, 2019                 [Page 7]
 
 Internet-Draft            DOTS signal Call Home             October 2018
 
@@ -445,7 +445,7 @@ module: ietf-dots-signal-call-home
 
 
 
-Reddy, et al.            Expires April 21, 2019                 [Page 8]
+Reddy, et al.            Expires April 22, 2019                 [Page 8]
 
 Internet-Draft            DOTS signal Call Home             October 2018
 
@@ -501,7 +501,7 @@ Internet-Draft            DOTS signal Call Home             October 2018
 
 
 
-Reddy, et al.            Expires April 21, 2019                 [Page 9]
+Reddy, et al.            Expires April 22, 2019                 [Page 9]
 
 Internet-Draft            DOTS signal Call Home             October 2018
 
@@ -557,7 +557,7 @@ Internet-Draft            DOTS signal Call Home             October 2018
 
 
 
-Reddy, et al.            Expires April 21, 2019                [Page 10]
+Reddy, et al.            Expires April 22, 2019                [Page 10]
 
 Internet-Draft            DOTS signal Call Home             October 2018
 
@@ -613,7 +613,7 @@ Internet-Draft            DOTS signal Call Home             October 2018
 
 
 
-Reddy, et al.            Expires April 21, 2019                [Page 11]
+Reddy, et al.            Expires April 22, 2019                [Page 11]
 
 Internet-Draft            DOTS signal Call Home             October 2018
 
@@ -669,7 +669,7 @@ Internet-Draft            DOTS signal Call Home             October 2018
 
 
 
-Reddy, et al.            Expires April 21, 2019                [Page 12]
+Reddy, et al.            Expires April 22, 2019                [Page 12]
 
 Internet-Draft            DOTS signal Call Home             October 2018
 
@@ -725,7 +725,7 @@ Internet-Draft            DOTS signal Call Home             October 2018
 
 
 
-Reddy, et al.            Expires April 21, 2019                [Page 13]
+Reddy, et al.            Expires April 22, 2019                [Page 13]
 
 Internet-Draft            DOTS signal Call Home             October 2018
 
@@ -781,7 +781,7 @@ Internet-Draft            DOTS signal Call Home             October 2018
 
 
 
-Reddy, et al.            Expires April 21, 2019                [Page 14]
+Reddy, et al.            Expires April 22, 2019                [Page 14]
 
 Internet-Draft            DOTS signal Call Home             October 2018
 
@@ -837,7 +837,7 @@ Authors' Addresses
 
 
 
-Reddy, et al.            Expires April 21, 2019                [Page 15]
+Reddy, et al.            Expires April 22, 2019                [Page 15]
 
 Internet-Draft            DOTS signal Call Home             October 2018
 
@@ -893,4 +893,4 @@ Internet-Draft            DOTS signal Call Home             October 2018
 
 
 
-Reddy, et al.            Expires April 21, 2019                [Page 16]
+Reddy, et al.            Expires April 22, 2019                [Page 16]
