@@ -351,8 +351,8 @@ Internet-Draft            DOTS signal Call Home             October 2018
    attributes and 'alias-name' will not be conveyed in the mitigation
    request.
 
-   In order to ease attack mitigation by the DOTS server, the DOTS
-   client should include in its mitigation request additional
+   In order to ease attack source identification by the DOTS server, the
+   DOTS client should include in its mitigation request additional
    information such as 'source-port-range' or 'source-icmp-type-range'.
    It is strongly RECOMMENDED to include such information if 'source-
    prefix' conveys an IPv4 address.
