@@ -120,21 +120,21 @@
 
         <t>IoT devices are becoming more and more prevalent in home networks,
         and with compute and memory becoming cheaper and cheaper, various
-        types of IoT devices are available in the consumer market at
+        types of IoT devices become available in the consumer market at
         affordable price. But on the downside, the main threat being most of
         these IoT devices are bought off-the-shelf and most manufacturers
         haven't considered security in the product design. IoT devices
         deployed in home networks can be easily compromised, they do not have
-        easy mechanism to upgrade, and IoT manufactures may cease manufacture
-        and/or discontinue patching vulnerabilities on IoT devices. However,
-        these vulnerable and compromised devices will continue be used for a
-        long period of time in the home, and the end-user does not know that
-        IoT devices in his/her home are compromised. The compromised IoT
-        devices are typically used for launching DDoS attacks on the victim
-        while the owner/administrator of the home network is not aware about
-        such misbehaviors. Similar to other DDoS attack, the victim in this
-        attack can be an application server, a host, a router, a firewall, or
-        an entire network.</t>
+        an easy mechanism to upgrade, and IoT manufactures may cease
+        manufacture and/or discontinue patching vulnerabilities on IoT
+        devices. However, these vulnerable and compromised devices will
+        continue be used for a long period of time in the home, and the
+        end-user does not know that IoT devices in his/her home are
+        compromised. The compromised IoT devices are typically used for
+        launching DDoS attacks on the victim while the owner/administrator of
+        the home network is not aware about such misbehaviors. Similar to
+        other DDoS attacks, the victim in this attack can be an application
+        server, a host, a router, a firewall, or an entire network.</t>
 
         <t>Nowadays, network devices in a home network offer network security,
         for instance, firewall/IPS service on a home router or gateway to
@@ -182,9 +182,9 @@
         <t>Existing approaches are still suffering from misused access network
         resources by abusing devices; the support of means for blocking such
         attacks close to the sources are missing. In particular, the DOTS
-        signal protocol do not discuss cooperative DDoS mitigation between the
-        home network and ISP to the suppress the outbound DDoS attack traffic
-        originating from the home network.</t>
+        signal protocol does not discuss cooperative DDoS mitigation between
+        the home network and ISP to the suppress the outbound DDoS attack
+        traffic originating from the home network.</t>
       </section>
 
       <section anchor="sol" title="The Solution">
@@ -458,7 +458,7 @@ module ietf-dots-signal-call-home {
               <mailto:mohamed.boucadair@orange.com>;
 
      Editor:  Jon Shallow
-                 <mailto:jon.shallow@nccgroup.com>";
+              <mailto:ietf-supjps@jpshallow.com>";
      
   description
     "This module contains YANG definition for the signaling
@@ -688,18 +688,17 @@ module ietf-dots-signal-call-home {
       <t>Also, the DOTS Call Home extension allows for a consent channel to
       validate mitigation requests received from a DOTS client. That consent
       channel may rely on an explicit validation from an administrator, depend
-      on preferences configured to the DOTS server, or a combination
-      therefore. The DOTS Call Home extension does not impose any action to be
-      enforced within the home network; it is up to the DOTS server (and/or
-      network administrator) to decide whether and which actions are required.
-      </t>
+      on preferences configured to the DOTS server, or a combination thereof.
+      The DOTS Call Home extension does not impose any action to be enforced
+      within the home network; it is up to the DOTS server (and/or network
+      administrator) to decide whether and which actions are required. </t>
 
       <t>Moreover, the DOTS Call Home extension avoids misattribution by
       appropriately identifying the network to which a suspect attack source
       belongs to (e.g., address sharing issues discussed in <xref
       target="mitigation"></xref>). </t>
 
-      <t>Triggers to send a DOTS mitigation requests to a DOTS server are
+      <t>Triggers to send a DOTS mitigation request to a DOTS server are
       deployment-specific. For example, a DOTS client may rely on the output
       of some traffic monitoring tools deployed within the DOTS client's
       network to detect potential outbound DDoS attacks, on abuse claims
@@ -731,8 +730,6 @@ module ietf-dots-signal-call-home {
 
     <references title="Informative References">
       <?rfc include="reference.RFC.4732"?>
-
-      <?rfc include="reference.RFC.7049"?>
 
       <?rfc include="reference.RFC.4632"?>
 
