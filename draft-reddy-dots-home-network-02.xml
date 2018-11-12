@@ -198,12 +198,12 @@
         CPE, which is aligned with recent trends to enrich the CPE with
         advanced security features. Unlike classic DOTS deployments <xref
         target="I-D.ietf-dots-use-cases"></xref>, such DOTS server maintains a
-        single DTLS or TLS session with an upstream DOTS client, if the CPE is
-        single-homed. </t>
+        single DOTS signal channel session with an upstream DOTS client, if
+        the CPE is single-homed. </t>
 
         <t>For instance, the DOTS server in the home network initiates the
         Call Home during peace time and then subsequently the DOTS client in
-        the ISP environment can initiate mitigation requests whenever the ISP
+        the ISP environment can initiate a mitigation request whenever the ISP
         detects there is an attack from a compromised device in the DOTS
         server's domain.</t>
 
@@ -218,8 +218,8 @@
       <section title="Scope">
         <t>The aforementioned problems may be encountered in other deployments
         than those discussed <xref target="problem"></xref>. The solution
-        proposed in this document can be for those deployments to block DDoS
-        attack traffic closer to the source(s) of the attack.</t>
+        proposed in this document can be used for those deployments to block
+        DDoS attack traffic closer to the source(s) of the attack.</t>
 
         <t>It is out of the scope of this document to identify an exhaustive
         list of such deployments. </t>
@@ -685,11 +685,15 @@ module ietf-dots-signal-call-home {
       required to share information that is local to its network (e.g.,
       internal identifiers of an attach source) with the DOTS client. </t>
 
-      <t>Also, the DOTS Call Home extension allows for a consent channel to
-      validate mitigation requests received from a DOTS client. That consent
-      channel may rely on an explicit validation from an administrator, depend
-      on preferences configured to the DOTS server, or a combination thereof.
-      The DOTS Call Home extension does not impose any action to be enforced
+      <t>Also, the DOTS Call Home extension allows for a consent to validate
+      mitigation requests received from a DOTS client. That consent may rely
+      on an explicit validation from an administrator for each new mitigation
+      request, depend on preferences configured to the DOTS server, or a
+      combination thereof. How the consent is obtained is out of scope of this
+      document. </t>
+
+      <t>The DOTS Call Home extension is only advisory in nature. Concretely,
+      the DOTS Call Home extension does not impose any action to be enforced
       within the home network; it is up to the DOTS server (and/or network
       administrator) to decide whether and which actions are required. </t>
 
@@ -700,12 +704,12 @@ module ietf-dots-signal-call-home {
 
       <t>Triggers to send a DOTS mitigation request to a DOTS server are
       deployment-specific. For example, a DOTS client may rely on the output
-      of some traffic monitoring tools deployed within the DOTS client's
-      network to detect potential outbound DDoS attacks, on abuse claims
-      received from remote victim reworks, or on DOTS mitigation requests
-      received from transit providers. Such monitoring tools are not meant to
-      track the activity of users, but to protect the Internet and avoid
-      altering the IP reputation of the DOTS client's domain. </t>
+      of some DDoS detection systems deployed within the DOTS client's network
+      to detect potential outbound DDoS attacks, on abuse claims received from
+      remote victim networks, or on DOTS mitigation requests received from
+      transit providers. Such DDoS detection and mitigation techniques are not
+      meant to track the activity of users, but to protect the Internet and
+      avoid altering the IP reputation of the DOTS client's domain. </t>
     </section>
 
     <section anchor="ack" title="Acknowledgements">
