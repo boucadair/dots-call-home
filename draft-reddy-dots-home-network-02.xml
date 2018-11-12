@@ -666,12 +666,12 @@ module ietf-dots-signal-call-home {
 
       <t>DOTS servers may not blindly trust mitigation requests from DOTS
       clients. For example, DOTS servers can use the attack flow information
-      in a mitigation request can enable full-fledged packet inspection
+      in a mitigation request to enable full-fledged packet inspection
       function to inspect all the traffic from the compromised to the target
-      or re-direct the traffic from the compromised device to the target to a
-      DDoS mitigation system to scrub the suspicious traffic. DOTS servers can
-      also seek the consent of DOTS server domain administrator to block the
-      traffic from the compromised device to the target (see <xref
+      or to re-direct the traffic from the compromised device to the target to
+      a DDoS mitigation system to scrub the suspicious traffic. DOTS servers
+      can also seek the consent of DOTS server domain administrator to block
+      the traffic from the compromised device to the target (see <xref
       target="mitigation"></xref>).</t>
     </section>
 
