@@ -261,7 +261,7 @@
         subjected to DDoS attacks. Other motivations for introducing Call Home
         are discussed in Section 1.1 of <xref target="RFC8071"></xref>.</t>
 
-        <t><xref target="signalch"></xref> illustrates sample Call Home flow
+        <t><xref target="signalch"></xref> illustrates a sample Call Home flow
         exchange:</t>
 
         <t><figure align="center" anchor="signalch"
@@ -276,7 +276,7 @@
                  |<-----------------------------------|
                  |                                    |
 ]]></artwork>
-          </figure>This diagram makes the following points:</t>
+          </figure>The Call Home behavior is as follows:</t>
 
         <t><list style="numbers">
             <t>If UDP transport is used, the DOTS server begins by initiating
@@ -309,7 +309,7 @@
               <t hangText="source-prefix:">A list of attacker prefixes used to
               attack the target. Prefixes are represented using Classless
               Inter-Domain Routing (CIDR) notation <xref
-              target="RFC4632"></xref>. <vspace blankLines="0" />As a
+              target="RFC4632"></xref>. <vspace blankLines="1" />As a
               reminder, the prefix length MUST be less than or equal to 32
               (resp. 128) for IPv4 (resp. IPv6).<vspace blankLines="1" />The
               prefix list MUST NOT include broadcast, loopback, or multicast
@@ -365,8 +365,8 @@
           address and port number. </t>
 
           <t>When a MAP Border Relay <xref target="RFC7597"></xref> or lwAFTR
-          <xref target="RFC7596"></xref> is enabled in the provider&rsquo;s
-          domain, the identification of an attack source bound to an IPv4
+          <xref target="RFC7596"></xref> is enabled in the provider's domain,
+          the identification of an attack source bound to an IPv4
           address/prefix MUST also rely on source port numbers.</t>
 
           <t>When a translator is on-path (e.g., NAT on a CPE), the DOTS
@@ -407,7 +407,7 @@
         </section>
 
         <section anchor="YANG" title="DOTS Signal Call Home YANG Module ">
-          <section title="Mitigation Request Tree Structure">
+          <section title="Tree Structure">
             <t>This document augments the "dots-signal-channel" DOTS signal
             YANG module defined in <xref
             target="I-D.ietf-dots-signal-channel"></xref> for signaling the
@@ -429,7 +429,7 @@
               </figure></t>
           </section>
 
-          <section title="Call Home Mitigation Request YANG Module ">
+          <section title="YANG Module ">
             <t><figure>
                 <artwork><![CDATA[<CODE BEGINS> file "ietf-dots-signal-call-home@2018-09-28.yang"
 
@@ -446,7 +446,7 @@ module ietf-dots-signal-call-home {
   import ietf-dots-signal-channel {
     prefix ietf-signal;
     reference
-      "RFC XXXX: Distributed Denial-of-Service Open Threat
+      "RFC YYYY: Distributed Denial-of-Service Open Threat
                  Signaling (DOTS) Signal Channel Specification";
   }
 
@@ -628,13 +628,13 @@ module ietf-dots-signal-call-home {
           server to indicate the attack traffic has been classified as
           legitimate traffic.</c>
 
-          <c>[ThisDoc]</c>
+          <c>[RFCXXXX]</c>
         </texttable>
 
         <t></t>
       </section>
 
-      <section anchor="yang" title="DOTS Signal Channel YANG Module">
+      <section anchor="yang" title="DOTS Signal Call Home YANG Module">
         <t>This document requests IANA to register the following URI in the
         "IETF XML Registry" <xref target="RFC3688"></xref>: <figure>
             <artwork><![CDATA[         URI: urn:ietf:params:xml:ns:yang:ietf-dots-signal-call-home
@@ -691,14 +691,14 @@ module ietf-dots-signal-call-home {
       <t>Concretely, the protocol does not leak any new information that can
       be used to ease surveillance. In particular, the DOTS server is not
       required to share information that is local to its network (e.g.,
-      internal identifiers of an attach source) with the DOTS client. </t>
+      internal identifiers of an attack source) with the DOTS client. </t>
 
       <t>The DOTS Call Home extension does not preclude the validation of
-      mitigation requests received from a DOTS client. For example, some
-      security services running on the CPE may require external administrator
-      consent before the CPE acts upon the mitigation request indicated by the
-      DOTS client. How the consent is obtained is out of scope of this
-      document. </t>
+      mitigation requests received from a DOTS client. For example, the
+      security service running on the CPE may require administrator's consent
+      before the CPE acts upon the mitigation request indicated by the DOTS
+      client. How the consent is obtained is out of scope of this document.
+      </t>
 
       <t>Note that a DOTS server can seek for an administrator's consent,
       validate the request by inspecting the traffic, or proceed with both.

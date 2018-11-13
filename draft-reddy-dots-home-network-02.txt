@@ -5,11 +5,11 @@
 DOTS                                                            T. Reddy
 Internet-Draft                                                 J. Harsha
 Intended status: Standards Track                                  McAfee
-Expires: May 16, 2019                                       M. Boucadair
+Expires: May 17, 2019                                       M. Boucadair
                                                                   Orange
                                                               J. Shallow
                                                                NCC Group
-                                                       November 12, 2018
+                                                       November 13, 2018
 
 
 Denial-of-Service Open Threat Signaling (DOTS) Signal Channel Call Home
@@ -39,7 +39,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on May 16, 2019.
+   This Internet-Draft will expire on May 17, 2019.
 
 Copyright Notice
 
@@ -53,7 +53,7 @@ Copyright Notice
 
 
 
-Reddy, et al.             Expires May 16, 2019                  [Page 1]
+Reddy, et al.             Expires May 17, 2019                  [Page 1]
 
 Internet-Draft            DOTS signal Call Home            November 2018
 
@@ -80,7 +80,7 @@ Table of Contents
      4.1.  DOTS Signal Channel Call Home UDP and TCP Port Number . .  12
      4.2.  DOTS Signal Channel CBOR Mappings Registry  . . . . . . .  12
      4.3.  New DOTS Conflict Cause . . . . . . . . . . . . . . . . .  12
-     4.4.  DOTS Signal Channel YANG Module . . . . . . . . . . . . .  13
+     4.4.  DOTS Signal Call Home YANG Module . . . . . . . . . . . .  13
    5.  Security Considerations . . . . . . . . . . . . . . . . . . .  13
    6.  Privacy Considerations  . . . . . . . . . . . . . . . . . . .  14
    7.  Acknowledgements  . . . . . . . . . . . . . . . . . . . . . .  15
@@ -109,7 +109,7 @@ Table of Contents
 
 
 
-Reddy, et al.             Expires May 16, 2019                  [Page 2]
+Reddy, et al.             Expires May 17, 2019                  [Page 2]
 
 Internet-Draft            DOTS signal Call Home            November 2018
 
@@ -165,7 +165,7 @@ Internet-Draft            DOTS signal Call Home            November 2018
 
 
 
-Reddy, et al.             Expires May 16, 2019                  [Page 3]
+Reddy, et al.             Expires May 17, 2019                  [Page 3]
 
 Internet-Draft            DOTS signal Call Home            November 2018
 
@@ -221,7 +221,7 @@ Internet-Draft            DOTS signal Call Home            November 2018
 
 
 
-Reddy, et al.             Expires May 16, 2019                  [Page 4]
+Reddy, et al.             Expires May 17, 2019                  [Page 4]
 
 Internet-Draft            DOTS signal Call Home            November 2018
 
@@ -266,7 +266,7 @@ Internet-Draft            DOTS signal Call Home            November 2018
    subjected to DDoS attacks.  Other motivations for introducing Call
    Home are discussed in Section 1.1 of [RFC8071].
 
-   Figure 1 illustrates sample Call Home flow exchange:
+   Figure 1 illustrates a sample Call Home flow exchange:
 
 
 
@@ -277,7 +277,7 @@ Internet-Draft            DOTS signal Call Home            November 2018
 
 
 
-Reddy, et al.             Expires May 16, 2019                  [Page 5]
+Reddy, et al.             Expires May 17, 2019                  [Page 5]
 
 Internet-Draft            DOTS signal Call Home            November 2018
 
@@ -293,7 +293,7 @@ Internet-Draft            DOTS signal Call Home            November 2018
 
          Figure 1: DOTS Signal Channel Call Home Sequence Diagram
 
-   This diagram makes the following points:
+   The Call Home behavior is as follows:
 
    1.  If UDP transport is used, the DOTS server begins by initiating a
        DTLS connection to the DOTS client.  The DOTS client MUST support
@@ -327,13 +327,13 @@ Internet-Draft            DOTS signal Call Home            November 2018
    source-prefix:  A list of attacker prefixes used to attack the
       target.  Prefixes are represented using Classless Inter-Domain
       Routing (CIDR) notation [RFC4632].
+
       As a reminder, the prefix length MUST be less than or equal to 32
       (resp. 128) for IPv4 (resp.  IPv6).
 
 
 
-
-Reddy, et al.             Expires May 16, 2019                  [Page 6]
+Reddy, et al.             Expires May 17, 2019                  [Page 6]
 
 Internet-Draft            DOTS signal Call Home            November 2018
 
@@ -389,7 +389,7 @@ Internet-Draft            DOTS signal Call Home            November 2018
 
 
 
-Reddy, et al.             Expires May 16, 2019                  [Page 7]
+Reddy, et al.             Expires May 17, 2019                  [Page 7]
 
 Internet-Draft            DOTS signal Call Home            November 2018
 
@@ -445,12 +445,12 @@ Internet-Draft            DOTS signal Call Home            November 2018
 
 
 
-Reddy, et al.             Expires May 16, 2019                  [Page 8]
+Reddy, et al.             Expires May 17, 2019                  [Page 8]
 
 Internet-Draft            DOTS signal Call Home            November 2018
 
 
-3.2.2.1.  Mitigation Request Tree Structure
+3.2.2.1.  Tree Structure
 
    This document augments the "dots-signal-channel" DOTS signal YANG
    module defined in [I-D.ietf-dots-signal-channel] for signaling the
@@ -469,7 +469,7 @@ module: ietf-dots-signal-call-home
        +--rw upper-type    uint8
 
 
-3.2.2.2.  Call Home Mitigation Request YANG Module
+3.2.2.2.  YANG Module
 
    <CODE BEGINS> file "ietf-dots-signal-call-home@2018-09-28.yang"
 
@@ -486,7 +486,7 @@ module: ietf-dots-signal-call-home
      import ietf-dots-signal-channel {
        prefix ietf-signal;
        reference
-         "RFC XXXX: Distributed Denial-of-Service Open Threat
+         "RFC YYYY: Distributed Denial-of-Service Open Threat
                     Signaling (DOTS) Signal Channel Specification";
      }
 
@@ -501,7 +501,7 @@ module: ietf-dots-signal-call-home
 
 
 
-Reddy, et al.             Expires May 16, 2019                  [Page 9]
+Reddy, et al.             Expires May 17, 2019                  [Page 9]
 
 Internet-Draft            DOTS signal Call Home            November 2018
 
@@ -557,7 +557,7 @@ Internet-Draft            DOTS signal Call Home            November 2018
 
 
 
-Reddy, et al.             Expires May 16, 2019                 [Page 10]
+Reddy, et al.             Expires May 17, 2019                 [Page 10]
 
 Internet-Draft            DOTS signal Call Home            November 2018
 
@@ -613,7 +613,7 @@ Internet-Draft            DOTS signal Call Home            November 2018
 
 
 
-Reddy, et al.             Expires May 16, 2019                 [Page 11]
+Reddy, et al.             Expires May 17, 2019                 [Page 11]
 
 Internet-Draft            DOTS signal Call Home            November 2018
 
@@ -669,7 +669,7 @@ Internet-Draft            DOTS signal Call Home            November 2018
 
 
 
-Reddy, et al.             Expires May 16, 2019                 [Page 12]
+Reddy, et al.             Expires May 17, 2019                 [Page 12]
 
 Internet-Draft            DOTS signal Call Home            November 2018
 
@@ -677,7 +677,7 @@ Internet-Draft            DOTS signal Call Home            November 2018
    +------+------------------+-----------------------------+-----------+
    | Code | Label            | Description                 | Reference |
    +------+------------------+-----------------------------+-----------+
-   | 4    | request-rejected | Mitigation request          | [ThisDoc] |
+   | 4    | request-rejected | Mitigation request          | [RFCXXXX] |
    |      |                  | rejected. This code is      |           |
    |      |                  | returned by the DOTS server |           |
    |      |                  | to indicate the attack      |           |
@@ -685,7 +685,7 @@ Internet-Draft            DOTS signal Call Home            November 2018
    |      |                  | as legitimate traffic.      |           |
    +------+------------------+-----------------------------+-----------+
 
-4.4.  DOTS Signal Channel YANG Module
+4.4.  DOTS Signal Call Home YANG Module
 
    This document requests IANA to register the following URI in the
    "IETF XML Registry" [RFC3688]:
@@ -725,7 +725,7 @@ Internet-Draft            DOTS signal Call Home            November 2018
 
 
 
-Reddy, et al.             Expires May 16, 2019                 [Page 13]
+Reddy, et al.             Expires May 17, 2019                 [Page 13]
 
 Internet-Draft            DOTS signal Call Home            November 2018
 
@@ -749,14 +749,14 @@ Internet-Draft            DOTS signal Call Home            November 2018
    Concretely, the protocol does not leak any new information that can
    be used to ease surveillance.  In particular, the DOTS server is not
    required to share information that is local to its network (e.g.,
-   internal identifiers of an attach source) with the DOTS client.
+   internal identifiers of an attack source) with the DOTS client.
 
    The DOTS Call Home extension does not preclude the validation of
-   mitigation requests received from a DOTS client.  For example, some
-   security services running on the CPE may require external
-   administrator consent before the CPE acts upon the mitigation request
-   indicated by the DOTS client.  How the consent is obtained is out of
-   scope of this document.
+   mitigation requests received from a DOTS client.  For example, the
+   security service running on the CPE may require administrator's
+   consent before the CPE acts upon the mitigation request indicated by
+   the DOTS client.  How the consent is obtained is out of scope of this
+   document.
 
    Note that a DOTS server can seek for an administrator's consent,
    validate the request by inspecting the traffic, or proceed with both.
@@ -781,7 +781,7 @@ Internet-Draft            DOTS signal Call Home            November 2018
 
 
 
-Reddy, et al.             Expires May 16, 2019                 [Page 14]
+Reddy, et al.             Expires May 17, 2019                 [Page 14]
 
 Internet-Draft            DOTS signal Call Home            November 2018
 
@@ -837,7 +837,7 @@ Internet-Draft            DOTS signal Call Home            November 2018
 
 
 
-Reddy, et al.             Expires May 16, 2019                 [Page 15]
+Reddy, et al.             Expires May 17, 2019                 [Page 15]
 
 Internet-Draft            DOTS signal Call Home            November 2018
 
@@ -893,7 +893,7 @@ Internet-Draft            DOTS signal Call Home            November 2018
 
 
 
-Reddy, et al.             Expires May 16, 2019                 [Page 16]
+Reddy, et al.             Expires May 17, 2019                 [Page 16]
 
 Internet-Draft            DOTS signal Call Home            November 2018
 
@@ -949,4 +949,4 @@ Authors' Addresses
 
 
 
-Reddy, et al.             Expires May 16, 2019                 [Page 17]
+Reddy, et al.             Expires May 17, 2019                 [Page 17]
