@@ -76,7 +76,7 @@ Table of Contents
      3.2.  DOTS Signal Channel Extension . . . . . . . . . . . . . .   6
        3.2.1.  Mitigation Request  . . . . . . . . . . . . . . . . .   6
        3.2.2.  DOTS Signal Call Home YANG Module . . . . . . . . . .   8
-   4.  IANA Considerations . . . . . . . . . . . . . . . . . . . . .  11
+   4.  IANA Considerations . . . . . . . . . . . . . . . . . . . . .  12
      4.1.  DOTS Signal Channel Call Home UDP and TCP Port Number . .  12
      4.2.  DOTS Signal Channel CBOR Mappings Registry  . . . . . . .  12
      4.3.  New DOTS Conflict Cause . . . . . . . . . . . . . . . . .  12
@@ -299,14 +299,17 @@ Internet-Draft            DOTS signal Call Home            November 2018
        DTLS connection to the DOTS client.  The DOTS client MUST support
        accepting DTLS connection on the IANA-assigned port defined in
        Section 4.1, but MAY be configured to listen to a different port.
+
        If TCP is used, the DOTS server begins by initiating a TCP
        connection to the DOTS client.  The DOTS client MUST support
        accepting TCP connections on the IANA-assigned port defined in
        Section 4.1, but MAY be configured to listen to a different port.
        Using this TCP connection, the DOTS server initiates an TLS
-       connection to the DOTS client.  The happy eyeballs mechanism
-       explained in Section 4.3 of [I-D.ietf-dots-signal-channel] can be
-       used for initiation of both TCP and UDP sessions.
+       connection to the DOTS client.
+
+       The happy eyeballs mechanism explained in Section 4.3 of
+       [I-D.ietf-dots-signal-channel] can be used for initiation of both
+       TCP and UDP sessions.
 
    2.  Using this (D)TLS connection, the DOTS client requests,
        withdraws, or retrieves the status of mitigation requests.
@@ -327,9 +330,6 @@ Internet-Draft            DOTS signal Call Home            November 2018
       As a reminder, the prefix length MUST be less than or equal to 32
       (resp. 128) for IPv4 (resp.  IPv6).
 
-      The prefix list MUST NOT include broadcast, loopback, or multicast
-      addresses.  These addresses are considered as invalid values.  In
-
 
 
 
@@ -338,6 +338,8 @@ Reddy, et al.             Expires May 16, 2019                  [Page 6]
 Internet-Draft            DOTS signal Call Home            November 2018
 
 
+      The prefix list MUST NOT include broadcast, loopback, or multicast
+      addresses.  These addresses are considered as invalid values.  In
       addition, the DOTS client MUST validate that attacker prefixes are
       within the scope of the DOTS server's domain.
 
@@ -381,11 +383,9 @@ Internet-Draft            DOTS signal Call Home            November 2018
    The DOTS client MAY NOT include such information if 'source-prefix'
    conveys an IPv6 address/prefix.
 
-   When an address sharing mechanism (see Appendix A of [RFC6269]) is
-   enabled between the DOTS server's domain and the DOTS client's
-   domain, the DOTS client MUST NOT include the external IP address and/
-   or port number identifying the suspect attack source, but MUST
-   include the internal IP address and/or port number.  To that aim, the
+   When a Carrier Grade NAT (CGN) is located between the DOTS client and
+   DOTS server, the DOTS client MUST NOT include the external IP address
+   and/ or port number identifying the suspect attack source, but MUST
 
 
 
@@ -394,10 +394,15 @@ Reddy, et al.             Expires May 16, 2019                  [Page 7]
 Internet-Draft            DOTS signal Call Home            November 2018
 
 
+   include the internal IP address and/or port number.  To that aim, the
    DOTS client SHOULD rely on mechanisms, such as
    [I-D.ietf-opsawg-nat-yang], to retrieve the internal IP address and
    port number which are mapped to an external IP address and port
    number.
+
+   When a MAP Border Relay [RFC7597] or lwAFTR [RFC7596] is enabled in
+   the provider's domain, the identification of an attack source bound
+   to an IPv4 address/prefix MUST also rely on source port numbers.
 
    When a translator is on-path (e.g., NAT on a CPE), the DOTS server
    uses the attack traffic information to find the internal source IP
@@ -434,12 +439,7 @@ Internet-Draft            DOTS signal Call Home            November 2018
 
 3.2.2.  DOTS Signal Call Home YANG Module
 
-3.2.2.1.  Mitigation Request Tree Structure
 
-   This document augments the "dots-signal-channel" DOTS signal YANG
-   module defined in [I-D.ietf-dots-signal-channel] for signaling the
-   attack traffic information.  This document defines the YANG module
-   "ietf-dots-signal-call-home", which has the following tree structure:
 
 
 
@@ -449,6 +449,13 @@ Reddy, et al.             Expires May 16, 2019                  [Page 8]
 
 Internet-Draft            DOTS signal Call Home            November 2018
 
+
+3.2.2.1.  Mitigation Request Tree Structure
+
+   This document augments the "dots-signal-channel" DOTS signal YANG
+   module defined in [I-D.ietf-dots-signal-channel] for signaling the
+   attack traffic information.  This document defines the YANG module
+   "ietf-dots-signal-call-home", which has the following tree structure:
 
 module: ietf-dots-signal-call-home
   augment /ietf-signal:dots-signal/ietf-signal:message-type
@@ -492,19 +499,18 @@ module: ietf-dots-signal-call-home
         Editor:  Konda, Tirumaleswar Reddy
                  <mailto:TirumaleswarReddy_Konda@McAfee.com>;
 
-        Editor:  Mohamed Boucadair
-                 <mailto:mohamed.boucadair@orange.com>;
-
-        Editor:  Jon Shallow
-                 <mailto:ietf-supjps@jpshallow.com>";
-
-
 
 
 Reddy, et al.             Expires May 16, 2019                  [Page 9]
 
 Internet-Draft            DOTS signal Call Home            November 2018
 
+
+        Editor:  Mohamed Boucadair
+                 <mailto:mohamed.boucadair@orange.com>;
+
+        Editor:  Jon Shallow
+                 <mailto:ietf-supjps@jpshallow.com>";
 
      description
        "This module contains YANG definition for the signaling
@@ -548,12 +554,6 @@ Internet-Draft            DOTS signal Call Home            November 2018
          description
            "IPv4 or IPv6 prefix identifying the attacker(s).";
        }
-       list source-port-range {
-         key "lower-port upper-port";
-         description
-           "Port range. When only lower-port is
-            present, it represents a single port number.";
-         leaf lower-port {
 
 
 
@@ -562,6 +562,12 @@ Reddy, et al.             Expires May 16, 2019                 [Page 10]
 Internet-Draft            DOTS signal Call Home            November 2018
 
 
+       list source-port-range {
+         key "lower-port upper-port";
+         description
+           "Port range. When only lower-port is
+            present, it represents a single port number.";
+         leaf lower-port {
            type inet:port-number;
            mandatory true;
            description
@@ -604,12 +610,6 @@ Internet-Draft            DOTS signal Call Home            November 2018
    }
    <CODE ENDS>
 
-4.  IANA Considerations
-
-
-
-
-
 
 
 
@@ -617,6 +617,8 @@ Reddy, et al.             Expires May 16, 2019                 [Page 11]
 
 Internet-Draft            DOTS signal Call Home            November 2018
 
+
+4.  IANA Considerations
 
 4.1.  DOTS Signal Channel Call Home UDP and TCP Port Number
 
@@ -638,33 +640,31 @@ Internet-Draft            DOTS signal Call Home            November 2018
    The 'source-prefix', 'source-port-range', and 'source-icmp-type-
    range' are comprehension-optional parameters.
 
-+---------------------------+-------------+---------+---------------+--------+
-| Parameter Name            | YANG        | CBOR    | CBOR Major    | JSON   |
-|                           | Type        | Key     |    Type &     | Type   |
-|                           |             |         | Information   |        |
-+---------------------------+-------------+---------+---------------+--------+
-| source-prefix             | leaf-list   |   0x8000| 4 array       | Array  |
-|                           | inet:       |   (TBD) |               |        |
-|                           |  ip-prefix  |         | 3 text string | String |
-| source-port-range         | list        |   0x8001| 4 array       | Array  |
-|                           |             |   (TBD) |               |        |
-| source-icmp-type-range    | list        |   0x8002| 4 array       | Array  |
-|                           |             |   (TBD) |               |        |
-| lower-type                | uint8       |   0x8003| 0 unsigned    | Number |
-|                           |             |   (TBD) |               |        |
-| upper-type                | uint8       |   0x8004| 0 unsigned    | Number |
-|                           |             |   (TBD) |               |        |
-+---------------------------+-------------+---------+---------------+--------+
+   o  Note to the RFC Editor: Please delete (TBD1)-(TBD5) once CBOR keys
+      are assigned from the 0x8000 - 0xBFFF range.
+
+   +-------------------+------------+--------+---------------+--------+
+   | Parameter Name    | YANG       | CBOR   | CBOR Major    | JSON   |
+   |                   | Type       | Key    |    Type &     | Type   |
+   |                   |            |        | Information   |        |
+   +-------------------+------------+--------+---------------+--------+
+   | source-prefix     | leaf-list  | 0x8000 | 4 array       | Array  |
+   |                   | inet:      | (TBD1) |               |        |
+   |                   |  ip-prefix |        | 3 text string | String |
+   | source-port-range | list       | 0x8001 | 4 array       | Array  |
+   |                   |            | (TBD2) |               |        |
+   | source-icmp-type- | list       | 0x8002 | 4 array       | Array  |
+   |  range            |            | (TBD3) |               |        |
+   | lower-type        | uint8      | 0x8003 | 0 unsigned    | Number |
+   |                   |            | (TBD4) |               |        |
+   | upper-type        | uint8      | 0x8004 | 0 unsigned    | Number |
+   |                   |            | (TBD5) |               |        |
+   +-------------------+------------+--------+---------------+--------+
 
 4.3.  New DOTS Conflict Cause
 
    This document requests IANA to assign a new code from the "DOTS
    Conflict Cause Codes" registry:
-
-
-
-
-
 
 
 
@@ -751,12 +751,12 @@ Internet-Draft            DOTS signal Call Home            November 2018
    required to share information that is local to its network (e.g.,
    internal identifiers of an attach source) with the DOTS client.
 
-   Also, the DOTS Call Home extension allows for a consent to validate
-   mitigation requests received from a DOTS client.  That consent may
-   rely on an explicit validation from an administrator for each new
-   mitigation request, depend on configuration parameters configured to
-   the DOTS server, or a combination thereof.  How the consent is
-   obtained is out of scope of this document.
+   The DOTS Call Home extension does not preclude the validation of
+   mitigation requests received from a DOTS client.  For example, some
+   security services running on the CPE may require external
+   administrator consent before the CPE acts upon the mitigation request
+   indicated by the DOTS client.  How the consent is obtained is out of
+   scope of this document.
 
    Note that a DOTS server can seek for an administrator's consent,
    validate the request by inspecting the traffic, or proceed with both.
@@ -879,16 +879,16 @@ Internet-Draft            DOTS signal Call Home            November 2018
               Rules", RFC 5575, DOI 10.17487/RFC5575, August 2009,
               <https://www.rfc-editor.org/info/rfc5575>.
 
-   [RFC6269]  Ford, M., Ed., Boucadair, M., Durand, A., Levis, P., and
-              P. Roberts, "Issues with IP Address Sharing", RFC 6269,
-              DOI 10.17487/RFC6269, June 2011,
-              <https://www.rfc-editor.org/info/rfc6269>.
-
    [RFC6973]  Cooper, A., Tschofenig, H., Aboba, B., Peterson, J.,
               Morris, J., Hansen, M., and R. Smith, "Privacy
               Considerations for Internet Protocols", RFC 6973,
               DOI 10.17487/RFC6973, July 2013,
               <https://www.rfc-editor.org/info/rfc6973>.
+
+   [RFC7596]  Cui, Y., Sun, Q., Boucadair, M., Tsou, T., Lee, Y., and I.
+              Farrer, "Lightweight 4over6: An Extension to the Dual-
+              Stack Lite Architecture", RFC 7596, DOI 10.17487/RFC7596,
+              July 2015, <https://www.rfc-editor.org/info/rfc7596>.
 
 
 
@@ -897,6 +897,12 @@ Reddy, et al.             Expires May 16, 2019                 [Page 16]
 
 Internet-Draft            DOTS signal Call Home            November 2018
 
+
+   [RFC7597]  Troan, O., Ed., Dec, W., Li, X., Bao, C., Matsushima, S.,
+              Murakami, T., and T. Taylor, Ed., "Mapping of Address and
+              Port with Encapsulation (MAP-E)", RFC 7597,
+              DOI 10.17487/RFC7597, July 2015,
+              <https://www.rfc-editor.org/info/rfc7597>.
 
    [RFC8071]  Watsen, K., "NETCONF Call Home and RESTCONF Call Home",
               RFC 8071, DOI 10.17487/RFC8071, February 2017,
@@ -935,12 +941,6 @@ Authors' Addresses
    UK
 
    Email: supjps-ietf@jpshallow.com
-
-
-
-
-
-
 
 
 

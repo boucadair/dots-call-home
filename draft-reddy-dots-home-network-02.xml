@@ -283,13 +283,14 @@
             a DTLS connection to the DOTS client. The DOTS client MUST support
             accepting DTLS connection on the IANA-assigned port defined in
             <xref target="port"></xref>, but MAY be configured to listen to a
-            different port. If TCP is used, the DOTS server begins by
-            initiating a TCP connection to the DOTS client. The DOTS client
-            MUST support accepting TCP connections on the IANA-assigned port
-            defined in <xref target="port"></xref>, but MAY be configured to
-            listen to a different port. Using this TCP connection, the DOTS
-            server initiates an TLS connection to the DOTS client. The happy
-            eyeballs mechanism explained in Section 4.3 of <xref
+            different port. <vspace blankLines="1" />If TCP is used, the DOTS
+            server begins by initiating a TCP connection to the DOTS client.
+            The DOTS client MUST support accepting TCP connections on the
+            IANA-assigned port defined in <xref target="port"></xref>, but MAY
+            be configured to listen to a different port. Using this TCP
+            connection, the DOTS server initiates an TLS connection to the
+            DOTS client. <vspace blankLines="1" />The happy eyeballs mechanism
+            explained in Section 4.3 of <xref
             target="I-D.ietf-dots-signal-channel"></xref> can be used for
             initiation of both TCP and UDP sessions.</t>
 
@@ -354,15 +355,19 @@
           The DOTS client MAY NOT include such information if 'source-prefix'
           conveys an IPv6 address/prefix.</t>
 
-          <t>When an address sharing mechanism (see Appendix A of <xref
-          target="RFC6269"></xref>) is enabled between the DOTS server's
-          domain and the DOTS client's domain, the DOTS client MUST NOT
-          include the external IP address and/or port number identifying the
-          suspect attack source, but MUST include the internal IP address
-          and/or port number. To that aim, the DOTS client SHOULD rely on
-          mechanisms, such as <xref target="I-D.ietf-opsawg-nat-yang"></xref>,
-          to retrieve the internal IP address and port number which are mapped
-          to an external IP address and port number. </t>
+          <t>When a Carrier Grade NAT (CGN) is located between the DOTS client
+          and DOTS server, the DOTS client MUST NOT include the external IP
+          address and/ or port number identifying the suspect attack source,
+          but MUST include the internal IP address and/or port number. To that
+          aim, the DOTS client SHOULD rely on mechanisms, such as <xref
+          target="I-D.ietf-opsawg-nat-yang"></xref>, to retrieve the internal
+          IP address and port number which are mapped to an external IP
+          address and port number. </t>
+
+          <t>When a MAP Border Relay <xref target="RFC7597"></xref> or lwAFTR
+          <xref target="RFC7596"></xref> is enabled in the provider&rsquo;s
+          domain, the identification of an attack source bound to an IPv4
+          address/prefix MUST also rely on source port numbers.</t>
 
           <t>When a translator is on-path (e.g., NAT on a CPE), the DOTS
           server uses the attack traffic information to find the internal
@@ -577,24 +582,27 @@ module ietf-dots-signal-call-home {
         &lsquo;source-icmp-type-range' are comprehension-optional
         parameters.</t>
 
-        <t><figure>
-            <artwork><![CDATA[+---------------------------+-------------+---------+---------------+--------+
-| Parameter Name            | YANG        | CBOR    | CBOR Major    | JSON   |
-|                           | Type        | Key     |    Type &     | Type   |
-|                           |             |         | Information   |        |
-+---------------------------+-------------+---------+---------------+--------+
-| source-prefix             | leaf-list   |   0x8000| 4 array       | Array  |
-|                           | inet:       |   (TBD) |               |        |
-|                           |  ip-prefix  |         | 3 text string | String |
-| source-port-range         | list        |   0x8001| 4 array       | Array  |
-|                           |             |   (TBD) |               |        | 
-| source-icmp-type-range    | list        |   0x8002| 4 array       | Array  |
-|                           |             |   (TBD) |               |        |
-| lower-type                | uint8       |   0x8003| 0 unsigned    | Number |
-|                           |             |   (TBD) |               |        |
-| upper-type                | uint8       |   0x8004| 0 unsigned    | Number |
-|                           |             |   (TBD) |               |        |
-+---------------------------+-------------+---------+---------------+--------+
+        <t><list style="symbols">
+            <t>Note to the RFC Editor: Please delete (TBD1)-(TBD5) once CBOR
+            keys are assigned from the 0x8000 - 0xBFFF range.</t>
+          </list><figure align="center">
+            <artwork><![CDATA[+-------------------+------------+--------+---------------+--------+
+| Parameter Name    | YANG       | CBOR   | CBOR Major    | JSON   |
+|                   | Type       | Key    |    Type &     | Type   |
+|                   |            |        | Information   |        |
++-------------------+------------+--------+---------------+--------+
+| source-prefix     | leaf-list  | 0x8000 | 4 array       | Array  |
+|                   | inet:      | (TBD1) |               |        |
+|                   |  ip-prefix |        | 3 text string | String |
+| source-port-range | list       | 0x8001 | 4 array       | Array  |
+|                   |            | (TBD2) |               |        | 
+| source-icmp-type- | list       | 0x8002 | 4 array       | Array  |
+|  range            |            | (TBD3) |               |        |
+| lower-type        | uint8      | 0x8003 | 0 unsigned    | Number |
+|                   |            | (TBD4) |               |        |
+| upper-type        | uint8      | 0x8004 | 0 unsigned    | Number |
+|                   |            | (TBD5) |               |        |
++-------------------+------------+--------+---------------+--------+
 ]]></artwork>
           </figure></t>
       </section>
@@ -685,12 +693,12 @@ module ietf-dots-signal-call-home {
       required to share information that is local to its network (e.g.,
       internal identifiers of an attach source) with the DOTS client. </t>
 
-      <t>Also, the DOTS Call Home extension allows for a consent to validate
-      mitigation requests received from a DOTS client. That consent may rely
-      on an explicit validation from an administrator for each new mitigation
-      request, depend on configuration parameters configured to the DOTS
-      server, or a combination thereof. How the consent is obtained is out of
-      scope of this document. </t>
+      <t>The DOTS Call Home extension does not preclude the validation of
+      mitigation requests received from a DOTS client. For example, some
+      security services running on the CPE may require external administrator
+      consent before the CPE acts upon the mitigation request indicated by the
+      DOTS client. How the consent is obtained is out of scope of this
+      document. </t>
 
       <t>Note that a DOTS server can seek for an administrator's consent,
       validate the request by inspecting the traffic, or proceed with both.
@@ -755,9 +763,11 @@ module ietf-dots-signal-call-home {
 
       <?rfc include='reference.I-D.ietf-opsawg-nat-yang'?>
 
-      <?rfc include='reference.RFC.6269'?>
-
       <?rfc include='reference.RFC.6973'?>
+
+      <?rfc include='reference.RFC.7596'?>
+
+      <?rfc include='reference.RFC.7597'?>
     </references>
   </back>
 </rfc>
