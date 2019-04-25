@@ -228,24 +228,24 @@
         of the DOTS client/server roles in the DOTS protocol stack, as
         compared to DOTS client-initiated DOTS signal channel protocol <xref
         target="I-D.ietf-dots-signal-channel"></xref>. The role reversal that
-        occurs are at the TLS or DTLS layers; that is, (1) the DOTS server
-        acts as a DTLS client and the DOTS client acts as a DTLS server or (2)
-        the DOTS server acts as a TLS client initiating the underlying TCP
-        connection and the DOTS client acts as a TLS server. The DOTS server
-        initiates TLS handshake or DTLS handshake to the DOTS client. </t>
+        occurs are at the (D)TLS layer; that is, (1) the DOTS server acts as a
+        DTLS client and the DOTS client acts as a DTLS server or (2) the DOTS
+        server acts as a TLS client initiating the underlying TCP connection
+        and the DOTS client acts as a TLS server. The DOTS server initiates
+        (D)TLS handshake to the DOTS client. </t>
 
         <t>For example, a home network element (e.g., home router) co-located
-        with a DOTS server (likely, a client-domain DOTS gateway) is the TLS
-        server and DTLS server. However, when calling home, the DOTS server
-        initially assumes the role of the TLS client and DTLS client, but the
-        network element's role as a DOTS server remains the same. Furthermore,
-        existing certificate chains and mutual authentication mechanisms
-        between the DOTS agents are unaffected by the Call Home function. This
-        Call Home function enables the DOTS server co-located with a network
-        element (possibly behind NATs and firewalls) reachable by only the
-        intended DOTS client and hence the DOTS server cannot be subjected to
-        DDoS attacks. Other motivations for introducing the Call Home function
-        are discussed in Section 1.1 of <xref target="RFC8071"></xref>.</t>
+        with a DOTS server (likely, a client-domain DOTS gateway) is the
+        (D)TLS server. However, when calling home, the DOTS server initially
+        assumes the role of the (D)TLS client, but the network element's role
+        as a DOTS server remains the same. Furthermore, existing certificate
+        chains and mutual authentication mechanisms between the DOTS agents
+        are unaffected by the Call Home function. This Call Home function
+        enables the DOTS server co-located with a network element (possibly
+        behind NATs and firewalls) reachable by only the intended DOTS client
+        and hence the DOTS server cannot be subjected to DDoS attacks. Other
+        motivations for introducing the Call Home function are discussed in
+        Section 1.1 of <xref target="RFC8071"></xref>.</t>
 
         <t>This document assumes that DOTS servers are provisioned with a way
         to know how to reach the upstream DOTS client(s), which could occur by
