@@ -72,7 +72,7 @@
       </address>
     </author>
 
-    <date day="24" month="April" year="2019" />
+    <date day="25" month="April" year="2019" />
 
     <workgroup>DOTS</workgroup>
 
@@ -227,12 +227,12 @@
         <t>The DOTS signal channel Call Home extension preserves all but one
         of the DOTS client/server roles in the DOTS protocol stack, as
         compared to DOTS client-initiated DOTS signal channel protocol <xref
-        target="I-D.ietf-dots-signal-channel"></xref>. The one and only role
-        reversal that occurs are at the TLS or DTLS layers; that is, the DOTS
-        server acts as a DTLS client and the DOTS client acts as a DTLS server
-        or the DOTS server acts as a TLS client and the DOTS client acts as a
-        TLS server. The DOTS server initiates TLS handshake or DTLS handshake
-        to the DOTS client.</t>
+        target="I-D.ietf-dots-signal-channel"></xref>. The role reversal that
+        occurs are at the TLS or DTLS layers; that is, (1) the DOTS server
+        acts as a DTLS client and the DOTS client acts as a DTLS server or (2)
+        the DOTS server acts as a TLS client initiating the underlying TCP
+        connection and the DOTS client acts as a TLS server. The DOTS server
+        initiates TLS handshake or DTLS handshake to the DOTS client. </t>
 
         <t>For example, a home network element (e.g., home router) co-located
         with a DOTS server (likely, a client-domain DOTS gateway) is the TLS
