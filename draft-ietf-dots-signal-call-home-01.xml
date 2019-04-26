@@ -157,15 +157,15 @@
         analysis.</t>
 
         <t>The ISP on the other hand can detect some DDoS attacks originating
-        from a home network (Section 2.6 of <xref target="RFC8517"></xref>),
-        but the ISP does not have a mechanism to detect which device in the
-        home network is generating the DDoS attack traffic. The primary reason
-        being that devices in an IPv4 home network are typically behind a
-        Network Address Translation (NAT) border. Even in case of a IPv6 home
-        network, although the ISP can identify the infected device in the home
-        network launching the DDoS traffic by tracking its unique IPv6
-        address, the infected device can easily change its IPv6 address to
-        evade remediation.</t>
+        from a home network (e.g., Section 2.6 of <xref
+        target="RFC8517"></xref>), but the ISP does not have a mechanism to
+        detect which device in the home network is generating the DDoS attack
+        traffic. The primary reason being that devices in an IPv4 home network
+        are typically behind a Network Address Translation (NAT) border. Even
+        in case of a IPv6 home network, although the ISP can identify the
+        infected device in the home network launching the DDoS traffic by
+        tracking its unique IPv6 address, the infected device can easily
+        change its IPv6 address to evade remediation.</t>
 
         <t>Existing approaches are still suffering from misused access network
         resources by abusing devices; the support of means for blocking such
@@ -182,13 +182,13 @@
         connection to the DOTS client, and the DOTS client then conveys the
         attack traffic information to the DOTS server.</t>
 
-        <t>A DOTS client relies upon a variety of triggers to invoke the Call
-        Home function (e.g., scrubbing the traffic from the attack source,
-        receiving an alert from an attack target, a peer DDoS Mitigation
-        System (DMS), or a transit provider). The definition of these triggers
-        is deployment-specific. It is therefore out of the scope of this
-        document to elaborate on how these triggers are made available to a
-        DOTS client. </t>
+        <t>A DOTS client relies upon a variety of triggers to make use of the
+        Call Home function (e.g., scrubbing the traffic from the attack
+        source, receiving an alert from an attack target, a peer DDoS
+        Mitigation System (DMS), or a transit provider). The definition of
+        these triggers is deployment-specific. It is therefore out of the
+        scope of this document to elaborate on how these triggers are made
+        available to a DOTS client. </t>
 
         <t>In a typical deployment scenario, the DOTS server is enabled on a
         Customer Premises Equipment (CPE), which is aligned with recent trends
@@ -206,7 +206,7 @@
 
         <t>The DOTS server uses the DDoS attack traffic information to
         identify the compromised device in its domain that is responsible for
-        launching the DDoS attack, notifies eventually a network
+        launching the DDoS attack, optionally notifies a network
         administrator, and takes appropriate mitigation action(s). A
         mitigation action can be to quarantine the compromised device or block
         its traffic to the attack target(s) until the mitigation request is
@@ -288,9 +288,9 @@
       target="RFC8340"></xref>.</t>
 
       <t>(D)TLS is used for statements that apply to both Transport Layer
-      Security (TLS) and Datagram Transport Layer Security (DTLS). Specific
-      terms are used for any statement that applies to either protocol
-      alone.</t>
+      Security (TLS) <xref target="RFC8446"></xref> and Datagram Transport
+      Layer Security (DTLS) <xref target="RFC6347"></xref>. Specific terms are
+      used for any statement that applies to either protocol alone.</t>
     </section>
 
     <section title="DOTS Signal Channel Call Home">
@@ -299,7 +299,7 @@
         of the DOTS client/server roles in the DOTS protocol stack, as
         compared to DOTS client-initiated DOTS signal channel protocol <xref
         target="I-D.ietf-dots-signal-channel"></xref>. The role reversal that
-        occurs are at the (D)TLS layer; that is, (1) the DOTS server acts as a
+        occurs is at the (D)TLS layer; that is, (1) the DOTS server acts as a
         DTLS client and the DOTS client acts as a DTLS server or (2) the DOTS
         server acts as a TLS client initiating the underlying TCP connection
         and the DOTS client acts as a TLS server. The DOTS server initiates
@@ -437,8 +437,9 @@
           <t>The DOTS server MUST check that the 'source-prefix' is within the
           scope of the DOTS server domain in the Call Home scenario. Note that
           in such scenario, the DOTS server considers, by default, that any
-          routeable IP prefix is within the scope of the DOTS client. Invalid
-          mitigation requests are handled as per Section 4.4.1 of <xref
+          routeable IP prefix enclosed in 'target-prefix' is within the scope
+          of the DOTS client. Invalid mitigation requests are handled as per
+          Section 4.4.1 of <xref
           target="I-D.ietf-dots-signal-channel"></xref>.</t>
 
           <t>If a translator is enabled on the boundaries of the domain
@@ -840,6 +841,8 @@ module ietf-dots-call-home {
       <?rfc include='reference.RFC.8174'?>
 
       <?rfc include='reference.RFC.6991'?>
+
+      <?rfc include='reference.RFC.6347'?>
 
       <?rfc include="reference.I-D.ietf-dots-signal-channel" ?>
     </references>
