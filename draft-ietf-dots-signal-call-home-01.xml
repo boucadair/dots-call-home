@@ -111,7 +111,7 @@
         IoT devices deployed in home networks can be easily compromised, they
         do not have an easy mechanism to upgrade, and IoT manufactures may
         cease manufacture and/or discontinue patching vulnerabilities on IoT
-        devices (Section 5.4 of <xref
+        devices (Sections 5.4 and 5.5 of <xref
         target="I-D.irtf-t2trg-iot-seccons"></xref>). However, these
         vulnerable and compromised devices will continue to be used for a long
         period of time in the home, and the end-user does not know that IoT
@@ -232,9 +232,11 @@
 
         <t><figure align="center" anchor="pb"
             title="Call Home Reference Architecture">
-            <artwork><![CDATA[                 Attack Target   
+            <artwork><![CDATA[                +-------------+
+                |Attack Target|
+                +-----+-------+  
                       | /\
-                      | ||  
+                      | ||      Target Network
 ......................|.||....................
                       | ||        
              .--------+-||-------. 
@@ -245,27 +247,29 @@
             '-(         ||          )
                '------+-||---------' 
 ......................|.||.....................
-                      | ||   Service Provider
+                      | ||     Network Provider
+                      | ||          (DMS)      
              .--------+-||-------. 
             (           ||        )-.
           .' DOTS       ||           ' 
-          ( Client      ||            ) 
+          ( client      ||            ) 
            (            ||          -'
             '-(         ||          )
                '------+-||---------' 
                       | ||    
 ......................|.||.......................
-                      | ||    Source Network
+                      | ||         Source Network
              .--------+-||-------. 
             (           ||        )-.
           .' DOTS       ||           ' 
-          ( Server      || Outbound   ) 
+          ( server      || Outbound   ) 
            (            ||   DDoS   -'
             '-(         ||  Attack  )
                '------+-||---------' 
                       | ||
-                      | ||             
-                 Attack Source                           
+                +-----+-++----+
+                |Attack Source|                           
+                +-------------+
 ]]></artwork>
           </figure></t>
 
@@ -321,9 +325,10 @@
 
         <t><figure align="center" anchor="signalch"
             title="DOTS Signal Channel Call Home Sequence Diagram">
-            <artwork><![CDATA[
-                DOTS                                DOTS 
-               server                              client
+            <artwork><![CDATA[             +--------+                          +--------+
+             |  DOTS  |                          |  DOTS  |
+             | server |                          | client |
+             +---+----+                          +----+---+
                  |                                    |
                  |         1. (D)TLS connection       |
                  |----------------------------------->|
@@ -416,15 +421,48 @@
           the DOTS client domain and DOTS server domain, communicating an
           external IP address in a mitigation request is likely to be
           discarded by the DOTS server because the external IP address is not
-          visible locally to the DOTS server. The DOTS server is only aware of
-          the internal IP addresses/prefixes bound to its domain. Thus, the
-          DOTS client MUST NOT include the external IP address and/or port
-          number identifying the suspect attack source, but MUST include the
-          internal IP address and/or port number. To that aim, the DOTS client
-          SHOULD rely on mechanisms, such as <xref target="RFC8512"></xref> or
-          <xref target="RFC8513"></xref>, to retrieve the internal IP address
-          and port number which are mapped to an external IP address and port
-          number.</t>
+          visible locally to the DOTS server (see <xref target="ex1"></xref>).
+          The DOTS server is only aware of the internal IP addresses/prefixes
+          bound to its domain. Thus, the DOTS client MUST NOT include the
+          external IP address and/or port number identifying the suspect
+          attack source, but MUST include the internal IP address and/or port
+          number. To that aim, the DOTS client SHOULD rely on mechanisms, such
+          as <xref target="RFC8512"></xref> or <xref target="RFC8513"></xref>,
+          to retrieve the internal IP address and port number which are mapped
+          to an external IP address and port number.</t>
+
+          <t><figure align="center" anchor="ex1"
+              title="Example of a CGN Between DOTS Domains">
+              <artwork><![CDATA[  N |        .-------------------. 
+  E |       (                     )-.
+  T |     .'                         ' 
+  W |     (                          ) 
+  O |      (      DOTS server       -'
+  R |       '-(                     )
+  K |          '-------+-----------' 
+    |                  |      
+  P |                  |
+  R |              +---+---+
+  O |              |  CGN  |        External Realm
+  V |..............|.......|......................         
+  I |              |       |        Internel Realm
+  D |              +---+---+        
+  E |                  |
+  R |                  |
+   ---                 |   
+             .---------+---------. 
+            (                     )-.
+          .'     Source Network      ' 
+          (                           ) 
+           (        DOTS client     -'
+            '-(                     )
+               '------+------------' 
+                      |  
+                +-----+-------+
+                |Attack Source|                           
+                +-------------+
+]]></artwork>
+            </figure></t>
 
           <t>If a MAP Border Relay <xref target="RFC7597"></xref> or lwAFTR
           <xref target="RFC7596"></xref> is enabled in the provider's domain
@@ -443,13 +481,46 @@
           target="I-D.ietf-dots-signal-channel"></xref>.</t>
 
           <t>If a translator is enabled on the boundaries of the domain
-          hosting the DOTS server (a CPE with NAT enabled, typically), the
-          DOTS server uses the attack traffic information conveyed in a
-          mitigation request to find the internal source IP address of the
-          compromised device and blocks the traffic from the compromised
-          device traffic to the attack target until the mitigation request is
-          withdrawn. Doing so allows to isolate the suspicious device while
-          avoiding to disturb other services.</t>
+          hosting the DOTS server (a CPE with NAT enabled as shown in <xref
+          target="ex2"></xref>, typically), the DOTS server uses the attack
+          traffic information conveyed in a mitigation request to find the
+          internal source IP address of the compromised device and blocks the
+          traffic from the compromised device traffic to the attack target
+          until the mitigation request is withdrawn. Doing so allows to
+          isolate the suspicious device while avoiding to disturb other
+          services.</t>
+
+          <t><figure align="center" anchor="ex2"
+              title="Example of a DOTS Client Domain with a NAT Embeded in a CPE">
+              <artwork><![CDATA[
+             .-------------------. 
+            (                     )-.
+          .'    Network Provider     ' 
+          (           (DMS)           ) 
+           (      DOTS server       -'
+            '-(                     )
+               '------+------------' 
+                      |      
+                      |
+   ---             +--+----+   
+  S |              |  CPE  |  External Realm
+  O |..............|.......|................         
+  U |              |  NAT  |  Internel Realm
+  R |              +-------+        
+  C |                  |   
+  E |        .--------+----------. 
+    |       (                     )-.
+  N |     .'                         ' 
+  E |     (                           ) 
+  T |      (        DOTS client     -'
+  W |       '-(                     )
+  O |          '------+------------' 
+  R |                 |  
+  K |           +-----+-------+
+    |           |Attack Source|                           
+                +-------------+
+]]></artwork>
+            </figure></t>
 
           <t>The DOTS server domain administrator consent MAY be required to
           block the traffic from the compromised device to the attack target.
