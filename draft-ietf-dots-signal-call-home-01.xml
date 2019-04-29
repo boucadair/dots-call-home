@@ -188,7 +188,7 @@
         Mitigation System (DMS), or a transit provider). The definition of
         these triggers is deployment-specific. It is therefore out of the
         scope of this document to elaborate on how these triggers are made
-        available to a DOTS client. </t>
+        available to a DOTS client.</t>
 
         <t>In a typical deployment scenario, the DOTS server is enabled on a
         Customer Premises Equipment (CPE), which is aligned with recent trends
@@ -307,7 +307,7 @@
         DTLS client and the DOTS client acts as a DTLS server or (2) the DOTS
         server acts as a TLS client initiating the underlying TCP connection
         and the DOTS client acts as a TLS server. The DOTS server initiates
-        (D)TLS handshake to the DOTS client. </t>
+        (D)TLS handshake to the DOTS client.</t>
 
         <t>For example, a home network element (e.g., home router) co-located
         with a DOTS server (likely, a client-domain DOTS gateway) is the
@@ -318,7 +318,7 @@
         are unaffected by the Call Home function. This Call Home function
         enables the DOTS server co-located with a network element (possibly
         behind NATs and firewalls) reachable by only the intended DOTS client
-        and hence the DOTS server cannot be subjected to DDoS attacks. </t>
+        and hence the DOTS server cannot be subjected to DDoS attacks.</t>
 
         <t><xref target="signalch"></xref> illustrates a sample Call Home flow
         exchange:</t>
@@ -437,15 +437,15 @@
   E |       (                     )-.
   T |     .'                         ' 
   W |     (                          ) 
-  O |      (      DOTS server       -'
+  O |      (      DOTS client       -'
   R |       '-(                     )
   K |          '-------+-----------' 
     |                  |      
   P |                  |
   R |              +---+---+
   O |              |  CGN  |        External Realm
-  V |..............|.......|......................         
-  I |              |       |        Internel Realm
+  V |..............|       |......................         
+  I |              |       |        Internal Realm
   D |              +---+---+        
   E |                  |
   R |                  |
@@ -454,7 +454,7 @@
             (                     )-.
           .'     Source Network      ' 
           (                           ) 
-           (        DOTS client     -'
+           (        DOTS server     -'
             '-(                     )
                '------+------------' 
                       |  
@@ -491,28 +491,28 @@
           services.</t>
 
           <t><figure align="center" anchor="ex2"
-              title="Example of a DOTS Client Domain with a NAT Embeded in a CPE">
+              title="Example of a DOTS Server Domain with a NAT Embeded in a CPE">
               <artwork><![CDATA[
              .-------------------. 
             (                     )-.
           .'    Network Provider     ' 
           (           (DMS)           ) 
-           (      DOTS server       -'
+           (      DOTS client       -'
             '-(                     )
                '------+------------' 
                       |      
                       |
    ---             +--+----+   
   S |              |  CPE  |  External Realm
-  O |..............|.......|................         
-  U |              |  NAT  |  Internel Realm
+  O |..............|       |................         
+  U |              |  NAT  |  Internal Realm
   R |              +-------+        
   C |                  |   
   E |        .--------+----------. 
     |       (                     )-.
   N |     .'                         ' 
   E |     (                           ) 
-  T |      (        DOTS client     -'
+  T |      (        DOTS server     -'
   W |       '-(                     )
   O |          '------+------------' 
   R |                 |  
@@ -554,8 +554,7 @@
           target to slow path. The CPE inspects the punted slow path traffic
           to detect and block the outgoing DDoS attack traffic or quarantine
           the device (e.g., using MAC level filtering) until it is remediated,
-          and notifies the CPE administrator about the compromised device.
-          </t>
+          and notifies the CPE administrator about the compromised device.</t>
         </section>
 
         <section anchor="YANG" title="DOTS Signal Call Home YANG Module ">

@@ -523,15 +523,15 @@ Internet-Draft            DOTS Signal Call Home               April 2019
      E |       (                     )-.
      T |     .'                         '
      W |     (                          )
-     O |      (      DOTS server       -'
+     O |      (      DOTS client       -'
      R |       '-(                     )
      K |          '-------+-----------'
        |                  |
      P |                  |
      R |              +---+---+
      O |              |  CGN  |        External Realm
-     V |..............|.......|......................
-     I |              |       |        Internel Realm
+     V |..............|       |......................
+     I |              |       |        Internal Realm
      D |              +---+---+
      E |                  |
      R |                  |
@@ -540,7 +540,7 @@ Internet-Draft            DOTS Signal Call Home               April 2019
                (                     )-.
              .'     Source Network      '
              (                           )
-              (        DOTS client     -'
+              (        DOTS server     -'
                '-(                     )
                   '------+------------'
                          |
@@ -585,22 +585,22 @@ Internet-Draft            DOTS Signal Call Home               April 2019
                (                     )-.
              .'    Network Provider     '
              (           (DMS)           )
-              (      DOTS server       -'
+              (      DOTS client       -'
                '-(                     )
                   '------+------------'
                          |
                          |
       ---             +--+----+
      S |              |  CPE  |  External Realm
-     O |..............|.......|................
-     U |              |  NAT  |  Internel Realm
+     O |..............|       |................
+     U |              |  NAT  |  Internal Realm
      R |              +-------+
      C |                  |
      E |        .--------+----------.
        |       (                     )-.
      N |     .'                         '
      E |     (                           )
-     T |      (        DOTS client     -'
+     T |      (        DOTS server     -'
      W |       '-(                     )
      O |          '------+------------'
      R |                 |
@@ -608,7 +608,7 @@ Internet-Draft            DOTS Signal Call Home               April 2019
        |           |Attack Source|
                    +-------------+
 
-   Figure 4: Example of a DOTS Client Domain with a NAT Embeded in a CPE
+   Figure 4: Example of a DOTS Server Domain with a NAT Embeded in a CPE
 
 
 
