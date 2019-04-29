@@ -111,13 +111,12 @@
         IoT devices deployed in home networks can be easily compromised, they
         do not have an easy mechanism to upgrade, and IoT manufactures may
         cease manufacture and/or discontinue patching vulnerabilities on IoT
-        devices (Sections 5.4 and 5.5 of <xref
-        target="I-D.irtf-t2trg-iot-seccons"></xref>). However, these
-        vulnerable and compromised devices will continue to be used for a long
-        period of time in the home, and the end-user does not know that IoT
-        devices in his/her home are compromised. The compromised IoT devices
-        are typically used for launching DDoS attacks (Section 3 of <xref
-        target="I-D.irtf-t2trg-iot-seccons"></xref>) on victims while the
+        devices (Sections 5.4 and 5.5 of <xref target="RFC8576"></xref>).
+        However, these vulnerable and compromised devices will continue to be
+        used for a long period of time in the home, and the end-user does not
+        know that IoT devices in his/her home are compromised. The compromised
+        IoT devices are typically used for launching DDoS attacks (Section 3
+        of <xref target="RFC8576"></xref>) on victims while the
         owner/administrator of the home network is not aware about such
         misbehaviors. Similar to other DDoS attacks, the victim in this attack
         can be an application server, a host, a router, a firewall, or an
@@ -952,7 +951,7 @@ module ietf-dots-call-home {
 
       <?rfc include='reference.RFC.8517'?>
 
-      <?rfc include='reference.I-D.irtf-t2trg-iot-seccons'?>
+      <?rfc include='reference.RFC.8576'?>
     </references>
   </back>
 </rfc>

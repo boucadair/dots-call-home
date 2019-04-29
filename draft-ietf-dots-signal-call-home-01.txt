@@ -123,16 +123,15 @@ Internet-Draft            DOTS Signal Call Home               April 2019
    IoT devices deployed in home networks can be easily compromised, they
    do not have an easy mechanism to upgrade, and IoT manufactures may
    cease manufacture and/or discontinue patching vulnerabilities on IoT
-   devices (Sections 5.4 and 5.5 of [I-D.irtf-t2trg-iot-seccons]).
-   However, these vulnerable and compromised devices will continue to be
-   used for a long period of time in the home, and the end-user does not
-   know that IoT devices in his/her home are compromised.  The
-   compromised IoT devices are typically used for launching DDoS attacks
-   (Section 3 of [I-D.irtf-t2trg-iot-seccons]) on victims while the
-   owner/administrator of the home network is not aware about such
-   misbehaviors.  Similar to other DDoS attacks, the victim in this
-   attack can be an application server, a host, a router, a firewall, or
-   an entire network.
+   devices (Sections 5.4 and 5.5 of [RFC8576]).  However, these
+   vulnerable and compromised devices will continue to be used for a
+   long period of time in the home, and the end-user does not know that
+   IoT devices in his/her home are compromised.  The compromised IoT
+   devices are typically used for launching DDoS attacks (Section 3 of
+   [RFC8576]) on victims while the owner/administrator of the home
+   network is not aware about such misbehaviors.  Similar to other DDoS
+   attacks, the victim in this attack can be an application server, a
+   host, a router, a firewall, or an entire network.
 
    Nowadays, network devices in a home network offer network security
    (e.g., firewall or Intrusion Protection System (IPS) service on a
@@ -162,6 +161,7 @@ Internet-Draft            DOTS Signal Call Home               April 2019
    DDoS attacks is functionally or operationally not possible for all
    the devices attached to the home network owing to the memory and CPU
    limitations of the home routers.  Further, for certain DDoS attacks
+   the ability to distinguish legitimate traffic from attacker traffic
 
 
 
@@ -170,7 +170,6 @@ Reddy, et al.           Expires October 28, 2019                [Page 3]
 Internet-Draft            DOTS Signal Call Home               April 2019
 
 
-   the ability to distinguish legitimate traffic from attacker traffic
    on a per packet basis is complex.  This complexity is due to that the
    packet itself may look "legitimate" and no attack signature can be
    identified.  The anomaly can be identified only after detailed
@@ -217,7 +216,8 @@ Internet-Draft            DOTS Signal Call Home               April 2019
    maintains a single DOTS signal channel session for each DOTS-capable
    upstream provisioning domain [I-D.ietf-dots-multihoming].
 
-
+   For instance, the DOTS server in the home network initiates the Call
+   Home in 'idle' time and then subsequently the DOTS client in the ISP
 
 
 
@@ -226,8 +226,6 @@ Reddy, et al.           Expires October 28, 2019                [Page 4]
 Internet-Draft            DOTS Signal Call Home               April 2019
 
 
-   For instance, the DOTS server in the home network initiates the Call
-   Home in 'idle' time and then subsequently the DOTS client in the ISP
    environment can initiate a mitigation request whenever the ISP
    detects there is an attack from a compromised device in the DOTS
    server domain (i.e., from within the home network).
@@ -256,6 +254,8 @@ Internet-Draft            DOTS Signal Call Home               April 2019
    those deployments to block DDoS attack traffic closer to the
    source(s) of the attack.  The Call Home reference architecture is
    shown in Figure 1.
+
+
 
 
 
@@ -1104,16 +1104,16 @@ Internet-Draft            DOTS Signal Call Home               April 2019
               Open Threat Signaling", draft-ietf-dots-use-cases-17 (work
               in progress), January 2019.
 
-   [I-D.irtf-t2trg-iot-seccons]
-              Garcia-Morchon, O., Kumar, S., and M. Sethi, "State-of-
-              the-Art and Challenges for the Internet of Things
-              Security", draft-irtf-t2trg-iot-seccons-16 (work in
-              progress), December 2018.
-
    [RFC4340]  Kohler, E., Handley, M., and S. Floyd, "Datagram
               Congestion Control Protocol (DCCP)", RFC 4340,
               DOI 10.17487/RFC4340, March 2006,
               <https://www.rfc-editor.org/info/rfc4340>.
+
+   [RFC4632]  Fuller, V. and T. Li, "Classless Inter-domain Routing
+              (CIDR): The Internet Address Assignment and Aggregation
+              Plan", BCP 122, RFC 4632, DOI 10.17487/RFC4632, August
+              2006, <https://www.rfc-editor.org/info/rfc4632>.
+
 
 
 
@@ -1121,11 +1121,6 @@ Reddy, et al.           Expires October 28, 2019               [Page 20]
 
 Internet-Draft            DOTS Signal Call Home               April 2019
 
-
-   [RFC4632]  Fuller, V. and T. Li, "Classless Inter-domain Routing
-              (CIDR): The Internet Address Assignment and Aggregation
-              Plan", BCP 122, RFC 4632, DOI 10.17487/RFC4632, August
-              2006, <https://www.rfc-editor.org/info/rfc4632>.
 
    [RFC4732]  Handley, M., Ed., Rescorla, E., Ed., and IAB, "Internet
               Denial-of-Service Considerations", RFC 4732,
@@ -1166,6 +1161,11 @@ Internet-Draft            DOTS Signal Call Home               April 2019
               BCP 215, RFC 8340, DOI 10.17487/RFC8340, March 2018,
               <https://www.rfc-editor.org/info/rfc8340>.
 
+   [RFC8512]  Boucadair, M., Ed., Sivakumar, S., Jacquenet, C.,
+              Vinapamula, S., and Q. Wu, "A YANG Module for Network
+              Address Translation (NAT) and Network Prefix Translation
+              (NPT)", RFC 8512, DOI 10.17487/RFC8512, January 2019,
+              <https://www.rfc-editor.org/info/rfc8512>.
 
 
 
@@ -1178,12 +1178,6 @@ Reddy, et al.           Expires October 28, 2019               [Page 21]
 Internet-Draft            DOTS Signal Call Home               April 2019
 
 
-   [RFC8512]  Boucadair, M., Ed., Sivakumar, S., Jacquenet, C.,
-              Vinapamula, S., and Q. Wu, "A YANG Module for Network
-              Address Translation (NAT) and Network Prefix Translation
-              (NPT)", RFC 8512, DOI 10.17487/RFC8512, January 2019,
-              <https://www.rfc-editor.org/info/rfc8512>.
-
    [RFC8513]  Boucadair, M., Jacquenet, C., and S. Sivakumar, "A YANG
               Data Model for Dual-Stack Lite (DS-Lite)", RFC 8513,
               DOI 10.17487/RFC8513, January 2019,
@@ -1194,6 +1188,11 @@ Internet-Draft            DOTS Signal Call Home               April 2019
               Provided by Middleboxes: An Operator Perspective",
               RFC 8517, DOI 10.17487/RFC8517, February 2019,
               <https://www.rfc-editor.org/info/rfc8517>.
+
+   [RFC8576]  Garcia-Morchon, O., Kumar, S., and M. Sethi, "Internet of
+              Things (IoT) Security: State of the Art and Challenges",
+              RFC 8576, DOI 10.17487/RFC8576, April 2019,
+              <https://www.rfc-editor.org/info/rfc8576>.
 
 Authors' Addresses
 
@@ -1218,6 +1217,7 @@ Authors' Addresses
    UK
 
    Email: supjps-ietf@jpshallow.com
+
 
 
 
