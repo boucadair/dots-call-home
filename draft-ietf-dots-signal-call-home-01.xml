@@ -416,19 +416,20 @@
           The DOTS client may not include such information if 'source-prefix'
           conveys an IPv6 address/prefix.</t>
 
-          <t>If a Carrier Grade NAT (CGN, including NAT64) is located between
-          the DOTS client domain and DOTS server domain, communicating an
-          external IP address in a mitigation request is likely to be
-          discarded by the DOTS server because the external IP address is not
-          visible locally to the DOTS server (see <xref target="ex1"></xref>).
-          The DOTS server is only aware of the internal IP addresses/prefixes
-          bound to its domain. Thus, the DOTS client MUST NOT include the
-          external IP address and/or port number identifying the suspect
-          attack source, but MUST include the internal IP address and/or port
-          number. To that aim, the DOTS client SHOULD rely on mechanisms, such
-          as <xref target="RFC8512"></xref> or <xref target="RFC8513"></xref>,
-          to retrieve the internal IP address and port number which are mapped
-          to an external IP address and port number.</t>
+          <t>If a Carrier Grade NAT (CGN, including NAT64 <xref
+          target="RFC6147"></xref>) is located between the DOTS client domain
+          and DOTS server domain, communicating an external IP address in a
+          mitigation request is likely to be discarded by the DOTS server
+          because the external IP address is not visible locally to the DOTS
+          server (see <xref target="ex1"></xref>). The DOTS server is only
+          aware of the internal IP addresses/prefixes bound to its domain.
+          Thus, the DOTS client MUST NOT include the external IP address
+          and/or port number identifying the suspect attack source, but MUST
+          include the internal IP address and/or port number. To that aim, the
+          DOTS client SHOULD rely on mechanisms, such as <xref
+          target="RFC8512"></xref> or <xref target="RFC8513"></xref>, to
+          retrieve the internal IP address and port number which are mapped to
+          an external IP address and port number.</t>
 
           <t><figure align="center" anchor="ex1"
               title="Example of a CGN Between DOTS Domains">
@@ -480,14 +481,14 @@
           target="I-D.ietf-dots-signal-channel"></xref>.</t>
 
           <t>If a translator is enabled on the boundaries of the domain
-          hosting the DOTS server (a CPE with NAT enabled as shown in <xref
-          target="ex2"></xref>, typically), the DOTS server uses the attack
-          traffic information conveyed in a mitigation request to find the
-          internal source IP address of the compromised device and blocks the
-          traffic from the compromised device traffic to the attack target
-          until the mitigation request is withdrawn. Doing so allows to
-          isolate the suspicious device while avoiding to disturb other
-          services.</t>
+          hosting the DOTS server (e.g., a CPE with NAT enabled as shown in
+          <xref target="ex2"></xref> and <xref target="ex2b"></xref>), the
+          DOTS server uses the attack traffic information conveyed in a
+          mitigation request to find the internal source IP address of the
+          compromised device and blocks the traffic from the compromised
+          device traffic to the attack target until the mitigation request is
+          withdrawn. Doing so allows to isolate the suspicious device while
+          avoiding to disturb other services.</t>
 
           <t><figure align="center" anchor="ex2"
               title="Example of a DOTS Server Domain with a NAT Embeded in a CPE">
@@ -512,6 +513,38 @@
   N |     .'                         ' 
   E |     (                           ) 
   T |      (        DOTS server     -'
+  W |       '-(                     )
+  O |          '------+------------' 
+  R |                 |  
+  K |           +-----+-------+
+    |           |Attack Source|                           
+                +-------------+
+]]></artwork>
+            </figure></t>
+
+          <t><figure align="center" anchor="ex2b"
+              title="Example of a DOTS Server and a NAT Embeded in a CPE">
+              <artwork><![CDATA[
+             .-------------------. 
+            (                     )-.
+          .'    Network Provider     ' 
+          (           (DMS)           ) 
+           (      DOTS client       -'
+            '-(                     )
+               '---------+---------' 
+                         |      
+                         |
+   ---             +-----+-----+   
+  S |              |  CPE/NAT  |  External Realm
+  O |..............|           |................         
+  U |              |DOTS server|  Internal Realm
+  R |              +-----------+        
+  C |                  |   
+  E |        .--------+----------. 
+    |       (                     )-.
+  N |     .'                         ' 
+  E |     (     Local Area Network    ) 
+  T |      (                        -'
   W |       '-(                     )
   O |          '------+------------' 
   R |                 |  
@@ -811,7 +844,7 @@ module ietf-dots-call-home {
 
     <section anchor="security" title="Security Considerations">
       <t>This document deviates from classic DOTS signal channel usage by
-      having the DOTS server initiate the TLS or DTLS connection. DOTS signal
+      having the DOTS server initiate the (D)TLS connection. DOTS signal
       channel related security considerations discussed in Section 10 of <xref
       target="I-D.ietf-dots-signal-channel"></xref> MUST be considered. DOTS
       agents MUST authenticate each other using (D)TLS before a DOTS signal
@@ -952,6 +985,8 @@ module ietf-dots-call-home {
       <?rfc include='reference.RFC.8517'?>
 
       <?rfc include='reference.RFC.8576'?>
+
+      <?rfc include='reference.RFC.6147'?>
     </references>
   </back>
 </rfc>

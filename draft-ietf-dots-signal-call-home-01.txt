@@ -79,20 +79,20 @@ Table of Contents
      3.1.  Procedure . . . . . . . . . . . . . . . . . . . . . . . .   7
      3.2.  DOTS Signal Channel Extension . . . . . . . . . . . . . .   8
        3.2.1.  Mitigation Request  . . . . . . . . . . . . . . . . .   8
-       3.2.2.  DOTS Signal Call Home YANG Module . . . . . . . . . .  12
+       3.2.2.  DOTS Signal Call Home YANG Module . . . . . . . . . .  13
    4.  IANA Considerations . . . . . . . . . . . . . . . . . . . . .  16
      4.1.  DOTS Signal Channel Call Home UDP and TCP Port Number . .  16
      4.2.  DOTS Signal Channel CBOR Mappings Registry  . . . . . . .  16
-     4.3.  New DOTS Conflict Cause . . . . . . . . . . . . . . . . .  16
+     4.3.  New DOTS Conflict Cause . . . . . . . . . . . . . . . . .  17
      4.4.  DOTS Signal Call Home YANG Module . . . . . . . . . . . .  17
-   5.  Security Considerations . . . . . . . . . . . . . . . . . . .  17
+   5.  Security Considerations . . . . . . . . . . . . . . . . . . .  18
    6.  Privacy Considerations  . . . . . . . . . . . . . . . . . . .  18
    7.  Contributors  . . . . . . . . . . . . . . . . . . . . . . . .  19
    8.  Acknowledgements  . . . . . . . . . . . . . . . . . . . . . .  19
-   9.  References  . . . . . . . . . . . . . . . . . . . . . . . . .  19
-     9.1.  Normative References  . . . . . . . . . . . . . . . . . .  19
+   9.  References  . . . . . . . . . . . . . . . . . . . . . . . . .  20
+     9.1.  Normative References  . . . . . . . . . . . . . . . . . .  20
      9.2.  Informative References  . . . . . . . . . . . . . . . . .  20
-   Authors' Addresses  . . . . . . . . . . . . . . . . . . . . . . .  22
+   Authors' Addresses  . . . . . . . . . . . . . . . . . . . . . . .  23
 
 1.  Introduction
 
@@ -506,18 +506,18 @@ Reddy, et al.           Expires October 28, 2019                [Page 9]
 Internet-Draft            DOTS Signal Call Home               April 2019
 
 
-   If a Carrier Grade NAT (CGN, including NAT64) is located between the
-   DOTS client domain and DOTS server domain, communicating an external
-   IP address in a mitigation request is likely to be discarded by the
-   DOTS server because the external IP address is not visible locally to
-   the DOTS server (see Figure 3).  The DOTS server is only aware of the
-   internal IP addresses/prefixes bound to its domain.  Thus, the DOTS
-   client MUST NOT include the external IP address and/or port number
-   identifying the suspect attack source, but MUST include the internal
-   IP address and/or port number.  To that aim, the DOTS client SHOULD
-   rely on mechanisms, such as [RFC8512] or [RFC8513], to retrieve the
-   internal IP address and port number which are mapped to an external
-   IP address and port number.
+   If a Carrier Grade NAT (CGN, including NAT64 [RFC6147]) is located
+   between the DOTS client domain and DOTS server domain, communicating
+   an external IP address in a mitigation request is likely to be
+   discarded by the DOTS server because the external IP address is not
+   visible locally to the DOTS server (see Figure 3).  The DOTS server
+   is only aware of the internal IP addresses/prefixes bound to its
+   domain.  Thus, the DOTS client MUST NOT include the external IP
+   address and/or port number identifying the suspect attack source, but
+   MUST include the internal IP address and/or port number.  To that
+   aim, the DOTS client SHOULD rely on mechanisms, such as [RFC8512] or
+   [RFC8513], to retrieve the internal IP address and port number which
+   are mapped to an external IP address and port number.
 
      N |        .-------------------.
      E |       (                     )-.
@@ -573,8 +573,8 @@ Internet-Draft            DOTS Signal Call Home               April 2019
    Section 4.4.1 of [I-D.ietf-dots-signal-channel].
 
    If a translator is enabled on the boundaries of the domain hosting
-   the DOTS server (a CPE with NAT enabled as shown in Figure 4,
-   typically), the DOTS server uses the attack traffic information
+   the DOTS server (e.g., a CPE with NAT enabled as shown in Figure 4
+   and Figure 5), the DOTS server uses the attack traffic information
    conveyed in a mitigation request to find the internal source IP
    address of the compromised device and blocks the traffic from the
    compromised device traffic to the attack target until the mitigation
@@ -618,6 +618,35 @@ Reddy, et al.           Expires October 28, 2019               [Page 11]
 Internet-Draft            DOTS Signal Call Home               April 2019
 
 
+                .-------------------.
+               (                     )-.
+             .'    Network Provider     '
+             (           (DMS)           )
+              (      DOTS client       -'
+               '-(                     )
+                  '---------+---------'
+                            |
+                            |
+      ---             +-----+-----+
+     S |              |  CPE/NAT  |  External Realm
+     O |..............|           |................
+     U |              |DOTS server|  Internal Realm
+     R |              +-----------+
+     C |                  |
+     E |        .--------+----------.
+       |       (                     )-.
+     N |     .'                         '
+     E |     (     Local Area Network    )
+     T |      (                        -'
+     W |       '-(                     )
+     O |          '------+------------'
+     R |                 |
+     K |           +-----+-------+
+       |           |Attack Source|
+                   +-------------+
+
+       Figure 5: Example of a DOTS Server and a NAT Embeded in a CPE
+
    The DOTS server domain administrator consent MAY be required to block
    the traffic from the compromised device to the attack target.  An
    implementation MAY have a configuration knob to block the traffic
@@ -636,6 +665,14 @@ Internet-Draft            DOTS Signal Call Home               April 2019
    4: Mitigation request rejected.  This code is returned by the DOTS
       server to indicate the attack traffic has been classified as
       legitimate traffic.
+
+
+
+
+Reddy, et al.           Expires October 28, 2019               [Page 12]
+
+Internet-Draft            DOTS Signal Call Home               April 2019
+
 
    Once the request is validated by the DOTS server, appropriate actions
    are enforced to block the attack traffic within the source network.
@@ -657,22 +694,6 @@ Internet-Draft            DOTS Signal Call Home               April 2019
    module defined in [I-D.ietf-dots-signal-channel] for signaling the
    attack traffic information.  This document defines the YANG module
    "ietf-dots-call-home", which has the following tree structure:
-
-
-
-
-
-
-
-
-
-
-
-
-Reddy, et al.           Expires October 28, 2019               [Page 12]
-
-Internet-Draft            DOTS Signal Call Home               April 2019
-
 
    module: ietf-dots-call-home
      augment /ietf-signal:dots-signal/ietf-signal:message-type
@@ -701,6 +722,14 @@ Internet-Draft            DOTS Signal Call Home               April 2019
      import ietf-inet-types {
        prefix inet;
        reference
+
+
+
+Reddy, et al.           Expires October 28, 2019               [Page 13]
+
+Internet-Draft            DOTS Signal Call Home               April 2019
+
+
          "Section 4 of RFC 6991";
      }
      import ietf-dots-signal-channel {
@@ -721,14 +750,6 @@ Internet-Draft            DOTS Signal Call Home               April 2019
 
         Editor:  Mohamed Boucadair
                  <mailto:mohamed.boucadair@orange.com>;
-
-
-
-
-Reddy, et al.           Expires October 28, 2019               [Page 13]
-
-Internet-Draft            DOTS Signal Call Home               April 2019
-
 
         Editor:  Jon Shallow
                  <mailto:ietf-supjps@jpshallow.com>";
@@ -757,6 +778,14 @@ Internet-Draft            DOTS Signal Call Home               April 2019
        reference
          "RFC XXXX: Distributed Denial-of-Service Open Threat
                     Signaling (DOTS) Signal Channel Call Home";
+
+
+
+Reddy, et al.           Expires October 28, 2019               [Page 14]
+
+Internet-Draft            DOTS Signal Call Home               April 2019
+
+
      }
 
      feature source-signaling {
@@ -778,14 +807,6 @@ Internet-Draft            DOTS Signal Call Home               April 2019
        list source-port-range {
          key "lower-port";
          description
-
-
-
-Reddy, et al.           Expires October 28, 2019               [Page 14]
-
-Internet-Draft            DOTS Signal Call Home               April 2019
-
-
            "Port range. When only lower-port is
             present, it represents a single port number.";
          leaf lower-port {
@@ -813,6 +834,14 @@ Internet-Draft            DOTS Signal Call Home               April 2019
          leaf lower-type {
            type uint8;
            mandatory true;
+
+
+
+Reddy, et al.           Expires October 28, 2019               [Page 15]
+
+Internet-Draft            DOTS Signal Call Home               April 2019
+
+
            description
              "Lower ICMP type of the ICMP type range.";
          }
@@ -830,17 +859,6 @@ Internet-Draft            DOTS Signal Call Home               April 2019
      }
    }
    <CODE ENDS>
-
-
-
-
-
-
-
-Reddy, et al.           Expires October 28, 2019               [Page 15]
-
-Internet-Draft            DOTS Signal Call Home               April 2019
-
 
 4.  IANA Considerations
 
@@ -867,6 +885,19 @@ Internet-Draft            DOTS Signal Call Home               April 2019
    o  Note to the RFC Editor: Please delete (TBD1)-(TBD5) once CBOR keys
       are assigned from the 0x8000 - 0xBFFF range.
 
+
+
+
+
+
+
+
+
+Reddy, et al.           Expires October 28, 2019               [Page 16]
+
+Internet-Draft            DOTS Signal Call Home               April 2019
+
+
    +-------------------+------------+--------+---------------+--------+
    | Parameter Name    | YANG       | CBOR   | CBOR Major    | JSON   |
    |                   | Type       | Key    |    Type &     | Type   |
@@ -889,14 +920,6 @@ Internet-Draft            DOTS Signal Call Home               April 2019
 
    This document requests IANA to assign a new code from the "DOTS
    Conflict Cause Codes" registry:
-
-
-
-
-Reddy, et al.           Expires October 28, 2019               [Page 16]
-
-Internet-Draft            DOTS Signal Call Home               April 2019
-
 
    +------+------------------+-----------------------------+-----------+
    | Code | Label            | Description                 | Reference |
@@ -922,6 +945,15 @@ Internet-Draft            DOTS Signal Call Home               April 2019
    This document requests IANA to register the following YANG module in
    the "YANG Module Names" registry [RFC7950].
 
+
+
+
+
+Reddy, et al.           Expires October 28, 2019               [Page 17]
+
+Internet-Draft            DOTS Signal Call Home               April 2019
+
+
             Name: ietf-call-home
             Namespace: urn:ietf:params:xml:ns:yang:ietf-dots-call-home
             Maintained by IANA: N
@@ -931,11 +963,11 @@ Internet-Draft            DOTS Signal Call Home               April 2019
 5.  Security Considerations
 
    This document deviates from classic DOTS signal channel usage by
-   having the DOTS server initiate the TLS or DTLS connection.  DOTS
-   signal channel related security considerations discussed in
-   Section 10 of [I-D.ietf-dots-signal-channel] MUST be considered.
-   DOTS agents MUST authenticate each other using (D)TLS before a DOTS
-   signal channel session is considered valid.
+   having the DOTS server initiate the (D)TLS connection.  DOTS signal
+   channel related security considerations discussed in Section 10 of
+   [I-D.ietf-dots-signal-channel] MUST be considered.  DOTS agents MUST
+   authenticate each other using (D)TLS before a DOTS signal channel
+   session is considered valid.
 
    An attacker may launch a DoS attack on the DOTS client by having it
    perform computationally expensive operations, before deducing that
@@ -945,14 +977,6 @@ Internet-Draft            DOTS Signal Call Home               April 2019
    Common precautions mitigating DoS attacks are recommended, such as
    temporarily blacklisting the source address after a set number of
    unsuccessful authentication attempts.
-
-
-
-
-Reddy, et al.           Expires October 28, 2019               [Page 17]
-
-Internet-Draft            DOTS Signal Call Home               April 2019
-
 
    DOTS servers may not blindly trust mitigation requests from DOTS
    clients.  For example, DOTS servers can use the attack flow
@@ -978,6 +1002,14 @@ Internet-Draft            DOTS Signal Call Home               April 2019
    The DOTS Call Home extension does not preclude the validation of
    mitigation requests received from a DOTS client.  For example, a
    security service running on the CPE may require administrator's
+
+
+
+Reddy, et al.           Expires October 28, 2019               [Page 18]
+
+Internet-Draft            DOTS Signal Call Home               April 2019
+
+
    consent before the CPE acts upon the mitigation request indicated by
    the DOTS client.  How the consent is obtained is out of scope of this
    document.
@@ -1002,14 +1034,6 @@ Internet-Draft            DOTS Signal Call Home               April 2019
    domain to detect potential outbound DDoS attacks or on abuse claims
    received from remote victim networks.  Such DDoS detection and
    mitigation techniques are not meant to track the activity of users,
-
-
-
-Reddy, et al.           Expires October 28, 2019               [Page 18]
-
-Internet-Draft            DOTS Signal Call Home               April 2019
-
-
    but to protect the Internet and avoid altering the IP reputation of
    the DOTS client domain.
 
@@ -1029,6 +1053,18 @@ Internet-Draft            DOTS Signal Call Home               April 2019
 
    Thanks to Wei Pei, Xia Liang, Roman Danyliw, Dan Wing, Toema
    Gavrichenkov, Daniel Migault, and Valery Smyslov for the comments.
+
+
+
+
+
+
+
+
+Reddy, et al.           Expires October 28, 2019               [Page 19]
+
+Internet-Draft            DOTS Signal Call Home               April 2019
+
 
 9.  References
 
@@ -1058,14 +1094,6 @@ Internet-Draft            DOTS Signal Call Home               April 2019
               RFC 6991, DOI 10.17487/RFC6991, July 2013,
               <https://www.rfc-editor.org/info/rfc6991>.
 
-
-
-
-Reddy, et al.           Expires October 28, 2019               [Page 19]
-
-Internet-Draft            DOTS Signal Call Home               April 2019
-
-
    [RFC7950]  Bjorklund, M., Ed., "The YANG 1.1 Data Modeling Language",
               RFC 7950, DOI 10.17487/RFC7950, August 2016,
               <https://www.rfc-editor.org/info/rfc7950>.
@@ -1085,6 +1113,14 @@ Internet-Draft            DOTS Signal Call Home               April 2019
               Considerations for Distributed-Denial-of-Service Open
               Threat Signaling (DOTS)", draft-ietf-dots-multihoming-01
               (work in progress), January 2019.
+
+
+
+
+Reddy, et al.           Expires October 28, 2019               [Page 20]
+
+Internet-Draft            DOTS Signal Call Home               April 2019
+
 
    [I-D.ietf-dots-requirements]
               Mortensen, A., K, R., and R. Moskowitz, "Distributed
@@ -1114,14 +1150,6 @@ Internet-Draft            DOTS Signal Call Home               April 2019
               Plan", BCP 122, RFC 4632, DOI 10.17487/RFC4632, August
               2006, <https://www.rfc-editor.org/info/rfc4632>.
 
-
-
-
-Reddy, et al.           Expires October 28, 2019               [Page 20]
-
-Internet-Draft            DOTS Signal Call Home               April 2019
-
-
    [RFC4732]  Handley, M., Ed., Rescorla, E., Ed., and IAB, "Internet
               Denial-of-Service Considerations", RFC 4732,
               DOI 10.17487/RFC4732, December 2006,
@@ -1135,6 +1163,20 @@ Internet-Draft            DOTS Signal Call Home               April 2019
               and D. McPherson, "Dissemination of Flow Specification
               Rules", RFC 5575, DOI 10.17487/RFC5575, August 2009,
               <https://www.rfc-editor.org/info/rfc5575>.
+
+   [RFC6147]  Bagnulo, M., Sullivan, A., Matthews, P., and I. van
+              Beijnum, "DNS64: DNS Extensions for Network Address
+              Translation from IPv6 Clients to IPv4 Servers", RFC 6147,
+              DOI 10.17487/RFC6147, April 2011,
+              <https://www.rfc-editor.org/info/rfc6147>.
+
+
+
+
+Reddy, et al.           Expires October 28, 2019               [Page 21]
+
+Internet-Draft            DOTS Signal Call Home               April 2019
+
 
    [RFC6973]  Cooper, A., Tschofenig, H., Aboba, B., Peterson, J.,
               Morris, J., Hansen, M., and R. Smith, "Privacy
@@ -1167,17 +1209,6 @@ Internet-Draft            DOTS Signal Call Home               April 2019
               (NPT)", RFC 8512, DOI 10.17487/RFC8512, January 2019,
               <https://www.rfc-editor.org/info/rfc8512>.
 
-
-
-
-
-
-
-Reddy, et al.           Expires October 28, 2019               [Page 21]
-
-Internet-Draft            DOTS Signal Call Home               April 2019
-
-
    [RFC8513]  Boucadair, M., Jacquenet, C., and S. Sivakumar, "A YANG
               Data Model for Dual-Stack Lite (DS-Lite)", RFC 8513,
               DOI 10.17487/RFC8513, January 2019,
@@ -1193,6 +1224,15 @@ Internet-Draft            DOTS Signal Call Home               April 2019
               Things (IoT) Security: State of the Art and Challenges",
               RFC 8576, DOI 10.17487/RFC8576, April 2019,
               <https://www.rfc-editor.org/info/rfc8576>.
+
+
+
+
+
+Reddy, et al.           Expires October 28, 2019               [Page 22]
+
+Internet-Draft            DOTS Signal Call Home               April 2019
+
 
 Authors' Addresses
 
@@ -1229,4 +1269,20 @@ Authors' Addresses
 
 
 
-Reddy, et al.           Expires October 28, 2019               [Page 22]
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Reddy, et al.           Expires October 28, 2019               [Page 23]
