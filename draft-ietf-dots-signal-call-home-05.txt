@@ -253,6 +253,11 @@ Internet-Draft            DOTS Signal Call Home                July 2019
 
              Figure 1: Basic Call Home Functional Architecture
 
+   DOTS agents involved in the DOTS Call Home adhere to the DOTS roles
+   as defined in [RFC8612].  For clarity, this document uses "Call Home
+   DOTS client" (or "Call Home DOTS server") to refer to a DOTS client
+   (or DOTS server) deployed in a Call Home scenario.
+
    A DOTS client relies upon a variety of triggers to make use of the
    Call Home function (e.g., scrubbing the traffic from the attack
    source, receiving an alert from an attack target, a peer DDoS
@@ -268,12 +273,7 @@ Internet-Draft            DOTS Signal Call Home                July 2019
    server maintains a single DOTS signal channel session for each DOTS-
    capable upstream provisioning domain [I-D.ietf-dots-multihoming].
 
-   For instance, the Call Home DOTS server in the home network initiates
-   the signal channel Call Home in 'idle' time and then subsequently the
-   Call Home DOTS client in the ISP environment can initiate a
-   mitigation request whenever the ISP detects there is an attack from a
-   compromised device in the DOTS server domain (i.e., from within the
-   home network).
+
 
 
 
@@ -281,6 +281,13 @@ Reddy, et al.           Expires January 27, 2020                [Page 5]
 
 Internet-Draft            DOTS Signal Call Home                July 2019
 
+
+   For instance, the Call Home DOTS server in the home network initiates
+   the signal channel Call Home in 'idle' time and then subsequently the
+   Call Home DOTS client in the ISP environment can initiate a
+   mitigation request whenever the ISP detects there is an attack from a
+   compromised device in the DOTS server domain (i.e., from within the
+   home network).
 
    The Call Home DOTS server uses the DDoS attack traffic information to
    identify the compromised device in its domain that is responsible for
@@ -310,13 +317,6 @@ Internet-Draft            DOTS Signal Call Home                July 2019
    those deployments to block DDoS attack traffic closer to the
    source(s) of the attack.  An instantiation of the Call Home
    functional architecture is depicted in Figure 2.
-
-
-
-
-
-
-
 
 
 
@@ -603,13 +603,13 @@ Internet-Draft            DOTS Signal Call Home                July 2019
 
    The reader should be familiar with the terms defined in [RFC8612].
 
-   DOTS agents involved in the DOTS Call Home adhere to the DOTS roles
-   as defined in [RFC8612].  For clarity, this document uses "Call Home
-   DOTS client" (or "Call Home DOTS server") to refer to a DOTS client
-   (or DOTS server) deployed in a Call Home scenario.
-
    The meaning of the symbols in YANG tree diagrams is defined in
    [RFC8340].
+
+   (D)TLS is used for statements that apply to both Transport Layer
+   Security (TLS) [RFC8446] and Datagram Transport Layer Security (DTLS)
+   [RFC6347].  Specific terms are used for any statement that applies to
+   either protocol alone.
 
 
 
@@ -617,11 +617,6 @@ Reddy, et al.           Expires January 27, 2020               [Page 11]
 
 Internet-Draft            DOTS Signal Call Home                July 2019
 
-
-   (D)TLS is used for statements that apply to both Transport Layer
-   Security (TLS) [RFC8446] and Datagram Transport Layer Security (DTLS)
-   [RFC6347].  Specific terms are used for any statement that applies to
-   either protocol alone.
 
 3.  DOTS Signal Channel Call Home
 
@@ -667,17 +662,17 @@ Internet-Draft            DOTS Signal Call Home                July 2019
 
          Figure 7: DOTS Signal Channel Call Home Sequence Diagram
 
+   The DOTS signal channel Call Home procedure is as follows:
+
+   1.  If UDP transport is used, the Call Home DOTS server begins by
+       initiating a DTLS connection to the Call Home DOTS client.
+
 
 
 Reddy, et al.           Expires January 27, 2020               [Page 12]
 
 Internet-Draft            DOTS Signal Call Home                July 2019
 
-
-   The DOTS signal channel Call Home procedure is as follows:
-
-   1.  If UDP transport is used, the Call Home DOTS server begins by
-       initiating a DTLS connection to the Call Home DOTS client.
 
        If TCP is used, the Call Home DOTS server begins by initiating a
        TCP connection to the Call Home DOTS client.  Using this TCP
@@ -721,6 +716,11 @@ Internet-Draft            DOTS Signal Call Home                July 2019
    path translators/firewalls are maintaining a binding so that the same
    external IP address and/or port number is retained for the DOTS
    signal channel session.  A Call Home DOTS client MAY trigger their
+   heartbeat requests immediately after receiving heartbeat probes from
+   its peer Call Home DOTS server.
+
+   When an outgoing attack that saturates the outgoing link from the
+   Call Home DOTS server is detected and reported by a Call Home DOTS
 
 
 
@@ -730,11 +730,6 @@ Reddy, et al.           Expires January 27, 2020               [Page 13]
 Internet-Draft            DOTS Signal Call Home                July 2019
 
 
-   heartbeat requests immediately after receiving heartbeat probes from
-   its peer Call Home DOTS server.
-
-   When an outgoing attack that saturates the outgoing link from the
-   Call Home DOTS server is detected and reported by a Call Home DOTS
    client, the latter MUST continue to use the signal channel even if no
    traffic is received from the Call Home DOTS server.
 
@@ -778,6 +773,11 @@ Internet-Draft            DOTS Signal Call Home                July 2019
    source-port-range:  A list of port numbers used by the attack traffic
       flows.
 
+      A port range is defined by two bounds, a lower port number (lower-
+      port) and an upper port number (upper-port).  When only 'lower-
+      port' is present, it represents a single port number.
+
+
 
 
 
@@ -785,10 +785,6 @@ Reddy, et al.           Expires January 27, 2020               [Page 14]
 
 Internet-Draft            DOTS Signal Call Home                July 2019
 
-
-      A port range is defined by two bounds, a lower port number (lower-
-      port) and an upper port number (upper-port).  When only 'lower-
-      port' is present, it represents a single port number.
 
       For TCP, UDP, Stream Control Transmission Protocol (SCTP)
       [RFC4960], or Datagram Congestion Control Protocol (DCCP)
@@ -833,7 +829,11 @@ Internet-Draft            DOTS Signal Call Home                July 2019
    within the scope of the Call Home DOTS server domain.  Note that in a
    Call Home scenario, the Call Home DOTS server considers, by default,
    that any routeable IP prefix enclosed in 'target-prefix' is within
+   the scope of the Call Home DOTS client.  Invalid mitigation requests
+   are handled as per Section 4.4.1 of [I-D.ietf-dots-signal-channel].
 
+   The Call Home DOTS server domain administrator consent MAY be
+   required to block the traffic from the compromised device to the
 
 
 
@@ -842,11 +842,6 @@ Reddy, et al.           Expires January 27, 2020               [Page 15]
 Internet-Draft            DOTS Signal Call Home                July 2019
 
 
-   the scope of the Call Home DOTS client.  Invalid mitigation requests
-   are handled as per Section 4.4.1 of [I-D.ietf-dots-signal-channel].
-
-   The Call Home DOTS server domain administrator consent MAY be
-   required to block the traffic from the compromised device to the
    attack target.  An implementation MAY have a configuration knob to
    block the traffic from the compromised device to the attack target
    with or without DOTS server domain administrator consent.  If the
@@ -890,6 +885,11 @@ Internet-Draft            DOTS Signal Call Home                July 2019
    source, but MUST include the internal IP address and/or port number.
    To that aim, the Call Home DOTS client SHOULD rely on mechanisms,
    such as [RFC8512] or [RFC8513], to retrieve the internal IP address
+   and port number which are mapped to an external IP address and port
+   number.
+
+
+
 
 
 
@@ -897,9 +897,6 @@ Reddy, et al.           Expires January 27, 2020               [Page 16]
 
 Internet-Draft            DOTS Signal Call Home                July 2019
 
-
-   and port number which are mapped to an external IP address and port
-   number.
 
      N |        .-------------------.
      E |       (                     )-.
@@ -945,6 +942,9 @@ Internet-Draft            DOTS Signal Call Home                July 2019
    information conveyed in a mitigation request to find the internal
    source IP address of the compromised device and blocks the traffic
    from the compromised device traffic to the attack target until the
+   mitigation request is withdrawn.  Doing so allows to isolate the
+   suspicious device while avoiding to disturb other services.
+
 
 
 
@@ -953,9 +953,6 @@ Reddy, et al.           Expires January 27, 2020               [Page 17]
 
 Internet-Draft            DOTS Signal Call Home                July 2019
 
-
-   mitigation request is withdrawn.  Doing so allows to isolate the
-   suspicious device while avoiding to disturb other services.
 
                 .-------------------.
                (                     )-.
@@ -986,6 +983,9 @@ Internet-Draft            DOTS Signal Call Home                July 2019
 
     Figure 9: Example of a DOTS Server Domain with a NAT Embedded in a
                                     CPE
+
+
+
 
 
 

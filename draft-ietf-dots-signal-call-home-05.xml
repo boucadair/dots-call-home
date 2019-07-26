@@ -209,7 +209,7 @@
 
         <t>The basic high-level Call Home functional architecture is shown in
         <xref target="fa"></xref>. Attack source(s) are within the DOTS server
-        domain.</t>
+        domain. </t>
 
         <t><figure align="center" anchor="fa"
             title="Basic Call Home Functional Architecture">
@@ -223,6 +223,12 @@
        | Attack Source | ~~~~~~ | DOTS server | ~~~~~~ | Mitigator |
        +---------------+        +-------------+        +-----------+]]></artwork>
           </figure></t>
+
+        <t>DOTS agents involved in the DOTS Call Home adhere to the DOTS roles
+        as defined in <xref target="RFC8612"></xref>. For clarity, this
+        document uses "Call Home DOTS client" (or "Call Home DOTS server") to
+        refer to a DOTS client (or DOTS server) deployed in a Call Home
+        scenario.</t>
 
         <t>A DOTS client relies upon a variety of triggers to make use of the
         Call Home function (e.g., scrubbing the traffic from the attack
@@ -453,11 +459,6 @@ Outbound ||      |     ::     |       || Inbound
 
       <t>The reader should be familiar with the terms defined in <xref
       target="RFC8612"></xref>.</t>
-
-      <t>DOTS agents involved in the DOTS Call Home adhere to the DOTS roles
-      as defined in <xref target="RFC8612"></xref>. For clarity, this document
-      uses "Call Home DOTS client" (or "Call Home DOTS server") to refer to a
-      DOTS client (or DOTS server) deployed in a Call Home scenario.</t>
 
       <t>The meaning of the symbols in YANG tree diagrams is defined in <xref
       target="RFC8340"></xref>.</t>
