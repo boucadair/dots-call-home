@@ -460,6 +460,13 @@ Outbound ||      |     ::     |       || Inbound
       <t>The reader should be familiar with the terms defined in <xref
       target="RFC8612"></xref>.</t>
 
+      <t>'DOTS signal channel Call Home' refers to a DOTS signal channel
+      established at the initiative of a DOTS server. That is, the DOTS server
+      (a.k.a., Call Home DOTS server) initiates a secure connection to a DOTS
+      client (a.k.a., Call Home DOTS client), and uses that connection to
+      receive the attack traffic information from the Call Home DOTS client.
+      More details are provided in <xref target="spec"></xref>.</t>
+
       <t>The meaning of the symbols in YANG tree diagrams is defined in <xref
       target="RFC8340"></xref>.</t>
 
@@ -469,7 +476,7 @@ Outbound ||      |     ::     |       || Inbound
       used for any statement that applies to either protocol alone.</t>
     </section>
 
-    <section title="DOTS Signal Channel Call Home">
+    <section anchor="spec" title="DOTS Signal Channel Call Home">
       <section title="Procedure">
         <t>The DOTS signal channel Call Home extension preserves all but one
         of the DOTS client/server roles in the DOTS protocol stack, as

@@ -105,7 +105,7 @@ Table of Contents
      3.2.  Heartbeat Mechanism . . . . . . . . . . . . . . . . . . .  13
      3.3.  DOTS Signal Channel Extension . . . . . . . . . . . . . .  14
        3.3.1.  Mitigation Request  . . . . . . . . . . . . . . . . .  14
-       3.3.2.  Address Sharing Considerations  . . . . . . . . . . .  16
+       3.3.2.  Address Sharing Considerations  . . . . . . . . . . .  17
 
 
 
@@ -603,13 +603,13 @@ Internet-Draft            DOTS Signal Call Home                July 2019
 
    The reader should be familiar with the terms defined in [RFC8612].
 
-   The meaning of the symbols in YANG tree diagrams is defined in
-   [RFC8340].
+   'DOTS signal channel Call Home' refers to a DOTS signal channel
+   established at the initiative of a DOTS server.  That is, the DOTS
+   server (a.k.a., Call Home DOTS server) initiates a secure connection
+   to a DOTS client (a.k.a., Call Home DOTS client), and uses that
+   connection to receive the attack traffic information from the Call
+   Home DOTS client.  More details are provided in Section 3.
 
-   (D)TLS is used for statements that apply to both Transport Layer
-   Security (TLS) [RFC8446] and Datagram Transport Layer Security (DTLS)
-   [RFC6347].  Specific terms are used for any statement that applies to
-   either protocol alone.
 
 
 
@@ -617,6 +617,14 @@ Reddy, et al.           Expires January 27, 2020               [Page 11]
 
 Internet-Draft            DOTS Signal Call Home                July 2019
 
+
+   The meaning of the symbols in YANG tree diagrams is defined in
+   [RFC8340].
+
+   (D)TLS is used for statements that apply to both Transport Layer
+   Security (TLS) [RFC8446] and Datagram Transport Layer Security (DTLS)
+   [RFC6347].  Specific terms are used for any statement that applies to
+   either protocol alone.
 
 3.  DOTS Signal Channel Call Home
 
@@ -647,6 +655,25 @@ Internet-Draft            DOTS Signal Call Home                July 2019
 
    Figure 7 illustrates a sample Call Home flow exchange:
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Reddy, et al.           Expires January 27, 2020               [Page 12]
+
+Internet-Draft            DOTS Signal Call Home                July 2019
+
+
               +-----------+                        +-----------+
               | Call Home |                        | Call Home |
               |    DOTS   |                        |    DOTS   |
@@ -666,13 +693,6 @@ Internet-Draft            DOTS Signal Call Home                July 2019
 
    1.  If UDP transport is used, the Call Home DOTS server begins by
        initiating a DTLS connection to the Call Home DOTS client.
-
-
-
-Reddy, et al.           Expires January 27, 2020               [Page 12]
-
-Internet-Draft            DOTS Signal Call Home                July 2019
-
 
        If TCP is used, the Call Home DOTS server begins by initiating a
        TCP connection to the Call Home DOTS client.  Using this TCP
@@ -703,6 +723,13 @@ Internet-Draft            DOTS Signal Call Home                July 2019
    section specifies the behavior to be followed by DOTS agents for the
    Call Home.
 
+
+
+Reddy, et al.           Expires January 27, 2020               [Page 13]
+
+Internet-Draft            DOTS Signal Call Home                July 2019
+
+
    Once the (D)TLS section is established between the DOTS agents, the
    Call Home DOTS client contacts the Call Home DOTS server to retrieve
    the session configuration parameters (Section 4.5 of
@@ -721,15 +748,6 @@ Internet-Draft            DOTS Signal Call Home                July 2019
 
    When an outgoing attack that saturates the outgoing link from the
    Call Home DOTS server is detected and reported by a Call Home DOTS
-
-
-
-
-Reddy, et al.           Expires January 27, 2020               [Page 13]
-
-Internet-Draft            DOTS Signal Call Home                July 2019
-
-
    client, the latter MUST continue to use the signal channel even if no
    traffic is received from the Call Home DOTS server.
 
@@ -759,6 +777,15 @@ Internet-Draft            DOTS Signal Call Home                July 2019
       target.  Prefixes are represented using Classless Inter-Domain
       Routing (CIDR) notation [RFC4632].
 
+
+
+
+
+Reddy, et al.           Expires January 27, 2020               [Page 14]
+
+Internet-Draft            DOTS Signal Call Home                July 2019
+
+
       As a reminder, the prefix length MUST be less than or equal to 32
       (or 128) for IPv4 (or IPv6).
 
@@ -776,15 +803,6 @@ Internet-Draft            DOTS Signal Call Home                July 2019
       A port range is defined by two bounds, a lower port number (lower-
       port) and an upper port number (upper-port).  When only 'lower-
       port' is present, it represents a single port number.
-
-
-
-
-
-Reddy, et al.           Expires January 27, 2020               [Page 14]
-
-Internet-Draft            DOTS Signal Call Home                July 2019
-
 
       For TCP, UDP, Stream Control Transmission Protocol (SCTP)
       [RFC4960], or Datagram Congestion Control Protocol (DCCP)
@@ -816,6 +834,14 @@ Internet-Draft            DOTS Signal Call Home                July 2019
 
    In order to help attack source identification by a Call Home DOTS
    server, the Call Home DOTS client SHOULD include in its mitigation
+
+
+
+Reddy, et al.           Expires January 27, 2020               [Page 15]
+
+Internet-Draft            DOTS Signal Call Home                July 2019
+
+
    request additional information such as 'source-port-range' or
    'source-icmp-type-range'.  The Call Home DOTS client may not include
    such information if 'source-prefix' conveys an IPv6 address/prefix.
@@ -834,14 +860,6 @@ Internet-Draft            DOTS Signal Call Home                July 2019
 
    The Call Home DOTS server domain administrator consent MAY be
    required to block the traffic from the compromised device to the
-
-
-
-Reddy, et al.           Expires January 27, 2020               [Page 15]
-
-Internet-Draft            DOTS Signal Call Home                July 2019
-
-
    attack target.  An implementation MAY have a configuration knob to
    block the traffic from the compromised device to the attack target
    with or without DOTS server domain administrator consent.  If the
@@ -872,6 +890,14 @@ Internet-Draft            DOTS Signal Call Home                July 2019
    (e.g., using MAC level filtering) until it is remediated, and
    notifies the CPE administrator about the compromised device.
 
+
+
+
+Reddy, et al.           Expires January 27, 2020               [Page 16]
+
+Internet-Draft            DOTS Signal Call Home                July 2019
+
+
 3.3.2.  Address Sharing Considerations
 
    If a Carrier Grade NAT (CGN, including NAT64) is located between the
@@ -887,16 +913,6 @@ Internet-Draft            DOTS Signal Call Home                July 2019
    such as [RFC8512] or [RFC8513], to retrieve the internal IP address
    and port number which are mapped to an external IP address and port
    number.
-
-
-
-
-
-
-Reddy, et al.           Expires January 27, 2020               [Page 16]
-
-Internet-Draft            DOTS Signal Call Home                July 2019
-
 
      N |        .-------------------.
      E |       (                     )-.
@@ -929,6 +945,15 @@ Internet-Draft            DOTS Signal Call Home                July 2019
 
               Figure 8: Example of a CGN between DOTS Domains
 
+
+
+
+
+Reddy, et al.           Expires January 27, 2020               [Page 17]
+
+Internet-Draft            DOTS Signal Call Home                July 2019
+
+
    If a MAP Border Relay [RFC7597] or lwAFTR [RFC7596] is enabled in the
    provider's domain to service its customers, the identification of an
    attack source bound to an IPv4 address/prefix MUST also rely on
@@ -944,15 +969,6 @@ Internet-Draft            DOTS Signal Call Home                July 2019
    from the compromised device traffic to the attack target until the
    mitigation request is withdrawn.  Doing so allows to isolate the
    suspicious device while avoiding to disturb other services.
-
-
-
-
-
-Reddy, et al.           Expires January 27, 2020               [Page 17]
-
-Internet-Draft            DOTS Signal Call Home                July 2019
-
 
                 .-------------------.
                (                     )-.
@@ -983,22 +999,6 @@ Internet-Draft            DOTS Signal Call Home                July 2019
 
     Figure 9: Example of a DOTS Server Domain with a NAT Embedded in a
                                     CPE
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
