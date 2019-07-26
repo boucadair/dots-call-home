@@ -16,16 +16,16 @@ Expires: January 27, 2020                                         Orange
 
 Abstract
 
-   This document specifies the DOTS signal channel Call Home service,
-   which enables a DOTS server to initiate a secure connection to a DOTS
+   This document specifies the DOTS signal channel Call Home, which
+   enables a DOTS server to initiate a secure connection to a DOTS
    client, and to receive the attack traffic information from the DOTS
    client.  The DOTS server in turn uses the attack traffic information
    to identify the compromised devices launching the outgoing DDoS
    attack and takes appropriate mitigation action(s).
 
-   The DOTS Call Home service is not specific to the home networks; the
-   solution targets any deployment which requires to block DDoS attack
-   traffic closer to the source(s) of a DDoS attack.
+   The DOTS signal channel Call Home is not specific to the home
+   networks; the solution targets any deployment which requires to block
+   DDoS attack traffic closer to the source(s) of a DDoS attack.
 
 Editorial Note (To be removed by RFC Editor)
 
@@ -114,21 +114,21 @@ Reddy, et al.           Expires January 27, 2020                [Page 2]
 Internet-Draft            DOTS Signal Call Home                July 2019
 
 
-       3.3.3.  DOTS Signal Call Home YANG Module . . . . . . . . . .  19
-   4.  IANA Considerations . . . . . . . . . . . . . . . . . . . . .  23
-     4.1.  DOTS Signal Channel Call Home UDP and TCP Port Number . .  23
-     4.2.  DOTS Signal Channel CBOR Mappings Registry  . . . . . . .  23
-     4.3.  New DOTS Conflict Cause . . . . . . . . . . . . . . . . .  24
-     4.4.  DOTS Signal Call Home YANG Module . . . . . . . . . . . .  25
-   5.  Security Considerations . . . . . . . . . . . . . . . . . . .  25
-   6.  Privacy Considerations  . . . . . . . . . . . . . . . . . . .  26
-   7.  Contributors  . . . . . . . . . . . . . . . . . . . . . . . .  26
-   8.  Acknowledgements  . . . . . . . . . . . . . . . . . . . . . .  27
-   9.  References  . . . . . . . . . . . . . . . . . . . . . . . . .  27
-     9.1.  Normative References  . . . . . . . . . . . . . . . . . .  27
-     9.2.  Informative References  . . . . . . . . . . . . . . . . .  28
-   Appendix A.  Disambiguate Base DOTS Signal vs. Call Home  . . . .  30
-   Authors' Addresses  . . . . . . . . . . . . . . . . . . . . . . .  31
+       3.3.3.  DOTS Signal Call Home YANG Module . . . . . . . . . .  20
+   4.  IANA Considerations . . . . . . . . . . . . . . . . . . . . .  24
+     4.1.  DOTS Signal Channel Call Home UDP and TCP Port Number . .  24
+     4.2.  DOTS Signal Channel CBOR Mappings Registry  . . . . . . .  24
+     4.3.  New DOTS Conflict Cause . . . . . . . . . . . . . . . . .  25
+     4.4.  DOTS Signal Call Home YANG Module . . . . . . . . . . . .  26
+   5.  Security Considerations . . . . . . . . . . . . . . . . . . .  26
+   6.  Privacy Considerations  . . . . . . . . . . . . . . . . . . .  27
+   7.  Contributors  . . . . . . . . . . . . . . . . . . . . . . . .  27
+   8.  Acknowledgements  . . . . . . . . . . . . . . . . . . . . . .  28
+   9.  References  . . . . . . . . . . . . . . . . . . . . . . . . .  28
+     9.1.  Normative References  . . . . . . . . . . . . . . . . . .  28
+     9.2.  Informative References  . . . . . . . . . . . . . . . . .  29
+   Appendix A.  Disambiguate Base DOTS Signal vs. Call Home  . . . .  31
+   Authors' Addresses  . . . . . . . . . . . . . . . . . . . . . . .  32
 
 1.  Introduction
 
@@ -251,7 +251,7 @@ Internet-Draft            DOTS Signal Call Home                July 2019
           | Attack Source | ~~~~~~ | DOTS server | ~~~~~~ | Mitigator |
           +---------------+        +-------------+        +-----------+
 
-             Figure 1: Basic Call Home Functional Architecture
+   Figure 1: Basic DOTS Signal Channel Call Home Functional Architecture
 
    DOTS agents involved in the DOTS Call Home adhere to the DOTS roles
    as defined in [RFC8612].  For clarity, this document uses "Call Home
@@ -528,8 +528,8 @@ Internet-Draft            DOTS Signal Call Home                July 2019
               +-.-.-.-.-.-.-.-.-.-++-.-.-.-.-.-.-.-.-.-+
                               Network #C
 
-     Figure 5: Example of the Same Node Embedding both DOTS Client and
-              Server Instances at the Network Provider's Side
+    Figure 5: Example of the Same Node Embedding both a Call Home DOTS
+     Client and a DOTS Server Instances at the Network Provider's Side
 
 
 
@@ -587,8 +587,8 @@ Internet-Draft            DOTS Signal Call Home                July 2019
               +-.-.-.-.-.-.-.-.-.-++-.-.-.-.-.-.-.-.-.-+
                               Network #D
 
-   Figure 6: Another Example where the Same Node Embeds both DOTS Client
-                           and Server Instances
+     Figure 6: Another Example where the Same Node Embeds both a DOTS
+                    Client and a Call Home DOTS Server
 
    Appendix A elaborates on the considerations to unambiguously
    distinguish DOTS messages which belong to each of these channels.
@@ -603,13 +603,13 @@ Internet-Draft            DOTS Signal Call Home                July 2019
 
    The reader should be familiar with the terms defined in [RFC8612].
 
-   'DOTS signal channel Call Home' refers to a DOTS signal channel
-   established at the initiative of a DOTS server.  That is, the DOTS
-   server (a.k.a., Call Home DOTS server) initiates a secure connection
-   to a DOTS client (a.k.a., Call Home DOTS client), and uses that
-   connection to receive the attack traffic information from the Call
-   Home DOTS client.  More details are provided in Section 3.
-
+   'DOTS signal channel Call Home' (or DOTS Call Home, for short) refers
+   to a DOTS signal channel established at the initiative of a DOTS
+   server.  That is, the DOTS server (a.k.a., Call Home DOTS server)
+   initiates a secure connection to a DOTS client (a.k.a., Call Home
+   DOTS client), and uses that connection to receive the attack traffic
+   information from the Call Home DOTS client.  More details are
+   provided in Section 3.
 
 
 
@@ -617,6 +617,8 @@ Reddy, et al.           Expires January 27, 2020               [Page 11]
 
 Internet-Draft            DOTS Signal Call Home                July 2019
 
+
+   'Base DOTS signal channel' refers to [I-D.ietf-dots-signal-channel].
 
    The meaning of the symbols in YANG tree diagrams is defined in
    [RFC8340].
@@ -653,9 +655,7 @@ Internet-Draft            DOTS Signal Call Home                July 2019
    DOTS client and hence the Call Home DOTS server cannot be subjected
    to these DDoS attacks.
 
-   Figure 7 illustrates a sample Call Home flow exchange:
-
-
+   Figure 7 illustrates a sample DOTS Call Home flow exchange:
 
 
 
@@ -702,7 +702,7 @@ Internet-Draft            DOTS Signal Call Home                July 2019
        In some cases, peer DOTS agents may have mutual agreement to use
        a specific port number, such as by explicit configuration or
        dynamic discovery [I-D.ietf-dots-server-discovery].  Absent such
-       mutual agreement, the DOTS signal channel call home MUST run over
+       mutual agreement, the DOTS signal channel Call Home MUST run over
        port number TBD (that is, Call Home DOTS clients must support
        accepting DTLS (or TCP) connections on TBD) as defined in
        Section 4.1, for both UDP and TCP.  The interaction between the
@@ -718,8 +718,8 @@ Internet-Draft            DOTS Signal Call Home                July 2019
 
 3.2.  Heartbeat Mechanism
 
-   The Heartbeat mechanism used for the Call Home deviates from the one
-   defined in Section 4.7 of [I-D.ietf-dots-signal-channel].  This
+   The Heartbeat mechanism used for the DOTS Call Home deviates from the
+   one defined in Section 4.7 of [I-D.ietf-dots-signal-channel].  This
    section specifies the behavior to be followed by DOTS agents for the
    Call Home.
 
@@ -795,7 +795,7 @@ Internet-Draft            DOTS Signal Call Home                July 2019
       within the scope of the DOTS server domain.
 
       This is an optional attribute for the base DOTS signal channel
-      operations [I-D.ietf-dots-signal-channel].
+      operations.
 
    source-port-range:  A list of port numbers used by the attack traffic
       flows.
@@ -810,7 +810,7 @@ Internet-Draft            DOTS Signal Call Home                July 2019
       example, 0-1023, 1024-65535, or 1024-49151.
 
       This is an optional attribute for the base DOTS signal channel
-      operations [I-D.ietf-dots-signal-channel].
+      operations.
 
    source-icmp-type-range:  A list of ICMP types used by the attack
       traffic flows.  An ICMP type range is defined by two bounds, a
@@ -819,7 +819,55 @@ Internet-Draft            DOTS Signal Call Home                July 2019
       type.
 
       This is an optional attribute for the base DOTS signal channel
-      operations [I-D.ietf-dots-signal-channel].
+      operations.
+
+   An example of a mitigation request sent by a Call Home DOTS client is
+   shown in Figure 8.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Reddy, et al.           Expires January 27, 2020               [Page 15]
+
+Internet-Draft            DOTS Signal Call Home                July 2019
+
+
+     Header: PUT (Code=0.03)
+     Uri-Path: ".well-known"
+     Uri-Path: "dots"
+     Uri-Path: "mitigate"
+     Uri-Path: "cuid=dz6pHjaADkaFTbjr0JGBpw"
+     Uri-Path: "mid=56"
+     Content-Format: "application/dots+cbor"
+
+     {
+       "ietf-dots-signal-channel:mitigation-scope": {
+         "scope": [
+           {
+             "target-prefix": [
+                "2001:db8:c000::/128"
+              ],
+             "ietf-dots-call-home:source-prefix": [
+                "2001:db8:123::/128"
+              ],
+             "lifetime": 3600
+           }
+         ]
+       }
+     }
+
+   Figure 8: An Example of Mitigation Request Issued by a Call Home DOTS
+                                  Client
 
    The 'source-prefix' parameter is a mandatory attribute when the
    attack traffic information is signaled by a Call Home DOTS client
@@ -834,14 +882,6 @@ Internet-Draft            DOTS Signal Call Home                July 2019
 
    In order to help attack source identification by a Call Home DOTS
    server, the Call Home DOTS client SHOULD include in its mitigation
-
-
-
-Reddy, et al.           Expires January 27, 2020               [Page 15]
-
-Internet-Draft            DOTS Signal Call Home                July 2019
-
-
    request additional information such as 'source-port-range' or
    'source-icmp-type-range'.  The Call Home DOTS client may not include
    such information if 'source-prefix' conveys an IPv6 address/prefix.
@@ -851,12 +891,20 @@ Internet-Draft            DOTS Signal Call Home                July 2019
    with 'trigger-mitigation' set to 'false'.  Such requests MUST be
    discarded by the Call Home DOTS server with a 4.00 (Bad Request).
 
+
+
+Reddy, et al.           Expires January 27, 2020               [Page 16]
+
+Internet-Draft            DOTS Signal Call Home                July 2019
+
+
    The Call Home DOTS server MUST check that the 'source-prefix' is
    within the scope of the Call Home DOTS server domain.  Note that in a
-   Call Home scenario, the Call Home DOTS server considers, by default,
-   that any routeable IP prefix enclosed in 'target-prefix' is within
-   the scope of the Call Home DOTS client.  Invalid mitigation requests
-   are handled as per Section 4.4.1 of [I-D.ietf-dots-signal-channel].
+   DOTS Call Home scenario, the Call Home DOTS server considers, by
+   default, that any routeable IP prefix enclosed in 'target-prefix' is
+   within the scope of the Call Home DOTS client.  Invalid mitigation
+   requests are handled as per Section 4.4.1 of
+   [I-D.ietf-dots-signal-channel].
 
    The Call Home DOTS server domain administrator consent MAY be
    required to block the traffic from the compromised device to the
@@ -890,22 +938,22 @@ Internet-Draft            DOTS Signal Call Home                July 2019
    (e.g., using MAC level filtering) until it is remediated, and
    notifies the CPE administrator about the compromised device.
 
-
-
-
-Reddy, et al.           Expires January 27, 2020               [Page 16]
-
-Internet-Draft            DOTS Signal Call Home                July 2019
-
-
 3.3.2.  Address Sharing Considerations
 
    If a Carrier Grade NAT (CGN, including NAT64) is located between the
    DOTS client domain and DOTS server domain, communicating an external
    IP address in a mitigation request is likely to be discarded by the
    Call Home DOTS server because the external IP address is not visible
-   locally to the Call Home DOTS server (see Figure 8).  The Call Home
+   locally to the Call Home DOTS server (see Figure 9).  The Call Home
    DOTS server is only aware of the internal IP addresses/prefixes bound
+
+
+
+Reddy, et al.           Expires January 27, 2020               [Page 17]
+
+Internet-Draft            DOTS Signal Call Home                July 2019
+
+
    to its domain.  Thus, the Call Home DOTS client MUST NOT include the
    external IP address and/or port number identifying the suspect attack
    source, but MUST include the internal IP address and/or port number.
@@ -943,16 +991,7 @@ Internet-Draft            DOTS Signal Call Home                July 2019
                    |Attack Source|
                    +-------------+
 
-              Figure 8: Example of a CGN between DOTS Domains
-
-
-
-
-
-Reddy, et al.           Expires January 27, 2020               [Page 17]
-
-Internet-Draft            DOTS Signal Call Home                July 2019
-
+              Figure 9: Example of a CGN between DOTS Domains
 
    If a MAP Border Relay [RFC7597] or lwAFTR [RFC7596] is enabled in the
    provider's domain to service its customers, the identification of an
@@ -963,7 +1002,15 @@ Internet-Draft            DOTS Signal Call Home                July 2019
 
    If a translator is enabled on the boundaries of the domain hosting
    the Call Home DOTS server (e.g., a CPE with NAT enabled as shown in
-   Figures 9 and 10), the Call Home DOTS server uses the attack traffic
+
+
+
+Reddy, et al.           Expires January 27, 2020               [Page 18]
+
+Internet-Draft            DOTS Signal Call Home                July 2019
+
+
+   Figures 10 and 11), the Call Home DOTS server uses the attack traffic
    information conveyed in a mitigation request to find the internal
    source IP address of the compromised device and blocks the traffic
    from the compromised device traffic to the attack target until the
@@ -997,7 +1044,7 @@ Internet-Draft            DOTS Signal Call Home                July 2019
        |           |Attack Source|
                    +-------------+
 
-    Figure 9: Example of a DOTS Server Domain with a NAT Embedded in a
+    Figure 10: Example of a DOTS Server Domain with a NAT Embedded in a
                                     CPE
 
 
@@ -1005,7 +1052,16 @@ Internet-Draft            DOTS Signal Call Home                July 2019
 
 
 
-Reddy, et al.           Expires January 27, 2020               [Page 18]
+
+
+
+
+
+
+
+
+
+Reddy, et al.           Expires January 27, 2020               [Page 19]
 
 Internet-Draft            DOTS Signal Call Home                July 2019
 
@@ -1037,16 +1093,16 @@ Internet-Draft            DOTS Signal Call Home                July 2019
        |           |Attack Source|
                    +-------------+
 
-      Figure 10: Example of a DOTS Server and a NAT Embedded in a CPE
+      Figure 11: Example of a DOTS Server and a NAT Embedded in a CPE
 
 3.3.3.  DOTS Signal Call Home YANG Module
 
 3.3.3.1.  Tree Structure
 
-   This document augments the "dots-signal-channel" DOTS signal YANG
-   module defined in [I-D.ietf-dots-signal-channel] for signaling the
-   attack traffic information.  This document defines the YANG module
-   "ietf-dots-call-home", which has the following tree structure:
+   This document augments the "ietf-dots-signal-channel" DOTS signal
+   YANG module defined in [I-D.ietf-dots-signal-channel] for signaling
+   the attack traffic information.  This document defines the YANG
+   module "ietf-dots-call-home", which has the following tree structure:
 
 
 
@@ -1061,7 +1117,7 @@ Internet-Draft            DOTS Signal Call Home                July 2019
 
 
 
-Reddy, et al.           Expires January 27, 2020               [Page 19]
+Reddy, et al.           Expires January 27, 2020               [Page 20]
 
 Internet-Draft            DOTS Signal Call Home                July 2019
 
@@ -1117,7 +1173,7 @@ Internet-Draft            DOTS Signal Call Home                July 2019
 
 
 
-Reddy, et al.           Expires January 27, 2020               [Page 20]
+Reddy, et al.           Expires January 27, 2020               [Page 21]
 
 Internet-Draft            DOTS Signal Call Home                July 2019
 
@@ -1173,7 +1229,7 @@ Internet-Draft            DOTS Signal Call Home                July 2019
 
 
 
-Reddy, et al.           Expires January 27, 2020               [Page 21]
+Reddy, et al.           Expires January 27, 2020               [Page 22]
 
 Internet-Draft            DOTS Signal Call Home                July 2019
 
@@ -1229,7 +1285,7 @@ Internet-Draft            DOTS Signal Call Home                July 2019
 
 
 
-Reddy, et al.           Expires January 27, 2020               [Page 22]
+Reddy, et al.           Expires January 27, 2020               [Page 23]
 
 Internet-Draft            DOTS Signal Call Home                July 2019
 
@@ -1260,7 +1316,7 @@ Internet-Draft            DOTS Signal Call Home                July 2019
    This specification registers the 'source-prefix', 'source-port-
    range', and 'source-icmp-type-range' parameters in the IANA "DOTS
    Signal Channel CBOR Key Values" registry established by
-   [I-D.ietf-dots-signal-channel] (Figure 11).
+   [I-D.ietf-dots-signal-channel] (Figure 12).
 
    The 'source-prefix', 'source-port-range', and 'source-icmp-type-
    range' are comprehension-optional parameters.
@@ -1285,7 +1341,7 @@ Internet-Draft            DOTS Signal Call Home                July 2019
 
 
 
-Reddy, et al.           Expires January 27, 2020               [Page 23]
+Reddy, et al.           Expires January 27, 2020               [Page 24]
 
 Internet-Draft            DOTS Signal Call Home                July 2019
 
@@ -1308,7 +1364,7 @@ Internet-Draft            DOTS Signal Call Home                July 2019
    |                   |            | (TBD5) |               |        |
    +-------------------+------------+--------+---------------+--------+
 
-          Figure 11: Assigned DOTS Signal Channel CBOR Key Values
+          Figure 12: Assigned DOTS Signal Channel CBOR Key Values
 
 4.3.  New DOTS Conflict Cause
 
@@ -1341,7 +1397,7 @@ Internet-Draft            DOTS Signal Call Home                July 2019
 
 
 
-Reddy, et al.           Expires January 27, 2020               [Page 24]
+Reddy, et al.           Expires January 27, 2020               [Page 25]
 
 Internet-Draft            DOTS Signal Call Home                July 2019
 
@@ -1359,7 +1415,7 @@ Internet-Draft            DOTS Signal Call Home                July 2019
    the "YANG Module Names" subregistry [RFC7950] within the "YANG
    Parameters" registry:
 
-            name: ietf-call-home
+            name: ietf-dots-call-home
             namespace: urn:ietf:params:xml:ns:yang:ietf-dots-call-home
             maintained by IANA: N
             prefix: call-home
@@ -1397,7 +1453,7 @@ Internet-Draft            DOTS Signal Call Home                July 2019
 
 
 
-Reddy, et al.           Expires January 27, 2020               [Page 25]
+Reddy, et al.           Expires January 27, 2020               [Page 26]
 
 Internet-Draft            DOTS Signal Call Home                July 2019
 
@@ -1453,7 +1509,7 @@ Internet-Draft            DOTS Signal Call Home                July 2019
 
 
 
-Reddy, et al.           Expires January 27, 2020               [Page 26]
+Reddy, et al.           Expires January 27, 2020               [Page 27]
 
 Internet-Draft            DOTS Signal Call Home                July 2019
 
@@ -1509,7 +1565,7 @@ Internet-Draft            DOTS Signal Call Home                July 2019
 
 
 
-Reddy, et al.           Expires January 27, 2020               [Page 27]
+Reddy, et al.           Expires January 27, 2020               [Page 28]
 
 Internet-Draft            DOTS Signal Call Home                July 2019
 
@@ -1565,7 +1621,7 @@ Internet-Draft            DOTS Signal Call Home                July 2019
 
 
 
-Reddy, et al.           Expires January 27, 2020               [Page 28]
+Reddy, et al.           Expires January 27, 2020               [Page 29]
 
 Internet-Draft            DOTS Signal Call Home                July 2019
 
@@ -1621,7 +1677,7 @@ Internet-Draft            DOTS Signal Call Home                July 2019
 
 
 
-Reddy, et al.           Expires January 27, 2020               [Page 29]
+Reddy, et al.           Expires January 27, 2020               [Page 30]
 
 Internet-Draft            DOTS Signal Call Home                July 2019
 
@@ -1644,10 +1700,10 @@ Internet-Draft            DOTS Signal Call Home                July 2019
 
 Appendix A.  Disambiguate Base DOTS Signal vs. Call Home
 
-   With the call home extension, there is a chance that two DOTS agents
-   can simultaneously establish two DOTS signal channels with different
-   directions (base DOTS signal channel and DOTS signal channel call
-   home).  Here is one example drawn from the home network.
+   With the DOTS Call Home extension, there is a chance that two DOTS
+   agents can simultaneously establish two DOTS signal channels with
+   different directions (base DOTS signal channel and DOTS signal
+   channel Call Home).  Here is one example drawn from the home network.
    Nevertheless, the outcome of the discussion is not specific to these
    networks, but applies to any DOTS Call Home scenario.
 
@@ -1660,13 +1716,13 @@ Appendix A.  Disambiguate Base DOTS Signal vs. Call Home
    network is under a DDoS attack.  Such DOTS server and DOTS client in
    the home network can co-locate in the same home network element
    (e.g., the Customer Premises Equipment).  In this case, with the same
-   peer at the same time the home network element will have the basic
-   DOTS signal channel defined in [I-D.ietf-dots-signal-channel] and the
-   DOTS signal channel Call Home defined in this specification.  Thus,
-   these two signal channels need to be distinguished when they are both
-   supported.  Two approaches have been considered for distinguishing
-   the two DOTS signal channels, but only the one that using the
-   dedicated port number has been chosen as the best choice.
+   peer at the same time the home network element will have the base
+   DOTS signal channel and the DOTS signal channel Call Home defined in
+   this specification.  Thus, these two signal channels need to be
+   distinguished when they are both supported.  Two approaches have been
+   considered for distinguishing the two DOTS signal channels, but only
+   the one that using the dedicated port number has been chosen as the
+   best choice.
 
    By using a dedicated port number for each, these two signal channels
    can be separated unambiguously and easily.  For example, the CPE uses
@@ -1677,7 +1733,7 @@ Appendix A.  Disambiguate Base DOTS Signal vs. Call Home
 
 
 
-Reddy, et al.           Expires January 27, 2020               [Page 30]
+Reddy, et al.           Expires January 27, 2020               [Page 31]
 
 Internet-Draft            DOTS Signal Call Home                July 2019
 
@@ -1685,7 +1741,7 @@ Internet-Draft            DOTS Signal Call Home                July 2019
    decide which kind of procedures should follow immediately after it
    receives the DOTS messages.  This approach just requires two (D)TLS
    sessions to be established respectively for the basic signal channel
-   and Call Home signal channel.
+   and signal channel Call Home.
 
    The other approach is signaling the role of each DOTS agent (e.g., by
    using the DOTS data channel).  For example, the DOTS agent in the
@@ -1693,8 +1749,8 @@ Internet-Draft            DOTS Signal Call Home                July 2019
    agent in the ISP environment, at this time the DOTS agent in the home
    network is the DOTS client and the peer DOTS agent in the ISP
    environment is the DOTS server.  After that, the DOTS agent in the
-   home network retrieves the DOTS call home capability of the peer DOTS
-   agent.  If the peer supports the call home extension, the DOTS agent
+   home network retrieves the DOTS Call Home capability of the peer DOTS
+   agent.  If the peer supports the Call Home extension, the DOTS agent
    needs to subscribe to the peer to use this extension.  Then, the
    reversal of DOTS role can be recognized as done by both DOTS agents.
    When the DOTS agent in the ISP environment, which now is the DOTS
@@ -1733,7 +1789,7 @@ Authors' Addresses
 
 
 
-Reddy, et al.           Expires January 27, 2020               [Page 31]
+Reddy, et al.           Expires January 27, 2020               [Page 32]
 
 Internet-Draft            DOTS Signal Call Home                July 2019
 
@@ -1789,4 +1845,4 @@ Internet-Draft            DOTS Signal Call Home                July 2019
 
 
 
-Reddy, et al.           Expires January 27, 2020               [Page 32]
+Reddy, et al.           Expires January 27, 2020               [Page 33]

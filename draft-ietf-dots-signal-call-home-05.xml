@@ -77,16 +77,16 @@
     <workgroup>DOTS</workgroup>
 
     <abstract>
-      <t>This document specifies the DOTS signal channel Call Home service,
-      which enables a DOTS server to initiate a secure connection to a DOTS
-      client, and to receive the attack traffic information from the DOTS
-      client. The DOTS server in turn uses the attack traffic information to
-      identify the compromised devices launching the outgoing DDoS attack and
-      takes appropriate mitigation action(s).</t>
+      <t>This document specifies the DOTS signal channel Call Home, which
+      enables a DOTS server to initiate a secure connection to a DOTS client,
+      and to receive the attack traffic information from the DOTS client. The
+      DOTS server in turn uses the attack traffic information to identify the
+      compromised devices launching the outgoing DDoS attack and takes
+      appropriate mitigation action(s).</t>
 
-      <t>The DOTS Call Home service is not specific to the home networks; the
-      solution targets any deployment which requires to block DDoS attack
-      traffic closer to the source(s) of a DDoS attack.</t>
+      <t>The DOTS signal channel Call Home is not specific to the home
+      networks; the solution targets any deployment which requires to block
+      DDoS attack traffic closer to the source(s) of a DDoS attack.</t>
     </abstract>
 
     <note title="Editorial Note (To be removed by RFC Editor)">
@@ -212,7 +212,7 @@
         domain. </t>
 
         <t><figure align="center" anchor="fa"
-            title="Basic Call Home Functional Architecture">
+            title="Basic DOTS Signal Channel Call Home Functional Architecture">
             <artwork align="center"><![CDATA[       +---------------+        +-------------+
        | Alert/DMS/... | ~~~~~~ | DOTS client |
        +---------------+        +------+------+
@@ -393,7 +393,7 @@ Outbound ||      |     ::     |       || Inbound
         same node embeds both DOTS client and server instances.</t>
 
         <t><figure align="center" anchor="snode"
-            title="Example of the Same Node Embedding both DOTS Client and Server Instances at the Network Provider's Side">
+            title="Example of the Same Node Embedding both a Call Home DOTS Client and a DOTS Server Instances at the Network Provider's Side">
             <artwork align="center"><![CDATA[        Call Home        Base Signal Channel  
    +-.-.-.-.-.-.-.-.-.-++-.-.-.-.-.-.-.-.-.-+ 
    :        +----------------------+        :                   
@@ -419,7 +419,7 @@ Outbound ||      |     ::     |       || Inbound
           </figure></t>
 
         <t><figure align="center" anchor="snode2"
-            title="Another Example where the Same Node Embeds both DOTS Client and Server Instances">
+            title="Another Example where the Same Node Embeds both a DOTS Client and a Call Home DOTS Server">
             <artwork align="center"><![CDATA[        Call Home        Base Signal Channel  
    +-.-.-.-.-.-.-.-.-.-++-.-.-.-.-.-.-.-.-.-+ 
    :        +----------------------+        :                   
@@ -460,12 +460,16 @@ Outbound ||      |     ::     |       || Inbound
       <t>The reader should be familiar with the terms defined in <xref
       target="RFC8612"></xref>.</t>
 
-      <t>'DOTS signal channel Call Home' refers to a DOTS signal channel
-      established at the initiative of a DOTS server. That is, the DOTS server
-      (a.k.a., Call Home DOTS server) initiates a secure connection to a DOTS
-      client (a.k.a., Call Home DOTS client), and uses that connection to
-      receive the attack traffic information from the Call Home DOTS client.
-      More details are provided in <xref target="spec"></xref>.</t>
+      <t>'DOTS signal channel Call Home' (or DOTS Call Home, for short) refers
+      to a DOTS signal channel established at the initiative of a DOTS server.
+      That is, the DOTS server (a.k.a., Call Home DOTS server) initiates a
+      secure connection to a DOTS client (a.k.a., Call Home DOTS client), and
+      uses that connection to receive the attack traffic information from the
+      Call Home DOTS client. More details are provided in <xref
+      target="spec"></xref>.</t>
+
+      <t>'Base DOTS signal channel' refers to <xref
+      target="I-D.ietf-dots-signal-channel"></xref>.</t>
 
       <t>The meaning of the symbols in YANG tree diagrams is defined in <xref
       target="RFC8340"></xref>.</t>
@@ -501,8 +505,8 @@ Outbound ||      |     ::     |       || Inbound
         hence the Call Home DOTS server cannot be subjected to these DDoS
         attacks.</t>
 
-        <t><xref target="signalch"></xref> illustrates a sample Call Home flow
-        exchange:</t>
+        <t><xref target="signalch"></xref> illustrates a sample DOTS Call Home
+        flow exchange:</t>
 
         <t><figure align="center" anchor="signalch"
             title="DOTS Signal Channel Call Home Sequence Diagram">
@@ -534,7 +538,7 @@ Outbound ||      |     ::     |       || Inbound
             agreement to use a specific port number, such as by explicit
             configuration or dynamic discovery <xref
             target="I-D.ietf-dots-server-discovery"></xref>. Absent such
-            mutual agreement, the DOTS signal channel call home MUST run over
+            mutual agreement, the DOTS signal channel Call Home MUST run over
             port number TBD (that is, Call Home DOTS clients must support
             accepting DTLS (or TCP) connections on TBD) as defined in <xref
             target="port"></xref>, for both UDP and TCP. The interaction
@@ -553,8 +557,8 @@ Outbound ||      |     ::     |       || Inbound
       </section>
 
       <section title="Heartbeat Mechanism">
-        <t>The Heartbeat mechanism used for the Call Home deviates from the
-        one defined in Section 4.7 of <xref
+        <t>The Heartbeat mechanism used for the DOTS Call Home deviates from
+        the one defined in Section 4.7 of <xref
         target="I-D.ietf-dots-signal-channel"></xref>. This section specifies
         the behavior to be followed by DOTS agents for the Call Home.</t>
 
@@ -610,8 +614,7 @@ Outbound ||      |     ::     |       || Inbound
               the DOTS client MUST validate that attacker prefixes are within
               the scope of the DOTS server domain.<vspace
               blankLines="1" />This is an optional attribute for the base DOTS
-              signal channel operations <xref
-              target="I-D.ietf-dots-signal-channel"></xref>.</t>
+              signal channel operations.</t>
 
               <t hangText="source-port-range:">A list of port numbers used by
               the attack traffic flows. <vspace blankLines="1" />A port range
@@ -624,8 +627,7 @@ Outbound ||      |     ::     |       || Inbound
               target="RFC4340"></xref>, a range of ports can be any subrange
               of 0-65535, for example, 0-1023, 1024-65535, or 1024-49151.
               <vspace blankLines="1" />This is an optional attribute for the
-              base DOTS signal channel operations <xref
-              target="I-D.ietf-dots-signal-channel"></xref>.</t>
+              base DOTS signal channel operations.</t>
 
               <t hangText="source-icmp-type-range:">A list of ICMP types used
               by the attack traffic flows. An ICMP type range is defined by
@@ -633,9 +635,38 @@ Outbound ||      |     ::     |       || Inbound
               type (upper-type). When only 'lower-type' is present, it
               represents a single ICMP type. <vspace blankLines="1" />This is
               an optional attribute for the base DOTS signal channel
-              operations <xref
-              target="I-D.ietf-dots-signal-channel"></xref>.</t>
+              operations.</t>
             </list></t>
+
+          <t>An example of a mitigation request sent by a Call Home DOTS
+          client is shown in <xref target="example"></xref>.<figure
+              anchor="example"
+              title="An Example of Mitigation Request Issued by a Call Home DOTS Client">
+              <artwork align="left"><![CDATA[  Header: PUT (Code=0.03)
+  Uri-Path: ".well-known"
+  Uri-Path: "dots"
+  Uri-Path: "mitigate"
+  Uri-Path: "cuid=dz6pHjaADkaFTbjr0JGBpw"
+  Uri-Path: "mid=56"
+  Content-Format: "application/dots+cbor"
+
+  {
+    "ietf-dots-signal-channel:mitigation-scope": {
+      "scope": [
+        {
+          "target-prefix": [
+             "2001:db8:c000::/128"
+           ],
+          "ietf-dots-call-home:source-prefix": [
+             "2001:db8:123::/128"
+           ],
+          "lifetime": 3600
+        }
+      ]
+    }
+  }
+]]></artwork>
+            </figure></t>
 
           <t>The 'source-prefix' parameter is a mandatory attribute when the
           attack traffic information is signaled by a Call Home DOTS client
@@ -664,10 +695,10 @@ Outbound ||      |     ::     |       || Inbound
 
           <t>The Call Home DOTS server MUST check that the 'source-prefix' is
           within the scope of the Call Home DOTS server domain. Note that in a
-          Call Home scenario, the Call Home DOTS server considers, by default,
-          that any routeable IP prefix enclosed in 'target-prefix' is within
-          the scope of the Call Home DOTS client. Invalid mitigation requests
-          are handled as per Section 4.4.1 of <xref
+          DOTS Call Home scenario, the Call Home DOTS server considers, by
+          default, that any routeable IP prefix enclosed in 'target-prefix' is
+          within the scope of the Call Home DOTS client. Invalid mitigation
+          requests are handled as per Section 4.4.1 of <xref
           target="I-D.ietf-dots-signal-channel"></xref>.</t>
 
           <t>The Call Home DOTS server domain administrator consent MAY be
@@ -841,8 +872,8 @@ Outbound ||      |     ::     |       || Inbound
 
         <section anchor="YANG" title="DOTS Signal Call Home YANG Module ">
           <section title="Tree Structure">
-            <t>This document augments the "dots-signal-channel" DOTS signal
-            YANG module defined in <xref
+            <t>This document augments the "ietf-dots-signal-channel" DOTS
+            signal YANG module defined in <xref
             target="I-D.ietf-dots-signal-channel"></xref> for signaling the
             attack traffic information. This document defines the YANG module
             "ietf-dots-call-home", which has the following tree
@@ -1094,7 +1125,7 @@ module ietf-dots-call-home {
           </figure>This document requests IANA to register the following YANG
         module in the "YANG Module Names" subregistry <xref
         target="RFC7950"></xref> within the "YANG Parameters" registry:<figure>
-            <artwork><![CDATA[         name: ietf-call-home
+            <artwork><![CDATA[         name: ietf-dots-call-home
          namespace: urn:ietf:params:xml:ns:yang:ietf-dots-call-home
          maintained by IANA: N
          prefix: call-home
@@ -1260,12 +1291,12 @@ module ietf-dots-call-home {
     </references>
 
     <section anchor="app" title="Disambiguate Base DOTS Signal vs. Call Home">
-      <t>With the call home extension, there is a chance that two DOTS agents
-      can simultaneously establish two DOTS signal channels with different
-      directions (base DOTS signal channel and DOTS signal channel call home).
-      Here is one example drawn from the home network. Nevertheless, the
-      outcome of the discussion is not specific to these networks, but applies
-      to any DOTS Call Home scenario.</t>
+      <t>With the DOTS Call Home extension, there is a chance that two DOTS
+      agents can simultaneously establish two DOTS signal channels with
+      different directions (base DOTS signal channel and DOTS signal channel
+      Call Home). Here is one example drawn from the home network.
+      Nevertheless, the outcome of the discussion is not specific to these
+      networks, but applies to any DOTS Call Home scenario.</t>
 
       <t>In the Call Home scenario, the DOTS server in, for example, the home
       network can mitigate the DDoS attacks launched by the compromised device
@@ -1276,13 +1307,12 @@ module ietf-dots-call-home {
       attack. Such DOTS server and DOTS client in the home network can
       co-locate in the same home network element (e.g., the Customer Premises
       Equipment). In this case, with the same peer at the same time the home
-      network element will have the basic DOTS signal channel defined in <xref
-      target="I-D.ietf-dots-signal-channel"></xref> and the DOTS signal
-      channel Call Home defined in this specification. Thus, these two signal
-      channels need to be distinguished when they are both supported. Two
-      approaches have been considered for distinguishing the two DOTS signal
-      channels, but only the one that using the dedicated port number has been
-      chosen as the best choice.</t>
+      network element will have the base DOTS signal channel and the DOTS
+      signal channel Call Home defined in this specification. Thus, these two
+      signal channels need to be distinguished when they are both supported.
+      Two approaches have been considered for distinguishing the two DOTS
+      signal channels, but only the one that using the dedicated port number
+      has been chosen as the best choice.</t>
 
       <t>By using a dedicated port number for each, these two signal channels
       can be separated unambiguously and easily. For example, the CPE uses the
@@ -1293,8 +1323,8 @@ module ietf-dots-call-home {
       different port numbers, the ISP can directly decide which kind of
       procedures should follow immediately after it receives the DOTS
       messages. This approach just requires two (D)TLS sessions to be
-      established respectively for the basic signal channel and Call Home
-      signal channel.</t>
+      established respectively for the basic signal channel and signal channel
+      Call Home.</t>
 
       <t>The other approach is signaling the role of each DOTS agent (e.g., by
       using the DOTS data channel). For example, the DOTS agent in the home
@@ -1302,8 +1332,8 @@ module ietf-dots-call-home {
       the ISP environment, at this time the DOTS agent in the home network is
       the DOTS client and the peer DOTS agent in the ISP environment is the
       DOTS server. After that, the DOTS agent in the home network retrieves
-      the DOTS call home capability of the peer DOTS agent. If the peer
-      supports the call home extension, the DOTS agent needs to subscribe to
+      the DOTS Call Home capability of the peer DOTS agent. If the peer
+      supports the Call Home extension, the DOTS agent needs to subscribe to
       the peer to use this extension. Then, the reversal of DOTS role can be
       recognized as done by both DOTS agents. When the DOTS agent in the ISP
       environment, which now is the DOTS client, wants to filter the
