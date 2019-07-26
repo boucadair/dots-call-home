@@ -297,8 +297,8 @@
                       | ||Network Provider (DMS)      
              .--------+-||-------. 
             (           ||        )-.
-          .' DOTS       ||           ' 
-          ( client      ||            ) 
+          .' Call Home  ||           ' 
+          ( DOTS client ||            ) 
            (            ||          -'
             '-(         ||          )
                '------+-||---------' 
@@ -307,8 +307,8 @@
                       | ||         Source Network
              .--------+-||-------. 
             (           ||        )-.
-          .' DOTS       ||           ' 
-          ( server      || Outbound   ) 
+          .' Call Home  ||           ' 
+          ( DOTS server || Outbound   ) 
            (            ||   DDoS   -'
             '-(         ||  Attack  )
                '------+-||---------' 

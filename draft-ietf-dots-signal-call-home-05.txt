@@ -355,8 +355,8 @@ Internet-Draft            DOTS Signal Call Home                July 2019
                                    | ||Network Provider (DMS)
                           .--------+-||-------.
                          (           ||        )-.
-                       .' DOTS       ||           '
-                       ( client      ||            )
+                       .' Call Home  ||           '
+                       ( DOTS client ||            )
                         (            ||          -'
                          '-(         ||          )
                             '------+-||---------'
@@ -365,8 +365,8 @@ Internet-Draft            DOTS Signal Call Home                July 2019
                                    | ||         Source Network
                           .--------+-||-------.
                          (           ||        )-.
-                       .' DOTS       ||           '
-                       ( server      || Outbound   )
+                       .' Call Home  ||           '
+                       ( DOTS server || Outbound   )
                         (            ||   DDoS   -'
                          '-(         ||  Attack  )
                             '------+-||---------'
