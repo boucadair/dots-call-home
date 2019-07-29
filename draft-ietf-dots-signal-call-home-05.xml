@@ -72,9 +72,21 @@
       </address>
     </author>
 
-    <date day="26" month="July" year="2019" />
+    <date day="29" month="July" year="2019" />
 
     <workgroup>DOTS</workgroup>
+
+    <keyword>NAT Traversal</keyword>
+
+    <keyword>Automation</keyword>
+
+    <keyword>Anti-DDoS Automation</keyword>
+
+    <keyword>DDoS Mitigation</keyword>
+
+    <keyword>Collaborative Networking</keyword>
+
+    <keyword>Protective Networking</keyword>
 
     <abstract>
       <t>This document specifies the DOTS signal channel Call Home, which
@@ -203,13 +215,13 @@
       <section anchor="sol" title="The Solution">
         <t>This specification addresses the problems discussed in <xref
         target="problem"></xref> and presents the DOTS signal channel Call
-        Home extension, which enables the DOTS server to initiate a secure
-        connection to the DOTS client, and the DOTS client then conveys the
-        attack traffic information to the DOTS server.</t>
+        Home, which enables the DOTS server to initiate a secure connection to
+        the DOTS client, and the DOTS client then conveys the attack traffic
+        information to the DOTS server.</t>
 
-        <t>The basic high-level Call Home functional architecture is shown in
-        <xref target="fa"></xref>. Attack source(s) are within the DOTS server
-        domain. </t>
+        <t>The basic high-level DOTS Call Home functional architecture is
+        shown in <xref target="fa"></xref>. Attack source(s) are within the
+        DOTS server domain.</t>
 
         <t><figure align="center" anchor="fa"
             title="Basic DOTS Signal Channel Call Home Functional Architecture">
@@ -228,7 +240,7 @@
         as defined in <xref target="RFC8612"></xref>. For clarity, this
         document uses "Call Home DOTS client" (or "Call Home DOTS server") to
         refer to a DOTS client (or DOTS server) deployed in a Call Home
-        scenario.</t>
+        scenario (<xref target="fa"></xref>).</t>
 
         <t>A DOTS client relies upon a variety of triggers to make use of the
         Call Home function (e.g., scrubbing the traffic from the attack
@@ -236,7 +248,7 @@
         Mitigation System (DMS), or a transit provider). The definition of
         these triggers is deployment-specific. It is therefore out of the
         scope of this document to elaborate on how these triggers are made
-        available to a DOTS client.</t>
+        available to a Call Home DOTS client.</t>
 
         <t>In a typical deployment scenario, the Call Home DOTS server is
         enabled on a Customer Premises Equipment (CPE), which is aligned with
@@ -244,8 +256,8 @@
         Unlike classic DOTS deployments <xref
         target="I-D.ietf-dots-use-cases"></xref>, such DOTS server maintains a
         single DOTS signal channel session for each DOTS-capable upstream
-        provisioning domain <xref target="I-D.ietf-dots-multihoming"> </xref>.
-        </t>
+        provisioning domain <xref target="I-D.ietf-dots-multihoming">
+        </xref>.</t>
 
         <t>For instance, the Call Home DOTS server in the home network
         initiates the signal channel Call Home in 'idle' time and then
@@ -257,10 +269,10 @@
         <t>The Call Home DOTS server uses the DDoS attack traffic information
         to identify the compromised device in its domain that is responsible
         for launching the DDoS attack, optionally notifies a network
-        administrator, and takes appropriate mitigation action(s). A
-        mitigation action can be to quarantine the compromised device or block
-        its traffic to the attack target(s) until the mitigation request is
-        withdrawn.</t>
+        administrator, and takes appropriate mitigation action(s). For
+        example, a mitigation action can be to quarantine the compromised
+        device or block its traffic to the attack target(s) until the
+        mitigation request is withdrawn.</t>
 
         <t>Other motivations for introducing the Call Home function are
         discussed in Section 1.1 of <xref target="RFC8071"></xref>.</t>
@@ -272,8 +284,7 @@
         such means are out of scope of this document.</t>
 
         <t>More information about the applicability scope of the DOTS signal
-        channel Call Home extension is provided in <xref
-        target="as"></xref>.</t>
+        channel Call Home is provided in <xref target="as"></xref>.</t>
       </section>
 
       <section anchor="as" title="Applicability Scope">
@@ -285,7 +296,7 @@
         functional architecture is depicted in <xref target="pb"></xref>.</t>
 
         <t><figure align="center" anchor="pb"
-            title="Call Home Reference Architecture">
+            title="DOTS Signal Channel Call Home Reference Architecture">
             <artwork align="center"><![CDATA[                +-------------+
                 |Attack Target|
                 +-----+-------+  
@@ -330,8 +341,8 @@
       </section>
 
       <section title="Co-existence of Base DOTS Signal Channel &amp; DOTS Call Home">
-        <t>The DOTS Call Home does not require nor preclude the activation of
-        the base DOTS signal channel <xref
+        <t>The DOTS signal channel Call Home does not require nor preclude the
+        activation of the base DOTS signal channel <xref
         target="I-D.ietf-dots-signal-channel"></xref>. Some sample deployment
         schemes are discussed in this section for illustration purposes.</t>
 
@@ -398,10 +409,10 @@ Outbound ||      |     ::     |       || Inbound
    +-.-.-.-.-.-.-.-.-.-++-.-.-.-.-.-.-.-.-.-+ 
    :        +----------------------+        :                   
    :        |       Node #i        |        :
-   :        | +------+ :: +------+ |        :
-   :        | | DOTS | :: | DOTS | |        :
-   :        | |client| :: |server| |        :
-   :        | +--+---+ :: +---+--+ |        :
+   :        | +------+    +------+ |        :
+   :        | | DOTS |    | DOTS | |        :
+   :        | |client|    |server| |        :
+   :        | +--+---+    +---+--+ |        :
    :        +----|-----::-----|----+        : Network
    :     /\      |     ::     |             :Provider
    :     ||      |     ::     |             :  (DMS)  
@@ -424,10 +435,10 @@ Outbound ||      |     ::     |       || Inbound
    +-.-.-.-.-.-.-.-.-.-++-.-.-.-.-.-.-.-.-.-+ 
    :        +----------------------+        :                   
    :        |       Node #k        |        :
-   :        | +------+ :: +------+ |        :
-   :        | | DOTS | :: | DOTS | |        :
-   :        | |client| :: |server| |        :
-   :        | +--+---+ :: +---+--+ |        :
+   :        | +------+    +------+ |        :
+   :        | | DOTS |    | DOTS | |        :
+   :        | |client|    |server| |        :
+   :        | +--+---+    +---+--+ |        :
    :        +----|-----::-----|----+        : Network
    :     /\      |     ::     |             :Provider
    :     ||      |     ::     |             :  (DMS)  
@@ -436,10 +447,10 @@ Outbound ||      |     ::     |       || Inbound
   DDoS   ||      |     ::     |       ||   DDoS
  Attack  ||      |     ::     |       \/  Attack
    :        +----|-----::-----|----+        :
-   :        | +--+---+ :: +---+--+ |        :
-   :        | | DOTS | :: | DOTS | |        :
-   :        | |server| :: |client| |        :
-   :        | +------+ :: +------+ |        :
+   :        | +--+---+    +---+--+ |        :
+   :        | | DOTS |    | DOTS | |        :
+   :        | |server|    |client| |        :
+   :        | +------+    +------+ |        :
    :        |       Node #j        |        :
    :        +----------------------+        :
    +-.-.-.-.-.-.-.-.-.-++-.-.-.-.-.-.-.-.-.-+
@@ -545,8 +556,8 @@ Outbound ||      |     ::     |       || Inbound
             between the base DOTS signal channel and the Call Home is
             discussed in <xref target="app"></xref>.<vspace
             blankLines="1" />The Happy Eyeballs mechanism explained in Section
-            4.3 of <xref target="I-D.ietf-dots-signal-channel"></xref> can be
-            used for initiating (D)TLS connections.</t>
+            4.3 of <xref target="I-D.ietf-dots-signal-channel"></xref> is used
+            for initiating (D)TLS connections.</t>
 
             <t>Using this (D)TLS connection, the Call Home DOTS client may
             request, withdraw, or retrieve the status of mitigation
@@ -580,13 +591,13 @@ Outbound ||      |     ::     |       || Inbound
 
         <t>When an outgoing attack that saturates the outgoing link from the
         Call Home DOTS server is detected and reported by a Call Home DOTS
-        client, the latter MUST continue to use the signal channel even if no
-        traffic is received from the Call Home DOTS server.</t>
+        client, the latter MUST continue to use the DOTS signal channel even
+        if no traffic is received from the Call Home DOTS server.</t>
 
         <t>If the Call Home DOTS server receives traffic from the Call Home
         DOTS client, the Call Home DOTS server MUST continue to use the DOTS
-        signal channel even if the missing heartbeat allowed threshold is
-        reached.</t>
+        signal channel even if the missing heartbeats allowed threshold
+        ('missing-hb-allowed') is reached.</t>
 
         <t>If the Call Home DOTS server does not receive any traffic from the
         peer Call Home DOTS client, the Call Home DOTS server sends heartbeat
@@ -638,6 +649,33 @@ Outbound ||      |     ::     |       || Inbound
               operations.</t>
             </list></t>
 
+          <t>The 'source-prefix' parameter is a mandatory attribute when the
+          attack traffic information is signaled by a Call Home DOTS client
+          (i.e., the Call Home scenario depicted in <xref
+          target="signalch"></xref>). The 'target-uri' or 'target-fqdn'
+          parameters can be included in a mitigation request for diagnostic
+          purposes to notify the Call Home DOTS server domain administrator,
+          but SHOULD NOT be used to determine the target IP addresses. Note
+          that 'target-prefix' becomes a mandatory attribute in the mitigation
+          request signaling the attack information because 'target-uri' and
+          'target-fqdn' are optional attributes and 'alias-name' will not be
+          conveyed in a mitigation request.</t>
+
+          <t>In order to help attack source identification by a Call Home DOTS
+          server, the Call Home DOTS client SHOULD include in its mitigation
+          request additional information such as 'source-port-range' or
+          'source-icmp-type-range'. The Call Home DOTS client may not include
+          such information if 'source-prefix' conveys an IPv6 address/prefix.
+          Address sharing implications on the setting of source information
+          ('source-prefix', 'source-port-range') are discussed in <xref
+          target="nat"></xref>.</t>
+
+          <t>Only immediate mitigation requests (i.e., 'trigger-mitigation'
+          set to 'true') are allowed; Call Home DOTS clients MUST NOT send
+          requests with 'trigger-mitigation' set to 'false'. Such requests
+          MUST be discarded by the Call Home DOTS server with a 4.00 (Bad
+          Request).</t>
+
           <t>An example of a mitigation request sent by a Call Home DOTS
           client is shown in <xref target="example"></xref>.<figure
               anchor="example"
@@ -664,34 +702,8 @@ Outbound ||      |     ::     |       || Inbound
         }
       ]
     }
-  }
-]]></artwork>
+  }]]></artwork>
             </figure></t>
-
-          <t>The 'source-prefix' parameter is a mandatory attribute when the
-          attack traffic information is signaled by a Call Home DOTS client
-          (i.e., the Call Home scenario depicted in <xref
-          target="signalch"></xref>). The 'target-uri' or 'target-fqdn'
-          parameters can be included in a mitigation request for diagnostic
-          purposes to notify the Call Home DOTS server domain administrator,
-          but SHOULD NOT be used to determine the target IP addresses. Note
-          that 'target-prefix' becomes a mandatory attribute in the mitigation
-          request signaling the attack information because 'target-uri' and
-          'target-fqdn' are optional attributes and 'alias-name' will not be
-          conveyed in a mitigation request.</t>
-
-          <t>In order to help attack source identification by a Call Home DOTS
-          server, the Call Home DOTS client SHOULD include in its mitigation
-          request additional information such as 'source-port-range' or
-          'source-icmp-type-range'. The Call Home DOTS client may not include
-          such information if 'source-prefix' conveys an IPv6
-          address/prefix.</t>
-
-          <t>Only immediate mitigation requests (i.e., 'trigger-mitigation'
-          set to 'true') are allowed; Call Home DOTS clients MUST NOT send
-          requests with 'trigger-mitigation' set to 'false'. Such requests
-          MUST be discarded by the Call Home DOTS server with a 4.00 (Bad
-          Request).</t>
 
           <t>The Call Home DOTS server MUST check that the 'source-prefix' is
           within the scope of the Call Home DOTS server domain. Note that in a
@@ -735,6 +747,10 @@ Outbound ||      |     ::     |       || Inbound
           quarantine the device (e.g., using MAC level filtering) until it is
           remediated, and notifies the CPE administrator about the compromised
           device.</t>
+
+          <t>The DOTS agents follow the same procedures specified in <xref
+          target="I-D.ietf-dots-signal-channel"></xref> for managing a
+          mitigation request.</t>
         </section>
 
         <section anchor="nat" title="Address Sharing Considerations">
