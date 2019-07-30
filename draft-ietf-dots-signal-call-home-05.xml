@@ -72,7 +72,7 @@
       </address>
     </author>
 
-    <date day="29" month="July" year="2019" />
+    <date day="30" month="July" year="2019" />
 
     <workgroup>DOTS</workgroup>
 
@@ -141,36 +141,40 @@
         target="I-D.ietf-dots-use-cases"></xref>.</t>
 
         <t>Internet of Things (IoT) devices are becoming more and more
-        prevalent in home networks, and with compute and memory becoming
-        cheaper and cheaper, various types of IoT devices become available in
-        the consumer market at affordable prices. But on the downside, the
-        main threat being most of these IoT devices are bought off-the-shelf
-        and most manufacturers haven't considered security in the product
-        design. IoT devices deployed in home networks can be easily
-        compromised, they do not have an easy mechanism to upgrade, and IoT
-        manufactures may cease manufacture and/or discontinue patching
-        vulnerabilities on IoT devices (Sections 5.4 and 5.5 of <xref
-        target="RFC8576"></xref>). However, these vulnerable and compromised
-        devices will continue to be used for a long period of time in the
-        home, and the end-user does not know that IoT devices in his/her home
-        are compromised. The compromised IoT devices are typically used for
-        launching DDoS attacks (Section 3 of <xref target="RFC8576"></xref>)
-        on victims while the owner/administrator of the home network is not
-        aware about such misbehaviors. Similar to other DDoS attacks, the
-        victim in this attack can be an application server, a host, a router,
-        a firewall, or an entire network.</t>
+        prevalent in home networks, in particular. With compute and memory
+        becoming cheaper and cheaper, various types of IoT devices become
+        available in the consumer market at affordable prices. But on the
+        downside, the main threat being most of these IoT devices are bought
+        off-the-shelf and most manufacturers haven't considered security in
+        the product design (e.g., <xref target="Sec"></xref>). IoT devices
+        deployed in home networks can be easily compromised, they do not have
+        an easy mechanism to upgrade, and IoT manufactures may cease
+        manufacture and/or discontinue patching vulnerabilities on IoT devices
+        (Sections 5.4 and 5.5 of <xref target="RFC8576"></xref>). These
+        vulnerable and compromised devices will continue to be used for a long
+        period of time in the home, and the end-user does not know that IoT
+        devices in his/her home are compromised. The compromised IoT devices
+        are typically used for launching DDoS attacks (Section 3 of <xref
+        target="RFC8576"></xref>) on victims while the owner/administrator of
+        the home network is not aware about such misbehaviors. Similar to
+        other DDoS attacks, the victim in this attack can be an application
+        server, a host, a router, a firewall, or an entire network. Such
+        misbehaviors will have a collateral damage that affects end users and
+        the reputation of an Internet Service Provider (ISP).</t>
 
         <t>Nowadays, network devices in a home network offer network security
-        (e.g., firewall or Intrusion Protection System (IPS) service on a home
-        router) to protect the devices connected to the home network from both
-        external and internal attacks. Over the years several techniques have
-        been identified to detect DDoS attacks, some of these techniques can
-        be enabled on home network devices but most of them are used in the
-        Internet Service Provider (ISP)'s network. The ISP offering DDoS
-        mitigation service can detect outgoing DDoS attack traffic originating
-        from its subscribers or the ISP may receive filtering rules (e.g.,
-        using BGP flowspec <xref target="RFC5575"></xref>) from a downstream
-        service provider to filter, block, or rate-limit DDoS attack traffic
+        (e.g., firewall <xref target="RFC4949"></xref> or Intrusion Protection
+        System (IPS) service <xref target="I-D.ietf-i2nsf-terminology"></xref>
+        on a home router) to protect the devices connected to the home network
+        from both external and internal attacks. Over the years several
+        techniques have been identified to detect DDoS attacks, some of these
+        techniques can be enabled on home network devices but most of them are
+        used within the ISP's network. The ISP offering a DDoS mitigation
+        service can detect outgoing DDoS attack traffic originating from its
+        subscribers or the ISP may receive filtering rules (e.g., using BGP
+        Flowspec <xref target="RFC5575"></xref><xref
+        target="I-D.ietf-idr-flow-spec-v6"></xref>) from a downstream service
+        provider to filter, block, or rate-limit DDoS attack traffic
         originating from the ISP's subscribers to a downstream target.</t>
 
         <t>Some of the DDoS attacks like spoofed RST or FIN packets,
@@ -181,28 +185,31 @@
         TCP/UDP flow, only the first few packets are punted through the slow
         path. Hence, it is not possible to detect various DDoS attacks in the
         slow path, since the attack payload is sent to the target server after
-        the flow is switched to fast path. Deep Packet Inspection (DPI) of all
-        the packets of a flow would be able to detect some of the attacks.
-        However, a full-fledged DPI to detect these type of DDoS attacks is
-        functionally or operationally not possible for all the devices
-        attached to the home network owing to the memory and CPU limitations
-        of the home routers. Further, for certain DDoS attacks the ability to
-        distinguish legitimate traffic from attacker traffic on a per packet
-        basis is complex. This complexity is due to that the packet itself may
-        look "legitimate" and no attack signature can be identified. The
-        anomaly can be identified only after detailed statistical
-        analysis.</t>
+        the flow is switched to fast path. The reader may refer to Section 2
+        of <xref target="RFC6398"></xref> for a brief definition of slow and
+        fast paths. </t>
 
-        <t>The ISP on the other hand can detect some DDoS attacks originating
-        from a home network (e.g., Section 2.6 of <xref
-        target="RFC8517"></xref>), but the ISP does not have a mechanism to
-        detect which device in the home network is generating the DDoS attack
-        traffic. The primary reason being that devices in an IPv4 home network
-        are typically behind a Network Address Translation (NAT) border. Even
-        in case of an IPv6 home network, although the ISP can identify the
-        infected device in the home network launching the DDoS traffic by
-        tracking its unique IPv6 address, the infected device can easily
-        change its IPv6 address to evade remediation.</t>
+        <t>Deep Packet Inspection (DPI) of all the packets of a flow would be
+        able to detect some of the attacks. However, a full-fledged DPI to
+        detect these type of DDoS attacks is functionally or operationally not
+        possible for all the devices attached to the home network owing to the
+        memory and CPU limitations of the home routers. Furthermore, for
+        certain DDoS attacks the ability to distinguish legitimate traffic
+        from attack traffic on a per packet basis is complex. This complexity
+        is due to that the packet itself may look "legitimate" and no attack
+        signature can be identified. The anomaly can be identified only after
+        detailed statistical analysis.</t>
+
+        <t>ISPs can detect some DDoS attacks originating from a home network
+        (e.g., Section 2.6 of <xref target="RFC8517"></xref>), but the ISP
+        does not have a mechanism to detect which device in the home network
+        is generating the DDoS attack traffic. The primary reason being that
+        devices in an IPv4 home network are typically behind a Network Address
+        Translation (NAT) border <xref target="RFC2663"></xref>. Even in case
+        of an IPv6 home network, although the ISP can identify the infected
+        device in the home network launching the DDoS traffic by tracking its
+        unique IPv6 address, the infected device can easily change its IPv6
+        address to evade remediation.</t>
 
         <t>Existing approaches are still suffering from misused access network
         resources by abusing devices; the support of means for blocking such
@@ -214,33 +221,43 @@
 
       <section anchor="sol" title="The Solution">
         <t>This specification addresses the problems discussed in <xref
-        target="problem"></xref> and presents the DOTS signal channel Call
-        Home, which enables the DOTS server to initiate a secure connection to
-        the DOTS client, and the DOTS client then conveys the attack traffic
-        information to the DOTS server.</t>
+        target="problem"></xref> and presents an extension to the DOTS signal
+        channel: DOTS signal channel Call Home.</t>
 
-        <t>The basic high-level DOTS Call Home functional architecture is
-        shown in <xref target="fa"></xref>. Attack source(s) are within the
-        DOTS server domain.</t>
-
-        <t><figure align="center" anchor="fa"
-            title="Basic DOTS Signal Channel Call Home Functional Architecture">
-            <artwork align="center"><![CDATA[       +---------------+        +-------------+
-       | Alert/DMS/... | ~~~~~~ | DOTS client |
-       +---------------+        +------+------+
-                                       | DOTS 
-                                       + Call 
-                                       | Home
-       +---------------+        +------+------+        +-----------+
-       | Attack Source | ~~~~~~ | DOTS server | ~~~~~~ | Mitigator |
-       +---------------+        +-------------+        +-----------+]]></artwork>
-          </figure></t>
+        <t>'DOTS signal channel Call Home' (or DOTS Call Home, for short)
+        refers to a DOTS signal channel established at the initiative of a
+        DOTS server. That is, the DOTS server initiates a secure connection to
+        a DOTS client, and uses that connection to receive the attack traffic
+        information (e.g., attack sources) from the DOTS client. More details
+        are provided in <xref target="spec"></xref>.</t>
 
         <t>DOTS agents involved in the DOTS Call Home adhere to the DOTS roles
         as defined in <xref target="RFC8612"></xref>. For clarity, this
         document uses "Call Home DOTS client" (or "Call Home DOTS server") to
         refer to a DOTS client (or DOTS server) deployed in a Call Home
         scenario (<xref target="fa"></xref>).</t>
+
+        <t>A high-level DOTS Call Home functional architecture is shown in
+        <xref target="fa"></xref>. Attack source(s) are within the DOTS server
+        domain.</t>
+
+        <t><figure align="center" anchor="fa"
+            title="Basic DOTS Signal Channel Call Home Functional Architecture">
+            <artwork align="center"><![CDATA[                               Scope
+                     +.-.-.-.-.-.-.-.-.-.-.-.+
++---------------+    :    +-------------+    :
+| Alert/DMS/    | ~~~:~~~ |  Call Home  |    :
+| Peer DMS/...  |    :    | DOTS client |    :
++---------------+    :    +------+------+    :
+                     :          |            :
+                     :          |            :
+                     :          |            :
++---------------+    :    +------+------+    :
+|    Attack     | ~~~:~~~ |  Call Home  |    :
+|   Source(s)   |    :    | DOTS server |    :
++---------------+    :    +-------------+    :
+                     +.-.-.-.-.-.-.-.-.-.-.-.+]]></artwork>
+          </figure></t>
 
         <t>A DOTS client relies upon a variety of triggers to make use of the
         Call Home function (e.g., scrubbing the traffic from the attack
@@ -347,8 +364,8 @@
         <t>The network that hosts an attack source may also be subject to
         inbound DDoS attacks. In that case, both the base DOTS signal channel
         and DOTS signal channel Call Home may be enabled as shown in <xref
-        target="merged1"></xref> (Same DMS provider) or <xref
-        target="merged"></xref> (Distinct DMS providers).</t>
+        target="merged"></xref> (Same DMS provider) or <xref
+        target="merged1"></xref> (Distinct DMS providers). </t>
 
         <t><figure align="center" anchor="merged"
             title="Activation of Base DOTS Signal Channel and Call Home (Same DMS Provider)">
@@ -373,6 +390,12 @@ Outbound ||      |     ::     |       || Inbound
    +-.-.-.-.-.-.-.-.-.-++-.-.-.-.-.-.-.-.-.-+
                    Network #A]]></artwork>
           </figure></t>
+
+        <t>Note that a DMS provider may not be on the default forwarding path
+        of an inbound DDoS attack traffic targeting a network (e.g., Network
+        #B in <xref target="merged1"></xref>). Nevertheless, the DOTS signal
+        channel Call Home requires the DMS provider to be on the default
+        forwarding path of the outbound traffic from a given network.</t>
 
         <t><figure align="center" anchor="merged1"
             title="Activation of Base DOTS Signal Channel and Call Home (Distinct DMS Providers)">
@@ -401,7 +424,16 @@ Outbound ||      |     ::     |       || Inbound
 
         <t>Figures <xref format="counter" target="snode"></xref> and <xref
         format="counter" target="snode2"></xref> depict examples where the
-        same node embeds both DOTS client and server instances.</t>
+        same node embeds both base DOTS and DOTS Call Home agents. For
+        example, a DOTS server and a Call Home DOTS client may be enabled on
+        the same device within the infrastructure of a DMS provider (e.g.,
+        Node #i in <xref target="snode"></xref>) or a DOTS client and a Call
+        Home DOTS server may be enabled on the same device within a source
+        network (e.g., Node #j with Network #D shown in <xref
+        target="snode2"></xref>) . </t>
+
+        <t>Whether the same or distinct nodes are used to host base DOTS and
+        DOTS Call Home agents is specific to each domain. </t>
 
         <t><figure align="center" anchor="snode"
             title="An Example of the Same Node Embedding both a Call Home DOTS Client and a DOTS Server at the Network Provider's Side">
@@ -487,9 +519,9 @@ Outbound ||      |     ::     |       || Inbound
 
     <section anchor="spec" title="DOTS Signal Channel Call Home">
       <section title="Procedure">
-        <t>The DOTS signal channel Call Home extension preserves all but one
-        of the DOTS client/server roles in the DOTS protocol stack, as
-        compared to DOTS client-initiated DOTS signal channel protocol <xref
+        <t>The DOTS signal channel Call Home preserves all but one of the DOTS
+        client/server roles in the DOTS protocol stack, as compared to DOTS
+        client-initiated DOTS signal channel protocol <xref
         target="I-D.ietf-dots-signal-channel"></xref>. The role reversal that
         occurs is at the (D)TLS layer; that is, (1) the Call Home DOTS server
         acts as a DTLS client and the Call Home DOTS client acts as a DTLS
@@ -554,19 +586,20 @@ Outbound ||      |     ::     |       || Inbound
             for initiating (D)TLS connections.</t>
 
             <t>Using this (D)TLS connection, the Call Home DOTS client may
-            request, withdraw, or retrieve the status of mitigation
-            requests.</t>
+            request, withdraw, or retrieve the status of mitigation requests.
+            The Call Home DOTS client supplies the source information by means
+            of new attributes defined in <xref target="mitigation"></xref>.
+            <vspace blankLines="1" />The Heartbeat mechanism used for the DOTS
+            Call Home deviates from the one defined in Section 4.7 of <xref
+            target="I-D.ietf-dots-signal-channel"></xref>. <xref
+            target="hb"></xref> specifies the behavior to be followed by Call
+            Home DOTS agents.</t>
           </list></t>
 
         <t></t>
       </section>
 
-      <section title="Heartbeat Mechanism">
-        <t>The Heartbeat mechanism used for the DOTS Call Home deviates from
-        the one defined in Section 4.7 of <xref
-        target="I-D.ietf-dots-signal-channel"></xref>. This section specifies
-        the behavior to be followed by DOTS agents for the Call Home.</t>
-
+      <section anchor="hb" title="Heartbeat Mechanism">
         <t>Once the (D)TLS section is established between the DOTS agents, the
         Call Home DOTS client contacts the Call Home DOTS server to retrieve
         the session configuration parameters (Section 4.5 of <xref
@@ -604,9 +637,10 @@ Outbound ||      |     ::     |       || Inbound
         <section anchor="mitigation" title="Mitigation Request">
           <t>This specification extends the mitigation request defined in
           Section 4.4.1 of <xref target="I-D.ietf-dots-signal-channel"></xref>
-          to convey the attacker source prefixes and source port numbers. The
-          DOTS client conveys the following new parameters in the CBOR body of
-          the mitigation request:<list style="hanging">
+          to convey the attack source information (e.g., source prefixes,
+          source port numbers). The DOTS client conveys the following new
+          parameters in the CBOR body of the mitigation request:<list
+              style="hanging">
               <t hangText="source-prefix:">A list of attacker prefixes used to
               attack the target. Prefixes are represented using Classless
               Inter-Domain Routing (CIDR) notation <xref
@@ -704,7 +738,11 @@ Outbound ||      |     ::     |       || Inbound
           default, that any routeable IP prefix enclosed in 'target-prefix' is
           within the scope of the Call Home DOTS client. Invalid mitigation
           requests are handled as per Section 4.4.1 of <xref
-          target="I-D.ietf-dots-signal-channel"></xref>.</t>
+          target="I-D.ietf-dots-signal-channel"></xref>.<list style="empty">
+              <t>Note: These validation checks do not apply when the source
+              information is included as a hint in the context of the base
+              DOTS signal channel. </t>
+            </list></t>
 
           <t>The Call Home DOTS server domain administrator consent MAY be
           required to block the traffic from the compromised device to the
@@ -845,7 +883,7 @@ Outbound ||      |     ::     |       || Inbound
             </figure></t>
 
           <t><figure align="center" anchor="ex2b"
-              title="Example of a DOTS Server and a NAT Embedded in a CPE">
+              title="Example of a Call Home DOTS Server and a NAT Embedded in a CPE">
               <artwork align="center"><![CDATA[             .-------------------. 
             (                     )-.
           .'  Network Provider (DMS) ' 
@@ -856,11 +894,12 @@ Outbound ||      |     ::     |       || Inbound
                          |
    ---             +-----+-----+   
   S |              |  CPE/NAT  |  External Realm
-  O |..............|           |................         
-  U |              |DOTS server|  Internal Realm
-  R |              +-----+-----+        
-  C |                    |   
-  E |        .-----------+-------. 
+  O |..............|           |................
+  U |              | Call Home |  Internal Realm        
+  R |              |DOTS server| 
+  C |              +-----+-----+        
+  E |                    |   
+    |        .-----------+-------. 
     |       (                     )-.
   N |     .'                         ' 
   E |     (     Local Area Network    ) 
@@ -1170,8 +1209,8 @@ module ietf-dots-call-home {
 
     <section title="Privacy Considerations">
       <t>The considerations discussed in <xref target="RFC6973"></xref> were
-      taken into account to assess whether the DOTS Call Home extension
-      introduces privacy threats.</t>
+      taken into account to assess whether the DOTS Call Home introduces
+      privacy threats.</t>
 
       <t>Concretely, the protocol does not leak any new information that can
       be used to ease surveillance. In particular, the Call Home DOTS server
@@ -1179,26 +1218,26 @@ module ietf-dots-call-home {
       internal identifiers of an attack source) with the Call Home DOTS
       client.</t>
 
-      <t>The DOTS Call Home extension does not preclude the validation of
-      mitigation requests received from a Call Home DOTS client. For example,
-      a security service running on the CPE may require administrator's
-      consent before the CPE acts upon the mitigation request indicated by the
-      Call Home DOTS client. How the consent is obtained is out of scope of
-      this document.</t>
+      <t>The DOTS Call Home does not preclude the validation of mitigation
+      requests received from a Call Home DOTS client. For example, a security
+      service running on the CPE may require administrator's consent before
+      the CPE acts upon the mitigation request indicated by the Call Home DOTS
+      client. How the consent is obtained is out of scope of this
+      document.</t>
 
       <t>Note that a Call Home DOTS server can seek for an administrator's
       consent, validate the request by inspecting the traffic, or proceed with
       both.</t>
 
-      <t>The DOTS Call Home extension is only advisory in nature. Concretely,
-      the DOTS Call Home extension does not impose any action to be enforced
-      within the network hosting an attack source; it is up to the Call Home
-      DOTS server (and/or network administrator) to decide whether and which
-      actions are required.</t>
+      <t>The DOTS Call Home is only advisory in nature. Concretely, the DOTS
+      Call Home does not impose any action to be enforced within the network
+      hosting an attack source; it is up to the Call Home DOTS server (and/or
+      network administrator) to decide whether and which actions are
+      required.</t>
 
-      <t>Moreover, the DOTS Call Home extension avoids misattribution by
-      appropriately identifying the network to which a suspect attack source
-      belongs to (e.g., address sharing issues discussed in <xref
+      <t>Moreover, the DOTS Call Home avoids misattribution by appropriately
+      identifying the network to which a suspect attack source belongs to
+      (e.g., address sharing issues discussed in <xref
       target="mitigation"></xref>).</t>
 
       <t>Triggers to send a DOTS mitigation request to a Call Home DOTS server
@@ -1278,6 +1317,8 @@ module ietf-dots-call-home {
 
       <?rfc include='reference.I-D.ietf-dots-server-discovery'?>
 
+      <?rfc include='reference.I-D.ietf-idr-flow-spec-v6'?>
+
       <?rfc include='reference.RFC.8512'?>
 
       <?rfc include='reference.RFC.8513'?>
@@ -1293,11 +1334,35 @@ module ietf-dots-call-home {
       <?rfc include='reference.RFC.8517'?>
 
       <?rfc include='reference.RFC.8576'?>
+
+      <?rfc include='reference.RFC.6398'?>
+
+      <?rfc include='reference.RFC.2663'?>
+
+      <?rfc include='reference.I-D.ietf-i2nsf-terminology'?>
+
+      <?rfc include='reference.RFC.4949'?>
+
+      <reference anchor="Sec"
+                 target="https://www.gov.uk/government/publications/secure-by-design-report">
+        <front>
+          <title>Secure by Design: Improving the cyber security of consumer
+          Internet of Things Report</title>
+
+          <author fullname="" surname="">
+            <organization>UK Department for Digital Culture, Media &amp;
+            Sport</organization>
+          </author>
+
+          <date month="March" year="2018" />
+        </front>
+      </reference>
     </references>
 
-    <section anchor="app" title="Disambiguate Base DOTS Signal vs. Call Home">
-      <t>With the DOTS Call Home extension, there is a chance that two DOTS
-      agents can simultaneously establish two DOTS signal channels with
+    <section anchor="app"
+             title="Disambiguate Base DOTS Signal vs. DOTS Call Home">
+      <t>With the DOTS signal channel Call Home, there is a chance that two
+      DOTS agents can simultaneously establish two DOTS signal channels with
       different directions (base DOTS signal channel and DOTS signal channel
       Call Home). Here is one example drawn from the home network.
       Nevertheless, the outcome of the discussion is not specific to these
@@ -1338,23 +1403,23 @@ module ietf-dots-call-home {
       the DOTS client and the peer DOTS agent in the ISP environment is the
       DOTS server. After that, the DOTS agent in the home network retrieves
       the DOTS Call Home capability of the peer DOTS agent. If the peer
-      supports the Call Home extension, the DOTS agent needs to subscribe to
-      the peer to use this extension. Then, the reversal of DOTS role can be
+      supports the DOTS Call Home, the DOTS agent needs to subscribe to the
+      peer to use this extension. Then, the reversal of DOTS role can be
       recognized as done by both DOTS agents. When the DOTS agent in the ISP
       environment, which now is the DOTS client, wants to filter the
       attackers' traffic, it requests the DOTS agent in the home network,
       which now is the DOTS server, for help.</t>
 
       <t>Signaling the role will complicate the DOTS protocol, and this
-      complexity is not required in context where the Call Home extension is
-      not required or only when the Call Home extension is needed. Besides,
-      the DOTS data channel may not work during attack time. Even if changing
-      the above example from using the DOTS data channel to the DOTS signal
-      channel, the more procedures will still reduce the efficiency. Using the
-      dedicated port number is much easier and more concise compared to the
-      second approach, and its cost that establishing two (D)TLS sessions is
-      much less. So, using a dedicated port number for the Call Home extension
-      is chosen in this specification.</t>
+      complexity is not required in context where the DOTS Call Home is not
+      required or only when the DOTS Call Home is needed. Besides, the DOTS
+      data channel may not work during attack time. Even if changing the above
+      example from using the DOTS data channel to the DOTS signal channel, the
+      more procedures will still reduce the efficiency. Using the dedicated
+      port number is much easier and more concise compared to the second
+      approach, and its cost that establishing two (D)TLS sessions is much
+      less. So, using a dedicated port number for the DOTS Call Home is chosen
+      in this specification.</t>
     </section>
   </back>
 </rfc>
