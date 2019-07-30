@@ -127,7 +127,7 @@ Internet-Draft            DOTS Signal Call Home                July 2019
    9.  References  . . . . . . . . . . . . . . . . . . . . . . . . .  28
      9.1.  Normative References  . . . . . . . . . . . . . . . . . .  28
      9.2.  Informative References  . . . . . . . . . . . . . . . . .  29
-   Appendix A.  Disambiguate Base DOTS Signal vs. DOTS Call Home . .  32
+   Appendix A.  Disambiguate Base DOTS Signal vs. DOTS Call Home . .  31
    Authors' Addresses  . . . . . . . . . . . . . . . . . . . . . . .  33
 
 1.  Introduction
@@ -137,10 +137,10 @@ Internet-Draft            DOTS Signal Call Home                July 2019
    The DOTS signal channel protocol [I-D.ietf-dots-signal-channel] is
    used to carry information about a network resource or a network (or a
    part thereof) that is under a Distributed Denial of Service (DDoS)
-   attack.  Such information is sent by a DOTS client to one or multiple
-   DOTS servers so that appropriate mitigation actions are undertaken on
-   traffic deemed suspicious.  Various use cases are discussed in
-   [I-D.ietf-dots-use-cases].
+   attack [RFC4732].  Such information is sent by a DOTS client to one
+   or multiple DOTS servers so that appropriate mitigation actions are
+   undertaken on traffic deemed suspicious.  Various use cases are
+   discussed in [I-D.ietf-dots-use-cases].
 
    Internet of Things (IoT) devices are becoming more and more prevalent
    in home networks, in particular.  With compute and memory becoming
@@ -1584,12 +1584,6 @@ Internet-Draft            DOTS Signal Call Home                July 2019
 
 9.2.  Informative References
 
-   [I-D.hayashi-dots-dms-offload]
-              Hayashi, Y., Nishizuka, K., and M. Boucadair, "DDoS
-              Mitigation Offload: DOTS Applicability and Deployment
-              Considerations", draft-hayashi-dots-dms-offload-00 (work
-              in progress), July 2019.
-
    [I-D.ietf-dots-multihoming]
               Boucadair, M., K, R., and W. Pan, "Multi-homing Deployment
               Considerations for Distributed-Denial-of-Service Open
@@ -1614,18 +1608,6 @@ Internet-Draft            DOTS Signal Call Home                July 2019
               Terminology", draft-ietf-i2nsf-terminology-08 (work in
               progress), July 2019.
 
-
-
-
-
-
-
-
-Reddy, et al.           Expires January 31, 2020               [Page 29]
-
-Internet-Draft            DOTS Signal Call Home                July 2019
-
-
    [I-D.ietf-idr-flow-spec-v6]
               McPherson, D., Raszuk, R., Pithawala, B.,
               akarch@cisco.com, a., and S. Hares, "Dissemination of Flow
@@ -1636,6 +1618,13 @@ Internet-Draft            DOTS Signal Call Home                July 2019
               Translator (NAT) Terminology and Considerations",
               RFC 2663, DOI 10.17487/RFC2663, August 1999,
               <https://www.rfc-editor.org/info/rfc2663>.
+
+
+
+Reddy, et al.           Expires January 31, 2020               [Page 29]
+
+Internet-Draft            DOTS Signal Call Home                July 2019
+
 
    [RFC4340]  Kohler, E., Handley, M., and S. Floyd, "Datagram
               Congestion Control Protocol (DCCP)", RFC 4340,
@@ -1675,13 +1664,6 @@ Internet-Draft            DOTS Signal Call Home                July 2019
               DOI 10.17487/RFC6973, July 2013,
               <https://www.rfc-editor.org/info/rfc6973>.
 
-
-
-Reddy, et al.           Expires January 31, 2020               [Page 30]
-
-Internet-Draft            DOTS Signal Call Home                July 2019
-
-
    [RFC7596]  Cui, Y., Sun, Q., Boucadair, M., Tsou, T., Lee, Y., and I.
               Farrer, "Lightweight 4over6: An Extension to the Dual-
               Stack Lite Architecture", RFC 7596, DOI 10.17487/RFC7596,
@@ -1692,6 +1674,13 @@ Internet-Draft            DOTS Signal Call Home                July 2019
               Port with Encapsulation (MAP-E)", RFC 7597,
               DOI 10.17487/RFC7597, July 2015,
               <https://www.rfc-editor.org/info/rfc7597>.
+
+
+
+Reddy, et al.           Expires January 31, 2020               [Page 30]
+
+Internet-Draft            DOTS Signal Call Home                July 2019
+
 
    [RFC8071]  Watsen, K., "NETCONF Call Home and RESTCONF Call Home",
               RFC 8071, DOI 10.17487/RFC8071, February 2017,
@@ -1728,16 +1717,6 @@ Internet-Draft            DOTS Signal Call Home                July 2019
               DOI 10.17487/RFC8612, May 2019,
               <https://www.rfc-editor.org/info/rfc8612>.
 
-
-
-
-
-
-Reddy, et al.           Expires January 31, 2020               [Page 31]
-
-Internet-Draft            DOTS Signal Call Home                July 2019
-
-
    [Sec]      UK Department for Digital Culture, Media & Sport, "Secure
               by Design: Improving the cyber security of consumer
               Internet of Things Report", March 2018,
@@ -1750,6 +1729,15 @@ Appendix A.  Disambiguate Base DOTS Signal vs. DOTS Call Home
    DOTS agents can simultaneously establish two DOTS signal channels
    with different directions (base DOTS signal channel and DOTS signal
    channel Call Home).  Here is one example drawn from the home network.
+
+
+
+
+Reddy, et al.           Expires January 31, 2020               [Page 31]
+
+Internet-Draft            DOTS Signal Call Home                July 2019
+
+
    Nevertheless, the outcome of the discussion is not specific to these
    networks, but applies to any DOTS Call Home scenario.
 
@@ -1786,14 +1774,6 @@ Appendix A.  Disambiguate Base DOTS Signal vs. DOTS Call Home
    home network first initiates a DOTS data channel to the peer DOTS
    agent in the ISP environment, at this time the DOTS agent in the home
    network is the DOTS client and the peer DOTS agent in the ISP
-
-
-
-Reddy, et al.           Expires January 31, 2020               [Page 32]
-
-Internet-Draft            DOTS Signal Call Home                July 2019
-
-
    environment is the DOTS server.  After that, the DOTS agent in the
    home network retrieves the DOTS Call Home capability of the peer DOTS
    agent.  If the peer supports the DOTS Call Home, the DOTS agent needs
@@ -1806,6 +1786,14 @@ Internet-Draft            DOTS Signal Call Home                July 2019
    Signaling the role will complicate the DOTS protocol, and this
    complexity is not required in context where the DOTS Call Home is not
    required or only when the DOTS Call Home is needed.  Besides, the
+
+
+
+Reddy, et al.           Expires January 31, 2020               [Page 32]
+
+Internet-Draft            DOTS Signal Call Home                July 2019
+
+
    DOTS data channel may not work during attack time.  Even if changing
    the above example from using the DOTS data channel to the DOTS signal
    channel, the more procedures will still reduce the efficiency.  Using
@@ -1837,6 +1825,18 @@ Authors' Addresses
    UK
 
    Email: supjps-ietf@jpshallow.com
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

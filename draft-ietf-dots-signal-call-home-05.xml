@@ -134,11 +134,11 @@
         <t>The DOTS signal channel protocol <xref
         target="I-D.ietf-dots-signal-channel"></xref> is used to carry
         information about a network resource or a network (or a part thereof)
-        that is under a Distributed Denial of Service (DDoS) attack. Such
-        information is sent by a DOTS client to one or multiple DOTS servers
-        so that appropriate mitigation actions are undertaken on traffic
-        deemed suspicious. Various use cases are discussed in <xref
-        target="I-D.ietf-dots-use-cases"></xref>.</t>
+        that is under a Distributed Denial of Service (DDoS) attack <xref
+        target="RFC4732"></xref>. Such information is sent by a DOTS client to
+        one or multiple DOTS servers so that appropriate mitigation actions
+        are undertaken on traffic deemed suspicious. Various use cases are
+        discussed in <xref target="I-D.ietf-dots-use-cases"></xref>.</t>
 
         <t>Internet of Things (IoT) devices are becoming more and more
         prevalent in home networks, in particular. With compute and memory
