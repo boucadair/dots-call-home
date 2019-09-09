@@ -1191,8 +1191,8 @@ Internet-Draft            DOTS Signal Call Home           September 2019
           +--rw upper-type?   uint8
      augment /ietf-signal:dots-signal/ietf-signal:message-type
              /ietf-signal:redirected-signal:
-       +--rw alt-ch-client            string
-       +--rw alt-ch-client-record*    inet:ip-address
+       +--rw alt-ch-client           string {call-home}?
+       +--rw alt-ch-client-record*   inet:ip-address {call-home}?
        +--rw ttl     uint32 {call-home}?
 
 
@@ -1360,7 +1360,6 @@ Internet-Draft            DOTS Signal Call Home           September 2019
 
        leaf alt-ch-client {
          type string;
-         mandatory true;
          description
            "FQDN of an alternate Call Home DOTS client.";
        }
@@ -1390,6 +1389,7 @@ Internet-Draft            DOTS Signal Call Home           September 2019
    Name and Transport Protocol Port Number Registry" available at:
    https://www.iana.org/assignments/service-names-port-numbers/service-
    names-port-numbers.xhtml.
+
 
 
 
