@@ -649,7 +649,7 @@ Outbound ||      |     ::     |       || Inbound
           server to another Call Home DOTS client, it MUST send a PUT request
           to the predefined resource &ldquo;.well-known/dots/redirect&rdquo;
           with the new Call Home DOTS client FQDN or IP address in the body of
-          the PUT as described in Section 4.6 of <xref
+          the PUT similar to what is described in Section 4.6 of <xref
           target="I-D.ietf-dots-signal-channel"></xref>. Furthermore, a new
           clause called 'ttl" is defined to return the Time to live (TTL) of
           the alternate Call Home DOTS client.</t>
@@ -680,8 +680,9 @@ Outbound ||      |     ::     |       || Inbound
 
    {
      "ietf-dots-signal-channel:redirected-signal": {
-       "alt-server": "alt-call-home-client.example",
-       "alt-server-record": [
+       "ietf-dots-call-home:alt-ch-client": 
+                     "alt-call-home-client.example",
+       "ietf-dots-call-home:alt-ch-client-record": [
           "2001:db8:6401::1",
           "2001:db8:6401::2"
         ],
@@ -994,6 +995,8 @@ Outbound ||      |     ::     |       || Inbound
        +--rw upper-type?   uint8
   augment /ietf-signal:dots-signal/ietf-signal:message-type
           /ietf-signal:redirected-signal:
+    +--rw alt-ch-client            string
+    +--rw alt-ch-client-record*    inet:ip-address
     +--rw ttl     uint32 {call-home}?
 
 ]]></artwork>
@@ -1137,14 +1140,26 @@ module ietf-dots-call-home {
         + "ietf-signal:redirected-signal" {
     if-feature call-home;
     description 
-      "The Time to live (TTL) of the alternate Call Home 
-       DOTS client.";
+      "The alternate Call Home DOTS client.";
 
+    leaf alt-ch-client {
+      type string;
+      mandatory true;
+      description
+        "FQDN of an alternate Call Home DOTS client.";
+    }
+    leaf-list alt-ch-client-record {
+      type inet:ip-address;
+      description
+        "List of records for the alternate Call Home
+         DOTS client.";
+    }
     leaf ttl {
       type uint32;
       units "seconds";
       description
-        "The TTL of the alternate Call Home DOTS client.";
+        "The Time to live (TTL) of the alternate Call Home
+         DOTS client.";
     }
   }
 }
@@ -1209,8 +1224,13 @@ module ietf-dots-call-home {
 |                   |            | (TBD4) |               |        |
 | upper-type        | uint8      | 0x8004 | 0 unsigned    | Number |
 |                   |            | (TBD5) |               |        |
-| ttl               | uint32     | 0x8005 | 0 unsigned    | Number |
+| alt-ch-client     | string     | 0x8005 | 3 text string | String |
 |                   |            | (TBD6) |               |        |
+| alt-ch-client-    | leaf-list  | 0x8006 | 4 array       | Array  |
+|  record           | inet:      | (TBD7) |               |        |
+|                   |  ip-address|        | 3 text string | String |
+| ttl               | uint32     | 0x8007 | 0 unsigned    | Number |
+|                   |            | (TBD8) |               |        |
 +-------------------+------------+--------+---------------+--------+
 ]]></artwork>
           </figure></t>
