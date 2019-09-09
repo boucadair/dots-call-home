@@ -72,7 +72,7 @@
       </address>
     </author>
 
-    <date day="05" month="September" year="2019" />
+    <date day="06" month="September" year="2019" />
 
     <workgroup>DOTS</workgroup>
 
@@ -652,19 +652,21 @@ Outbound ||      |     ::     |       || Inbound
           the PUT as described in Section 4.6 of <xref
           target="I-D.ietf-dots-signal-channel"></xref>. Furthermore, a new
           clause called 'ttl" is defined to return the Time to live (TTL) of
-          the alternate Call Home DOTS client. </t>
+          the alternate Call Home DOTS client.</t>
 
-          <t>On receipt of this PUT request, the Call Home DOTS server then
-          closes this connection and establishes a connection with the new
-          Call Home DOTS client. The processing of the TTL is defined in
-          Section 4.6 of <xref
-          target="I-D.ietf-dots-signal-channel"></xref>.</t>
+          <t>On receipt of this PUT request, the Call Home DOTS server
+          responds with a 2.01 (Created), closes this connection and
+          establishes a connection with the new Call Home DOTS client. The
+          processing of the TTL is defined in Section 4.6 of <xref
+          target="I-D.ietf-dots-signal-channel"></xref>. If the Call Home DOTS
+          server cannot service the PUT request, the response is rejected with
+          a 4.00 (bad Request).</t>
 
           <t><xref target="red-example"></xref> shows a PUT request example to
           convey the alternate Call Home DOTS client
           'alt-call-home-client.example' together with its IP addresses
           2001:db8:6401::1 and 2001:db8:6401::2. The validity of this
-          alternate Call Home DOTS client is 10 minutes. </t>
+          alternate Call Home DOTS client is 10 minutes.</t>
 
           <t><figure anchor="red-example"
               title="Example of a PUT Request for Redirected Signaling">
@@ -1141,7 +1143,6 @@ module ietf-dots-call-home {
     leaf ttl {
       type uint32;
       units "seconds";
-      config false;
       description
         "The TTL of the alternate Call Home DOTS client.";
     }
@@ -1201,7 +1202,7 @@ module ietf-dots-call-home {
 |                   | inet:      | (TBD1) |               |        |
 |                   |  ip-prefix |        | 3 text string | String |
 | source-port-range | list       | 0x8001 | 4 array       | Array  |
-|                   |            | (TBD2) |               |        | 
+|                   |            | (TBD2) |               |        |
 | source-icmp-type- | list       | 0x8002 | 4 array       | Array  |
 |  range            |            | (TBD3) |               |        |
 | lower-type        | uint8      | 0x8003 | 0 unsigned    | Number |
@@ -1209,7 +1210,7 @@ module ietf-dots-call-home {
 | upper-type        | uint8      | 0x8004 | 0 unsigned    | Number |
 |                   |            | (TBD5) |               |        |
 | ttl               | uint32     | 0x8005 | 0 unsigned    | Number |
-|                   |            | (TBD4) |               |        |
+|                   |            | (TBD6) |               |        |
 +-------------------+------------+--------+---------------+--------+
 ]]></artwork>
           </figure></t>
