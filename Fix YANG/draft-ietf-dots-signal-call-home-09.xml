@@ -1020,15 +1020,19 @@ Outbound ||      |     ::     |       || Inbound
 | source-icmp-type-  | list       | TBA3 | 4 array       | Array  |
 |  range             |            |      |               |        |
 +--------------------+------------+------+---------------+--------+
-|ietf-dots-call-home:|            |      |               |        |
-| alt-ch-client      | string     | TBA4 | 3 text string | String |
+| lower-type         | uint8      | TBA4 | 0 unsigned    | Number |
 +--------------------+------------+------+---------------+--------+
-|ietf-dots-call-home:| leaf-list  | TBA5 | 4 array       | Array  |
+| upper-type         | uint8      | TBA5 | 0 unsigned    | Number |
++--------------------+------------+------+---------------+--------+
+|ietf-dots-call-home:|            |      |               |        |
+| alt-ch-client      | string     | TBA6 | 3 text string | String |
++--------------------+------------+------+---------------+--------+
+|ietf-dots-call-home:| leaf-list  | TBA7 | 4 array       | Array  |
 | alt-ch-client-     | inet:      |      |               |        |
 |  record            |  ip-address|      | 3 text string | String |
 +--------------------+------------+------+---------------+--------+
 |ietf-dots-call-home:|            |      |               |        |
-| ttl                | uint32     | TBA6 | 0 unsigned    | Number |
+| ttl                | uint32     | TBA8 | 0 unsigned    | Number |
 +--------------------+------------+------+---------------+--------+
 
            Table 1: YANG/JSON Mapping Parameters to CBOR
@@ -1245,14 +1249,18 @@ module ietf-dots-call-home {
    | source-icmp-type-  |  TBA3 |   4   |    IESG    |   [RFCXXXX]   |
    |  range             |       |       |            |               |
    +--------------------+-------+-------+------------+---------------+
-   |ietf-dots-call-home:|       |       |            |               |
-   | alt-ch-client      |  TBA4 |   3   |    IESG    |   [RFCXXXX]   |
+   | lower-type         |  TBA4 |   0   |    IESG    |   [RFCXXXX]   |
+   +--------------------+-------+-------+------------+---------------+
+   | upper-type         |  TBA5 |   0   |    IESG    |   [RFCXXXX]   |
    +--------------------+-------+-------+------------+---------------+
    |ietf-dots-call-home:|       |       |            |               |
-   |alt-ch-client-record|  TBA5 |   4   |    IESG    |   [RFCXXXX]   |
+   | alt-ch-client      |  TBA6 |   3   |    IESG    |   [RFCXXXX]   |
    +--------------------+-------+-------+------------+---------------+
    |ietf-dots-call-home:|       |       |            |               |
-   | ttl                |  TBA6 |   0   |    IESG    |   [RFCXXXX]   |
+   |alt-ch-client-record|  TBA7 |   4   |    IESG    |   [RFCXXXX]   |
+   +--------------------+-------+-------+------------+---------------+
+   |ietf-dots-call-home:|       |       |            |               |
+   | ttl                |  TBA8 |   0   |    IESG    |   [RFCXXXX]   |
    +--------------------+-------+-------+------------+---------------+
 
            Table 2: Assigned DOTS Signal Channel CBOR Key Values
