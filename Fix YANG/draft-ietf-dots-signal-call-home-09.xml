@@ -507,7 +507,7 @@ Outbound ||      |     ::     |       || Inbound
       <t>'Base DOTS signal channel' refers to <xref
       target="RFC8782"></xref>.</t>
 
-      <t>The meaning of the symbols in YANG tree diagrams is defined in <xref
+      <t>The meaning of the symbols in YANG tree diagrams are defined in <xref
       target="RFC8340"></xref> and <xref target="RFC8791"></xref>.</t>
 
       <t>(D)TLS is used for statements that apply to both Transport Layer

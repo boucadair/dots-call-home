@@ -606,7 +606,7 @@ Internet-Draft            DOTS Signal Call Home                July 2020
 
    'Base DOTS signal channel' refers to [RFC8782].
 
-   The meaning of the symbols in YANG tree diagrams is defined in
+   The meaning of the symbols in YANG tree diagrams are defined in
    [RFC8340] and [RFC8791].
 
 
