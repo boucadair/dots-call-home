@@ -8,7 +8,7 @@ module: ietf-dots-call-home
     +-- source-icmp-type-range* [lower-type]
        +-- lower-type    uint8
        +-- upper-type?   uint8
-  augment-structure /ietf-signal:dots-signal/ietf-signal:message-type/ietf-signal:redirected-signal:
+  augment-structure /signal:dots-signal/signal:message-type/signal:redirected-signal:
     +-- (type)?
        +--:(call-home-only)
           +-- alt-ch-client?          string
