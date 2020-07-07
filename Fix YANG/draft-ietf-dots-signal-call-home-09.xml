@@ -1038,7 +1038,8 @@ Outbound ||      |     ::     |       || Inbound
 
           <section title="YANG Module ">
             <t>This module uses the common YANG types defined in <xref
-            target="RFC6991"></xref>.</t>
+            target="RFC6991"></xref> and the data structure defined in <xref
+            target="RFC8791"></xref>.</t>
 
             <t><figure>
                 <artwork><![CDATA[<CODE BEGINS> file "ietf-dots-call-home@2020-07-07.yang"
@@ -1425,6 +1426,8 @@ module ietf-dots-call-home {
       <?rfc include='reference.RFC.6347'?>
 
       <?rfc include="reference.RFC.8782" ?>
+
+      <?rfc include='reference.RFC.8791'?>
 
       <?rfc include='reference.I-D.boucadair-dots-rfc8782-yang-update'?>
     </references>

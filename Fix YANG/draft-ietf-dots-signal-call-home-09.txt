@@ -118,19 +118,19 @@ Internet-Draft            DOTS Signal Call Home                July 2020
        3.3.2.  Address Sharing Considerations  . . . . . . . . . . .  18
        3.3.3.  DOTS Signal Call Home YANG Module . . . . . . . . . .  21
    4.  IANA Considerations . . . . . . . . . . . . . . . . . . . . .  26
-     4.1.  DOTS Signal Channel Call Home UDP and TCP Port Number . .  26
+     4.1.  DOTS Signal Channel Call Home UDP and TCP Port Number . .  27
      4.2.  DOTS Signal Channel CBOR Mappings Registry  . . . . . . .  27
      4.3.  New DOTS Conflict Cause . . . . . . . . . . . . . . . . .  28
-     4.4.  DOTS Signal Call Home YANG Module . . . . . . . . . . . .  28
+     4.4.  DOTS Signal Call Home YANG Module . . . . . . . . . . . .  29
    5.  Security Considerations . . . . . . . . . . . . . . . . . . .  29
-   6.  Privacy Considerations  . . . . . . . . . . . . . . . . . . .  29
-   7.  Contributors  . . . . . . . . . . . . . . . . . . . . . . . .  30
-   8.  Acknowledgements  . . . . . . . . . . . . . . . . . . . . . .  30
+   6.  Privacy Considerations  . . . . . . . . . . . . . . . . . . .  30
+   7.  Contributors  . . . . . . . . . . . . . . . . . . . . . . . .  31
+   8.  Acknowledgements  . . . . . . . . . . . . . . . . . . . . . .  31
    9.  References  . . . . . . . . . . . . . . . . . . . . . . . . .  31
      9.1.  Normative References  . . . . . . . . . . . . . . . . . .  31
      9.2.  Informative References  . . . . . . . . . . . . . . . . .  32
-   Appendix A.  Disambiguate Base DOTS Signal vs. DOTS Call Home . .  34
-   Authors' Addresses  . . . . . . . . . . . . . . . . . . . . . . .  36
+   Appendix A.  Disambiguate Base DOTS Signal vs. DOTS Call Home . .  35
+   Authors' Addresses  . . . . . . . . . . . . . . . . . . . . . . .  37
 
 1.  Introduction
 
@@ -1265,7 +1265,8 @@ Internet-Draft            DOTS Signal Call Home                July 2020
 
 3.3.3.3.  YANG Module
 
-   This module uses the common YANG types defined in [RFC6991].
+   This module uses the common YANG types defined in [RFC6991] and the
+   data structure defined in [RFC8791].
 
 <CODE BEGINS> file "ietf-dots-call-home@2020-07-07.yang"
 module ietf-dots-call-home {
@@ -1281,7 +1282,6 @@ module ietf-dots-call-home {
   import ietf-dots-signal-channel {
     prefix signal;
     reference
-      "RFC UUUU: A YANG Data Model for Distributed Denial-of-Service Open Threat
 
 
 
@@ -1290,6 +1290,7 @@ Reddy, et al.            Expires January 8, 2021               [Page 23]
 Internet-Draft            DOTS Signal Call Home                July 2020
 
 
+      "RFC UUUU: A YANG Data Model for Distributed Denial-of-Service Open Threat
                  Signaling (DOTS) Signal Channel";
   }
   import ietf-yang-structure-ext {
@@ -1337,7 +1338,6 @@ Internet-Draft            DOTS Signal Call Home                July 2020
       "RFC XXXX: Distributed Denial-of-Service Open Threat
                  Signaling (DOTS) Signal Channel Call Home";
   }
-  sx:augment-structure "/signal:dots-signal/signal:message-type/"
 
 
 
@@ -1346,6 +1346,7 @@ Reddy, et al.            Expires January 8, 2021               [Page 24]
 Internet-Draft            DOTS Signal Call Home                July 2020
 
 
+  sx:augment-structure "/signal:dots-signal/signal:message-type/"
                      + "signal:mitigation-scope/signal:scope" {
     description
       "Attacker source details.";
@@ -1393,7 +1394,6 @@ Internet-Draft            DOTS Signal Call Home                July 2020
           error-message
             "The upper ICMP type must be greater than
              or equal to lower ICMP type.";
-        }
 
 
 
@@ -1402,6 +1402,7 @@ Reddy, et al.            Expires January 8, 2021               [Page 25]
 Internet-Draft            DOTS Signal Call Home                July 2020
 
 
+        }
         description
           "Upper type of the ICMP type range.";
       }
@@ -1445,11 +1446,10 @@ Internet-Draft            DOTS Signal Call Home                July 2020
 
 4.  IANA Considerations
 
-4.1.  DOTS Signal Channel Call Home UDP and TCP Port Number
 
-   IANA is requested to assign the port number TBD to the DOTS signal
-   channel Call Home protocol for both UDP and TCP from the "Service
-   Name and Transport Protocol Port Number Registry" [ServicePorts].
+
+
+
 
 
 
@@ -1457,6 +1457,12 @@ Reddy, et al.            Expires January 8, 2021               [Page 26]
 
 Internet-Draft            DOTS Signal Call Home                July 2020
 
+
+4.1.  DOTS Signal Channel Call Home UDP and TCP Port Number
+
+   IANA is requested to assign the port number TBD to the DOTS signal
+   channel Call Home protocol for both UDP and TCP from the "Service
+   Name and Transport Protocol Port Number Registry" [ServicePorts].
 
       Service Name:           dots-call-home
       Port Number:            TBD
@@ -1477,6 +1483,36 @@ Internet-Draft            DOTS Signal Call Home                July 2020
 
    o  Note to the RFC Editor: Please delete TBA1-TBA8 once CBOR keys are
       assigned from the 32768-49151 range.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Reddy, et al.            Expires January 8, 2021               [Page 27]
+
+Internet-Draft            DOTS Signal Call Home                July 2020
+
 
      +--------------------+-------+-------+------------+---------------+
      | Parameter Name     | CBOR  | CBOR  | Change     | Specification |
@@ -1505,19 +1541,34 @@ Internet-Draft            DOTS Signal Call Home                July 2020
 
              Table 2: Assigned DOTS Signal Channel CBOR Key Values
 
-
-
-
-
-Reddy, et al.            Expires January 8, 2021               [Page 27]
-
-Internet-Draft            DOTS Signal Call Home                July 2020
-
-
 4.3.  New DOTS Conflict Cause
 
    This document requests IANA to assign a new code from the "DOTS
    Signal Channel Conflict Cause Codes" registry [Cause].
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Reddy, et al.            Expires January 8, 2021               [Page 28]
+
+Internet-Draft            DOTS Signal Call Home                July 2020
+
 
    +-------+----------------------------------+------------+-----------+
    | Code  | Label                            | Descriptio | Reference |
@@ -1561,21 +1612,20 @@ Internet-Draft            DOTS Signal Call Home                July 2020
             prefix: dots-call-home
             reference: RFC XXXX
 
-
-
-
-
-Reddy, et al.            Expires January 8, 2021               [Page 28]
-
-Internet-Draft            DOTS Signal Call Home                July 2020
-
-
 5.  Security Considerations
 
    This document deviates from classic DOTS signal channel usage by
    having the DOTS server initiate the (D)TLS connection.  DOTS signal
    channel related security considerations discussed in Section 10 of
    [RFC8782] MUST be considered.  DOTS agents MUST authenticate each
+
+
+
+Reddy, et al.            Expires January 8, 2021               [Page 29]
+
+Internet-Draft            DOTS Signal Call Home                July 2020
+
+
    other using (D)TLS before a DOTS signal channel session is considered
    valid.
 
@@ -1616,16 +1666,6 @@ Internet-Draft            DOTS Signal Call Home                July 2020
    the Call Home DOTS client.  How the consent is obtained is out of
    scope of this document.
 
-
-
-
-
-
-Reddy, et al.            Expires January 8, 2021               [Page 29]
-
-Internet-Draft            DOTS Signal Call Home                July 2020
-
-
    Note that a Call Home DOTS server can seek for an administrator's
    consent, validate the request by inspecting the traffic, or proceed
    with both.
@@ -1633,6 +1673,15 @@ Internet-Draft            DOTS Signal Call Home                July 2020
    The DOTS Call Home is only advisory in nature.  Concretely, the DOTS
    Call Home does not impose any action to be enforced within the
    network hosting an attack source; it is up to the Call Home DOTS
+
+
+
+
+Reddy, et al.            Expires January 8, 2021               [Page 30]
+
+Internet-Draft            DOTS Signal Call Home                July 2020
+
+
    server (and/or network administrator) to decide whether and which
    actions are required.
 
@@ -1672,16 +1721,6 @@ Internet-Draft            DOTS Signal Call Home                July 2020
    Thanks to Wei Pei, Xia Liang, Roman Danyliw, Dan Wing, Toema
    Gavrichenkov, Daniel Migault, and Valery Smyslov for the comments.
 
-
-
-
-
-
-Reddy, et al.            Expires January 8, 2021               [Page 30]
-
-Internet-Draft            DOTS Signal Call Home                July 2020
-
-
 9.  References
 
 9.1.  Normative References
@@ -1691,6 +1730,13 @@ Internet-Draft            DOTS Signal Call Home                July 2020
               Distributed Denial-of-Service Open Threat Signaling (DOTS)
               Signal Channel", draft-boucadair-dots-rfc8782-yang-
               update-00 (work in progress), July 2020.
+
+
+
+Reddy, et al.            Expires January 8, 2021               [Page 31]
+
+Internet-Draft            DOTS Signal Call Home                July 2020
+
 
    [RFC2119]  Bradner, S., "Key words for use in RFCs to Indicate
               Requirement Levels", BCP 14, RFC 2119,
@@ -1727,22 +1773,26 @@ Internet-Draft            DOTS Signal Call Home                July 2020
               Specification", RFC 8782, DOI 10.17487/RFC8782, May 2020,
               <https://www.rfc-editor.org/info/rfc8782>.
 
-
-
-
-
-
-
-Reddy, et al.            Expires January 8, 2021               [Page 31]
-
-Internet-Draft            DOTS Signal Call Home                July 2020
-
+   [RFC8791]  Bierman, A., Bjoerklund, M., and K. Watsen, "YANG Data
+              Structure Extensions", RFC 8791, DOI 10.17487/RFC8791,
+              June 2020, <https://www.rfc-editor.org/info/rfc8791>.
 
 9.2.  Informative References
 
    [Cause]    IANA, "DOTS Signal Channel Conflict Cause Codes",
               <https://www.iana.org/assignments/dots/dots.xhtml#dots-
               signal-channel-conflict-cause-codes>.
+
+
+
+
+
+
+
+Reddy, et al.            Expires January 8, 2021               [Page 32]
+
+Internet-Draft            DOTS Signal Call Home                July 2020
+
 
    [I-D.ietf-dots-multihoming]
               Boucadair, M., Reddy.K, T., and W. Pan, "Multi-homing
@@ -1787,17 +1837,18 @@ Internet-Draft            DOTS Signal Call Home                July 2020
               DOI 10.17487/RFC4340, March 2006,
               <https://www.rfc-editor.org/info/rfc4340>.
 
-
-
-Reddy, et al.            Expires January 8, 2021               [Page 32]
-
-Internet-Draft            DOTS Signal Call Home                July 2020
-
-
    [RFC4632]  Fuller, V. and T. Li, "Classless Inter-domain Routing
               (CIDR): The Internet Address Assignment and Aggregation
               Plan", BCP 122, RFC 4632, DOI 10.17487/RFC4632, August
               2006, <https://www.rfc-editor.org/info/rfc4632>.
+
+
+
+
+Reddy, et al.            Expires January 8, 2021               [Page 33]
+
+Internet-Draft            DOTS Signal Call Home                July 2020
+
 
    [RFC4732]  Handley, M., Ed., Rescorla, E., Ed., and IAB, "Internet
               Denial-of-Service Considerations", RFC 4732,
@@ -1842,17 +1893,18 @@ Internet-Draft            DOTS Signal Call Home                July 2020
               RFC 8071, DOI 10.17487/RFC8071, February 2017,
               <https://www.rfc-editor.org/info/rfc8071>.
 
-
-
-
-Reddy, et al.            Expires January 8, 2021               [Page 33]
-
-Internet-Draft            DOTS Signal Call Home                July 2020
-
-
    [RFC8340]  Bjorklund, M. and L. Berger, Ed., "YANG Tree Diagrams",
               BCP 215, RFC 8340, DOI 10.17487/RFC8340, March 2018,
               <https://www.rfc-editor.org/info/rfc8340>.
+
+
+
+
+
+Reddy, et al.            Expires January 8, 2021               [Page 34]
+
+Internet-Draft            DOTS Signal Call Home                July 2020
+
 
    [RFC8512]  Boucadair, M., Ed., Sivakumar, S., Jacquenet, C.,
               Vinapamula, S., and Q. Wu, "A YANG Module for Network
@@ -1898,16 +1950,17 @@ Appendix A.  Disambiguate Base DOTS Signal vs. DOTS Call Home
    DOTS agents can simultaneously establish two DOTS signal channels
    with different directions (base DOTS signal channel and DOTS signal
    channel Call Home).  Here is one example drawn from the home network.
+   Nevertheless, the outcome of the discussion is not specific to these
+   networks, but applies to any DOTS Call Home scenario.
 
 
 
-Reddy, et al.            Expires January 8, 2021               [Page 34]
+
+
+Reddy, et al.            Expires January 8, 2021               [Page 35]
 
 Internet-Draft            DOTS Signal Call Home                July 2020
 
-
-   Nevertheless, the outcome of the discussion is not specific to these
-   networks, but applies to any DOTS Call Home scenario.
 
    In the Call Home scenario, the DOTS server in, for example, the home
    network can mitigate the DDoS attacks launched by the compromised
@@ -1954,17 +2007,17 @@ Internet-Draft            DOTS Signal Call Home                July 2020
    Signaling the role will complicate the DOTS protocol, and this
    complexity is not required in context where the DOTS Call Home is not
    required or only when the DOTS Call Home is needed.  Besides, the
+   DOTS data channel may not work during attack time.  Even if changing
+   the above example from using the DOTS data channel to the DOTS signal
+   channel, the more procedures will still reduce the efficiency.  Using
 
 
 
-Reddy, et al.            Expires January 8, 2021               [Page 35]
+Reddy, et al.            Expires January 8, 2021               [Page 36]
 
 Internet-Draft            DOTS Signal Call Home                July 2020
 
 
-   DOTS data channel may not work during attack time.  Even if changing
-   the above example from using the DOTS data channel to the DOTS signal
-   channel, the more procedures will still reduce the efficiency.  Using
    the dedicated port number is much easier and more concise compared to
    the second approach, and its cost that establishing two (D)TLS
    sessions is much less.  So, using a dedicated port number for the
@@ -2013,4 +2066,7 @@ Authors' Addresses
 
 
 
-Reddy, et al.            Expires January 8, 2021               [Page 36]
+
+
+
+Reddy, et al.            Expires January 8, 2021               [Page 37]
