@@ -10,6 +10,9 @@ module ietf-dots-call-home {
   }
   import ietf-dots-signal-channel {
     prefix signal;
+    reference
+      "RFC UUUU: A YANG Data Model for Distributed Denial-of-Service Open Threat
+                 Signaling (DOTS) Signal Channel";
   }
   import ietf-yang-structure-ext {
     prefix sx;
@@ -110,8 +113,8 @@ module ietf-dots-call-home {
       }
     }
   }
-  sx:augment-structure "/ietf-signal:dots-signal/ietf-signal:message-type/"
-                     + "ietf-signal:redirected-signal" {
+  sx:augment-structure "/signal:dots-signal/signal:message-type/"
+                     + "signal:redirected-signal" {
     description
       "The alternate Call Home DOTS client.";
     choice type {
