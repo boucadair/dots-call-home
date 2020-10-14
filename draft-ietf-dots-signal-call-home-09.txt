@@ -5,9 +5,9 @@
 DOTS                                                            T. Reddy
 Internet-Draft                                                    McAfee
 Intended status: Standards Track                            M. Boucadair
-Expires: March 18, 2021                                           Orange
+Expires: April 16, 2021                                           Orange
                                                               J. Shallow
-                                                      September 14, 2020
+                                                        October 13, 2020
 
 
    Distributed Denial-of-Service Open Threat Signaling (DOTS) Signal
@@ -18,13 +18,13 @@ Abstract
 
    This document specifies the DOTS signal channel Call Home, which
    enables a DOTS server to initiate a secure connection to a DOTS
-   client, and to receive the attack traffic information from the DOTS
+   client, and to receive attack traffic information from the DOTS
    client.  The DOTS server in turn uses the attack traffic information
-   to identify the compromised devices launching the outgoing DDoS
-   attack and takes appropriate mitigation action(s).
+   to identify compromised devices launching outgoing DDoS attacks and
+   take appropriate mitigation action(s).
 
-   The DOTS signal channel Call Home is not specific to the home
-   networks; the solution targets any deployment which requires to block
+   The DOTS signal channel Call Home is not specific to home networks;
+   the solution targets any deployment in which it is required to block
    DDoS attack traffic closer to the source(s) of a DDoS attack.
 
 Editorial Note (To be removed by RFC Editor)
@@ -53,9 +53,9 @@ Editorial Note (To be removed by RFC Editor)
 
 
 
-Reddy, et al.            Expires March 18, 2021                 [Page 1]
+Reddy, et al.            Expires April 16, 2021                 [Page 1]
 
-Internet-Draft            DOTS Signal Call Home           September 2020
+Internet-Draft            DOTS Signal Call Home             October 2020
 
 
    Also, please update the "revision" date of the YANG module.
@@ -75,7 +75,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on March 18, 2021.
+   This Internet-Draft will expire on April 16, 2021.
 
 Copyright Notice
 
@@ -97,40 +97,40 @@ Table of Contents
    1.  Introduction  . . . . . . . . . . . . . . . . . . . . . . . .   3
      1.1.  The Problem . . . . . . . . . . . . . . . . . . . . . . .   3
      1.2.  The Call Home Solution  . . . . . . . . . . . . . . . . .   5
-     1.3.  Applicability Scope . . . . . . . . . . . . . . . . . . .   6
+     1.3.  Applicability Scope . . . . . . . . . . . . . . . . . . .   7
      1.4.  Co-existence of Base DOTS Signal Channel & DOTS Call Home   8
-   2.  Terminology . . . . . . . . . . . . . . . . . . . . . . . . .  11
-   3.  DOTS Signal Channel Call Home . . . . . . . . . . . . . . . .  12
-     3.1.  Procedure . . . . . . . . . . . . . . . . . . . . . . . .  12
-     3.2.  DOTS Signal Channel Variations  . . . . . . . . . . . . .  13
-       3.2.1.  Heartbeat Mechanism . . . . . . . . . . . . . . . . .  13
-       3.2.2.  Redirected Signaling  . . . . . . . . . . . . . . . .  14
-     3.3.  DOTS Signal Channel Extension . . . . . . . . . . . . . .  15
+   2.  Terminology . . . . . . . . . . . . . . . . . . . . . . . . .  12
+   3.  DOTS Signal Channel Call Home . . . . . . . . . . . . . . . .  13
+     3.1.  Procedure . . . . . . . . . . . . . . . . . . . . . . . .  13
+     3.2.  DOTS Signal Channel Variations  . . . . . . . . . . . . .  14
+       3.2.1.  Heartbeat Mechanism . . . . . . . . . . . . . . . . .  14
+       3.2.2.  Redirected Signaling  . . . . . . . . . . . . . . . .  15
+     3.3.  DOTS Signal Channel Extension . . . . . . . . . . . . . .  16
 
 
 
-Reddy, et al.            Expires March 18, 2021                 [Page 2]
+Reddy, et al.            Expires April 16, 2021                 [Page 2]
 
-Internet-Draft            DOTS Signal Call Home           September 2020
+Internet-Draft            DOTS Signal Call Home             October 2020
 
 
-       3.3.1.  Mitigation Request  . . . . . . . . . . . . . . . . .  15
-       3.3.2.  Address Sharing Considerations  . . . . . . . . . . .  18
-       3.3.3.  DOTS Signal Call Home YANG Module . . . . . . . . . .  21
-   4.  IANA Considerations . . . . . . . . . . . . . . . . . . . . .  27
-     4.1.  DOTS Signal Channel Call Home UDP and TCP Port Number . .  27
-     4.2.  DOTS Signal Channel CBOR Mappings Registry  . . . . . . .  27
-     4.3.  New DOTS Conflict Cause . . . . . . . . . . . . . . . . .  28
-     4.4.  DOTS Signal Call Home YANG Module . . . . . . . . . . . .  29
-   5.  Security Considerations . . . . . . . . . . . . . . . . . . .  29
-   6.  Privacy Considerations  . . . . . . . . . . . . . . . . . . .  30
-   7.  Contributors  . . . . . . . . . . . . . . . . . . . . . . . .  31
-   8.  Acknowledgements  . . . . . . . . . . . . . . . . . . . . . .  31
-   9.  References  . . . . . . . . . . . . . . . . . . . . . . . . .  31
-     9.1.  Normative References  . . . . . . . . . . . . . . . . . .  31
-     9.2.  Informative References  . . . . . . . . . . . . . . . . .  32
-   Appendix A.  Disambiguate Base DOTS Signal vs. DOTS Call Home . .  35
-   Authors' Addresses  . . . . . . . . . . . . . . . . . . . . . . .  37
+       3.3.1.  Mitigation Request  . . . . . . . . . . . . . . . . .  16
+       3.3.2.  Address Sharing Considerations  . . . . . . . . . . .  19
+       3.3.3.  DOTS Signal Call Home YANG Module . . . . . . . . . .  22
+   4.  IANA Considerations . . . . . . . . . . . . . . . . . . . . .  28
+     4.1.  DOTS Signal Channel Call Home UDP and TCP Port Number . .  28
+     4.2.  DOTS Signal Channel CBOR Mappings Registry  . . . . . . .  28
+     4.3.  New DOTS Conflict Cause . . . . . . . . . . . . . . . . .  29
+     4.4.  DOTS Signal Call Home YANG Module . . . . . . . . . . . .  30
+   5.  Security Considerations . . . . . . . . . . . . . . . . . . .  30
+   6.  Privacy Considerations  . . . . . . . . . . . . . . . . . . .  31
+   7.  Contributors  . . . . . . . . . . . . . . . . . . . . . . . .  32
+   8.  Acknowledgements  . . . . . . . . . . . . . . . . . . . . . .  32
+   9.  References  . . . . . . . . . . . . . . . . . . . . . . . . .  32
+     9.1.  Normative References  . . . . . . . . . . . . . . . . . .  32
+     9.2.  Informative References  . . . . . . . . . . . . . . . . .  33
+   Appendix A.  Disambiguating Base DOTS Signal vs. DOTS Call Home .  36
+   Authors' Addresses  . . . . . . . . . . . . . . . . . . . . . . .  38
 
 1.  Introduction
 
@@ -144,53 +144,57 @@ Internet-Draft            DOTS Signal Call Home           September 2020
    undertaken on traffic deemed suspicious.  Various use cases are
    discussed in [I-D.ietf-dots-use-cases].
 
-   Internet of Things (IoT) devices are becoming more and more prevalent
-   in home networks, in particular.  With compute and memory becoming
-   cheaper and cheaper, various types of IoT devices become available in
-   the consumer market at affordable prices.  But on the downside, the
-   main threat being most of these IoT devices are bought off-the-shelf
-   and most manufacturers haven't considered security in the product
-   design (e.g., [Sec]).  IoT devices deployed in home networks can be
-   easily compromised, they do not have an easy mechanism to upgrade,
-   and IoT manufactures may cease manufacture and/or discontinue
-   patching vulnerabilities on IoT devices (Sections 5.4 and 5.5 of
-   [RFC8576]).  These vulnerable and compromised devices will continue
-   to be used for a long period of time in the home, and the end-user
-   does not know that IoT devices in his/her home are compromised.  The
-   compromised IoT devices are typically used for launching DDoS attacks
-   (Section 3 of [RFC8576]) on victims while the owner/administrator of
-   the home network is not aware about such misbehaviors.  Similar to
-   other DDoS attacks, the victim in this attack can be an application
-   server, a host, a router, a firewall, or an entire network.  Such
+   Internet of Things (IoT) devices are becoming more and more
+   prevalent, in particular in home networks.  With compute and memory
+   becoming cheaper and cheaper, various types of IoT devices become
+   available in the consumer market at affordable prices.  But on the
+   downside, there is a corresponding threat since most of these IoT
+   devices are bought off-the-shelf and most manufacturers haven't
+   considered security in the product design (e.g., [Sec]).  IoT devices
+   deployed in home networks can be easily compromised, they often do
+   not have an easy mechanism to upgrade, and even when upgradable, IoT
+   manufacturers may cease manufacture and/or discontinue patching
+   vulnerabilities on IoT devices (Sections 5.4 and 5.5 of [RFC8576]).
+   These vulnerable and compromised devices will continue to be used for
+   a long period of time in the home, and the end-user does not know
+   that IoT devices in his/her home are compromised.  The compromised
+   IoT devices are typically used for launching DDoS attacks (Section 3
+   of [RFC8576]) on victims while the owner/administrator of the home
+   network is not aware about such misbehaviors.  Similar to other DDoS
+   attacks, the victim in this attack can be an application server, a
 
 
 
-Reddy, et al.            Expires March 18, 2021                 [Page 3]
+Reddy, et al.            Expires April 16, 2021                 [Page 3]
 
-Internet-Draft            DOTS Signal Call Home           September 2020
+Internet-Draft            DOTS Signal Call Home             October 2020
 
 
-   misbehaviors will have a collateral damage that affects end users and
-   the reputation of an Internet Service Provider (ISP).
+   host, a router, a firewall, or an entire network.  Such misbehaviors
+   will have both a collateral damage that affects end users, and can
+   harm the reputation of an Internet Service Provider (ISP) for being a
+   source of attack traffic.
 
-   Nowadays, network devices in a home network offer network security
-   (e.g., firewall [RFC4949] or Intrusion Protection System (IPS)
-   service [I-D.ietf-i2nsf-terminology] on a home router) to protect the
-   devices connected to the home network from both external and internal
-   attacks.  Over the years several techniques have been identified to
-   detect DDoS attacks, some of these techniques can be enabled on home
-   network devices but most of them are used within the ISP's network.
-   The ISP offering a DDoS mitigation service can detect outgoing DDoS
-   attack traffic originating from its subscribers or the ISP may
-   receive filtering rules (e.g., using BGP Flowspec
-   [RFC5575][I-D.ietf-idr-flow-spec-v6]) from a downstream service
-   provider to filter, block, or rate-limit DDoS attack traffic
-   originating from the ISP's subscribers to a downstream target.
+   Nowadays, network devices in a home network can offer network
+   security functions (e.g., firewall [RFC4949] or Intrusion Protection
+   System (IPS) service [I-D.ietf-i2nsf-terminology] on a home router)
+   to protect the devices connected to the home network from both
+   external and internal attacks.  It is natural to seek to provide DDoS
+   defense in these devices as well, and over the years several
+   techniques have been identified to detect DDoS attacks; some of these
+   techniques can be enabled on home network devices but most of them
+   are used within the ISP's network.  The ISP offering a DDoS
+   mitigation service can detect outgoing DDoS attack traffic
+   originating from its subscribers or the ISP may receive filtering
+   rules (e.g., using BGP Flowspec [RFC5575][I-D.ietf-idr-flow-spec-v6])
+   from a downstream service provider to filter, block, or rate-limit
+   DDoS attack traffic originating from the ISP's subscribers to a
+   downstream target.
 
    Some of the DDoS attacks like spoofed RST or FIN packets, Slowloris,
    and Transport Layer Security (TLS) re-negotiation are difficult to
    detect on a home network device without adversely affecting its
-   performance.  The reason is typically home devices such as home
+   performance.  The reason is that typically home devices such as home
    routers have fast path to boost the throughput.  For every new TCP/
    UDP flow, only the first few packets are punted through the slow
    path.  Hence, it is not possible to detect various DDoS attacks in
@@ -203,34 +207,36 @@ Internet-Draft            DOTS Signal Call Home           September 2020
    detect these type of DDoS attacks is functionally or operationally
    not possible for all the devices attached to the home network owing
    to the memory and CPU limitations of the home routers.  Furthermore,
-   for certain DDoS attacks the ability to distinguish legitimate
-   traffic from attack traffic on a per packet basis is complex.  This
-   complexity is due to that the packet itself may look "legitimate" and
-   no attack signature can be identified.  The anomaly can be identified
-   only after detailed statistical analysis.
+   for certain DDoS attacks the logic needed to distinguish legitimate
+   traffic from attack traffic on a per-packet basis is complex.  This
+   complexity is due to the fact that the packet itself may look
+   "legitimate" and no attack signature can be identified.  The anomaly
+   can be identified only after detailed statistical analysis.
 
    ISPs can detect some DDoS attacks originating from a home network
-   (e.g., Section 2.6 of [RFC8517]), but the ISP does not have a
+   (e.g., Section 2.6 of [RFC8517]), but the ISP usually does not have a
    mechanism to detect which device in the home network is generating
-   the DDoS attack traffic.  The primary reason being that devices in an
+   the DDoS attack traffic.  The primary for this is that devices in an
    IPv4 home network are typically behind a Network Address Translation
+
+
+
+Reddy, et al.            Expires April 16, 2021                 [Page 4]
+
+Internet-Draft            DOTS Signal Call Home             October 2020
+
+
    (NAT) border [RFC2663].  Even in case of an IPv6 home network,
    although the ISP can identify the infected device in the home network
    launching the DDoS traffic by tracking its unique IPv6 address, the
-
-
-
-
-Reddy, et al.            Expires March 18, 2021                 [Page 4]
-
-Internet-Draft            DOTS Signal Call Home           September 2020
-
-
    infected device can easily change its IPv6 address to evade
-   remediation.
+   remediation.  A security function on the local home network is better
+   positioned to track the compromised device across IPv6 address (and
+   potentially even MAC address) changes and thus ensure that
+   remediation remains in place across such events.
 
    Existing approaches are still suffering from misused access network
-   resources by abusing devices; the support of means for blocking such
+   resources by abusive devices; the support of means for blocking such
    attacks close to the sources are missing.  In particular, the DOTS
    signal protocol does not discuss cooperative DDoS mitigation between
    the network hosting an attack source and the ISP to the suppress the
@@ -257,6 +263,25 @@ Internet-Draft            DOTS Signal Call Home           September 2020
    A high-level DOTS Call Home functional architecture is shown in
    Figure 1.  Attack source(s) are within the DOTS server domain.
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Reddy, et al.            Expires April 16, 2021                 [Page 5]
+
+Internet-Draft            DOTS Signal Call Home             October 2020
+
+
                                              Scope
                                    +.-.-.-.-.-.-.-.-.-.-.-.+
               +---------------+    :    +-------------+    :
@@ -273,14 +298,6 @@ Internet-Draft            DOTS Signal Call Home           September 2020
                                    +.-.-.-.-.-.-.-.-.-.-.-.+
 
    Figure 1: Basic DOTS Signal Channel Call Home Functional Architecture
-
-
-
-
-Reddy, et al.            Expires March 18, 2021                 [Page 5]
-
-Internet-Draft            DOTS Signal Call Home           September 2020
-
 
    A DOTS client relies upon a variety of triggers to make use of the
    Call Home function (e.g., scrubbing the traffic from the attack
@@ -312,6 +329,15 @@ Internet-Draft            DOTS Signal Call Home           September 2020
    device or block its traffic to the attack target(s) until the
    mitigation request is withdrawn.
 
+
+
+
+
+Reddy, et al.            Expires April 16, 2021                 [Page 6]
+
+Internet-Draft            DOTS Signal Call Home             October 2020
+
+
    Other motivations for introducing the Call Home function are
    discussed in Section 1.1 of [RFC8071].
 
@@ -329,20 +355,44 @@ Internet-Draft            DOTS Signal Call Home           September 2020
    The aforementioned problems may be encountered in other deployments
    than those discussed in Section 1.1 (e.g., data centers, enterprise
    networks).  The solution specified in this document can be used for
-
-
-
-
-Reddy, et al.            Expires March 18, 2021                 [Page 6]
-
-Internet-Draft            DOTS Signal Call Home           September 2020
-
-
    those deployments to block DDoS attack traffic closer to the
    source(s) of the attack.
 
    An instantiation of the Call Home functional architecture is depicted
    in Figure 2.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Reddy, et al.            Expires April 16, 2021                 [Page 7]
+
+Internet-Draft            DOTS Signal Call Home             October 2020
+
 
                              +-------------+
                              |Attack Target|
@@ -382,18 +432,6 @@ Internet-Draft            DOTS Signal Call Home           September 2020
    It is out of the scope of this document to identify an exhaustive
    list of such deployments.
 
-
-
-
-
-
-
-
-Reddy, et al.            Expires March 18, 2021                 [Page 7]
-
-Internet-Draft            DOTS Signal Call Home           September 2020
-
-
 1.4.  Co-existence of Base DOTS Signal Channel & DOTS Call Home
 
    The DOTS signal channel Call Home does not require nor preclude the
@@ -403,6 +441,15 @@ Internet-Draft            DOTS Signal Call Home           September 2020
 
    The network that hosts an attack source may also be subject to
    inbound DDoS attacks.  In that case, both the base DOTS signal
+
+
+
+
+Reddy, et al.            Expires April 16, 2021                 [Page 8]
+
+Internet-Draft            DOTS Signal Call Home             October 2020
+
+
    channel and DOTS signal channel Call Home may be enabled as shown in
    Figure 3 (Same DMS provider) or Figure 4 (Distinct DMS providers).
 
@@ -445,9 +492,18 @@ Internet-Draft            DOTS Signal Call Home           September 2020
 
 
 
-Reddy, et al.            Expires March 18, 2021                 [Page 8]
+
+
+
+
+
+
+
+
+
+Reddy, et al.            Expires April 16, 2021                 [Page 9]
 
-Internet-Draft            DOTS Signal Call Home           September 2020
+Internet-Draft            DOTS Signal Call Home             October 2020
 
 
                DOTS Signal Channel      Base DOTS
@@ -501,9 +557,9 @@ Internet-Draft            DOTS Signal Call Home           September 2020
 
 
 
-Reddy, et al.            Expires March 18, 2021                 [Page 9]
+Reddy, et al.            Expires April 16, 2021                [Page 10]
 
-Internet-Draft            DOTS Signal Call Home           September 2020
+Internet-Draft            DOTS Signal Call Home             October 2020
 
 
                DOTS Signal Channel      Base DOTS
@@ -557,9 +613,9 @@ Internet-Draft            DOTS Signal Call Home           September 2020
 
 
 
-Reddy, et al.            Expires March 18, 2021                [Page 10]
+Reddy, et al.            Expires April 16, 2021                [Page 11]
 
-Internet-Draft            DOTS Signal Call Home           September 2020
+Internet-Draft            DOTS Signal Call Home             October 2020
 
 
                DOTS Signal Channel      Base DOTS
@@ -613,9 +669,9 @@ Internet-Draft            DOTS Signal Call Home           September 2020
 
 
 
-Reddy, et al.            Expires March 18, 2021                [Page 11]
+Reddy, et al.            Expires April 16, 2021                [Page 12]
 
-Internet-Draft            DOTS Signal Call Home           September 2020
+Internet-Draft            DOTS Signal Call Home             October 2020
 
 
    (D)TLS is used for statements that apply to both Transport Layer
@@ -669,9 +725,9 @@ Internet-Draft            DOTS Signal Call Home           September 2020
 
 
 
-Reddy, et al.            Expires March 18, 2021                [Page 12]
+Reddy, et al.            Expires April 16, 2021                [Page 13]
 
-Internet-Draft            DOTS Signal Call Home           September 2020
+Internet-Draft            DOTS Signal Call Home             October 2020
 
 
    The DOTS signal channel Call Home procedure is as follows:
@@ -725,9 +781,9 @@ Internet-Draft            DOTS Signal Call Home           September 2020
 
 
 
-Reddy, et al.            Expires March 18, 2021                [Page 13]
+Reddy, et al.            Expires April 16, 2021                [Page 14]
 
-Internet-Draft            DOTS Signal Call Home           September 2020
+Internet-Draft            DOTS Signal Call Home             October 2020
 
 
    It is the responsibility of Call Home DOTS servers to ensure that on-
@@ -781,9 +837,9 @@ Internet-Draft            DOTS Signal Call Home           September 2020
 
 
 
-Reddy, et al.            Expires March 18, 2021                [Page 14]
+Reddy, et al.            Expires April 16, 2021                [Page 15]
 
-Internet-Draft            DOTS Signal Call Home           September 2020
+Internet-Draft            DOTS Signal Call Home             October 2020
 
 
    Figure 8 shows a PUT request example to convey the alternate Call
@@ -837,9 +893,9 @@ Internet-Draft            DOTS Signal Call Home           September 2020
 
 
 
-Reddy, et al.            Expires March 18, 2021                [Page 15]
+Reddy, et al.            Expires April 16, 2021                [Page 16]
 
-Internet-Draft            DOTS Signal Call Home           September 2020
+Internet-Draft            DOTS Signal Call Home             October 2020
 
 
       This is an optional attribute for the base DOTS signal channel
@@ -893,9 +949,9 @@ Internet-Draft            DOTS Signal Call Home           September 2020
 
 
 
-Reddy, et al.            Expires March 18, 2021                [Page 16]
+Reddy, et al.            Expires April 16, 2021                [Page 17]
 
-Internet-Draft            DOTS Signal Call Home           September 2020
+Internet-Draft            DOTS Signal Call Home             October 2020
 
 
    Only immediate mitigation requests (i.e., 'trigger-mitigation' set to
@@ -949,9 +1005,9 @@ Internet-Draft            DOTS Signal Call Home           September 2020
 
 
 
-Reddy, et al.            Expires March 18, 2021                [Page 17]
+Reddy, et al.            Expires April 16, 2021                [Page 18]
 
-Internet-Draft            DOTS Signal Call Home           September 2020
+Internet-Draft            DOTS Signal Call Home             October 2020
 
 
    The Call Home DOTS server domain administrator consent MAY be
@@ -1005,9 +1061,9 @@ Internet-Draft            DOTS Signal Call Home           September 2020
 
 
 
-Reddy, et al.            Expires March 18, 2021                [Page 18]
+Reddy, et al.            Expires April 16, 2021                [Page 19]
 
-Internet-Draft            DOTS Signal Call Home           September 2020
+Internet-Draft            DOTS Signal Call Home             October 2020
 
 
    and port number which are mapped to an external IP address and port
@@ -1061,13 +1117,13 @@ Internet-Draft            DOTS Signal Call Home           September 2020
 
 
 
-Reddy, et al.            Expires March 18, 2021                [Page 19]
+Reddy, et al.            Expires April 16, 2021                [Page 20]
 
-Internet-Draft            DOTS Signal Call Home           September 2020
+Internet-Draft            DOTS Signal Call Home             October 2020
 
 
-   mitigation request is withdrawn.  Doing so allows to isolate the
-   suspicious device while avoiding to disturb other services.
+   mitigation request is withdrawn.  Doing so allows the suspicious
+   device to be isolated while avoiding disturbances of other services.
 
                             .-------------------.
                            (                     )-.
@@ -1117,9 +1173,9 @@ Internet-Draft            DOTS Signal Call Home           September 2020
 
 
 
-Reddy, et al.            Expires March 18, 2021                [Page 20]
+Reddy, et al.            Expires April 16, 2021                [Page 21]
 
-Internet-Draft            DOTS Signal Call Home           September 2020
+Internet-Draft            DOTS Signal Call Home             October 2020
 
 
                           .-------------------.
@@ -1173,9 +1229,9 @@ Internet-Draft            DOTS Signal Call Home           September 2020
 
 
 
-Reddy, et al.            Expires March 18, 2021                [Page 21]
+Reddy, et al.            Expires April 16, 2021                [Page 22]
 
-Internet-Draft            DOTS Signal Call Home           September 2020
+Internet-Draft            DOTS Signal Call Home             October 2020
 
 
    module: ietf-dots-call-home
@@ -1229,9 +1285,9 @@ Internet-Draft            DOTS Signal Call Home           September 2020
 
 
 
-Reddy, et al.            Expires March 18, 2021                [Page 22]
+Reddy, et al.            Expires April 16, 2021                [Page 23]
 
-Internet-Draft            DOTS Signal Call Home           September 2020
+Internet-Draft            DOTS Signal Call Home             October 2020
 
 
    +--------------------+------------+------+---------------+--------+
@@ -1285,9 +1341,9 @@ Internet-Draft            DOTS Signal Call Home           September 2020
 
 
 
-Reddy, et al.            Expires March 18, 2021                [Page 23]
+Reddy, et al.            Expires April 16, 2021                [Page 24]
 
-Internet-Draft            DOTS Signal Call Home           September 2020
+Internet-Draft            DOTS Signal Call Home             October 2020
 
 
      }
@@ -1341,9 +1397,9 @@ Internet-Draft            DOTS Signal Call Home           September 2020
 
 
 
-Reddy, et al.            Expires March 18, 2021                [Page 24]
+Reddy, et al.            Expires April 16, 2021                [Page 25]
 
-Internet-Draft            DOTS Signal Call Home           September 2020
+Internet-Draft            DOTS Signal Call Home             October 2020
 
 
        reference
@@ -1353,11 +1409,11 @@ Internet-Draft            DOTS Signal Call Home           September 2020
      sx:augment-structure "/signal:dots-signal/signal:message-type/"
                         + "signal:mitigation-scope/signal:scope" {
        description
-         "Attacker source details.";
+         "Attack source details.";
        leaf-list source-prefix {
          type inet:ip-prefix;
          description
-           "IPv4 or IPv6 prefix identifying the attacker(s).";
+           "IPv4 or IPv6 prefix identifying the attack source(s).";
        }
        list source-port-range {
          key "lower-port";
@@ -1397,9 +1453,9 @@ Internet-Draft            DOTS Signal Call Home           September 2020
 
 
 
-Reddy, et al.            Expires March 18, 2021                [Page 25]
+Reddy, et al.            Expires April 16, 2021                [Page 26]
 
-Internet-Draft            DOTS Signal Call Home           September 2020
+Internet-Draft            DOTS Signal Call Home             October 2020
 
 
            must '. >= ../lower-type' {
@@ -1453,9 +1509,9 @@ Internet-Draft            DOTS Signal Call Home           September 2020
 
 
 
-Reddy, et al.            Expires March 18, 2021                [Page 26]
+Reddy, et al.            Expires April 16, 2021                [Page 27]
 
-Internet-Draft            DOTS Signal Call Home           September 2020
+Internet-Draft            DOTS Signal Call Home             October 2020
 
 
 4.  IANA Considerations
@@ -1509,9 +1565,9 @@ Internet-Draft            DOTS Signal Call Home           September 2020
 
 
 
-Reddy, et al.            Expires March 18, 2021                [Page 27]
+Reddy, et al.            Expires April 16, 2021                [Page 28]
 
-Internet-Draft            DOTS Signal Call Home           September 2020
+Internet-Draft            DOTS Signal Call Home             October 2020
 
 
      +--------------------+-------+-------+------------+---------------+
@@ -1565,9 +1621,9 @@ Internet-Draft            DOTS Signal Call Home           September 2020
 
 
 
-Reddy, et al.            Expires March 18, 2021                [Page 28]
+Reddy, et al.            Expires April 16, 2021                [Page 29]
 
-Internet-Draft            DOTS Signal Call Home           September 2020
+Internet-Draft            DOTS Signal Call Home             October 2020
 
 
    +-------+----------------------------------+------------+-----------+
@@ -1621,9 +1677,9 @@ Internet-Draft            DOTS Signal Call Home           September 2020
 
 
 
-Reddy, et al.            Expires March 18, 2021                [Page 29]
+Reddy, et al.            Expires April 16, 2021                [Page 30]
 
-Internet-Draft            DOTS Signal Call Home           September 2020
+Internet-Draft            DOTS Signal Call Home             October 2020
 
 
    authenticate each other using (D)TLS before a DOTS signal channel
@@ -1639,14 +1695,16 @@ Internet-Draft            DOTS Signal Call Home           September 2020
    unsuccessful authentication attempts.
 
    Call Home DOTS servers may not blindly trust mitigation requests from
-   Call Home DOTS clients.  For example, DOTS servers can use the attack
-   flow information in a mitigation request to enable full-fledged
-   packet inspection function to inspect all the traffic from the
-   compromised device to the target or to re-direct the traffic from the
-   compromised device to the target to a DDoS mitigation system to scrub
-   the suspicious traffic.  Call Home DOTS servers can also seek the
-   consent of DOTS server domain administrator to block the traffic from
-   the compromised device to the target (see Section 3.3.1).
+   Call Home DOTS clients.  For example, DOTS servers could use the
+   attack flow information contained in a mitigation request to enable a
+   full-fledged packet inspection function to inspect all the traffic
+   from the compromised device to the target, or could re-direct the
+   traffic from the potentially compromised device to the target towards
+   a DDoS mitigation system that can scrub the suspicious traffic,
+   without blindly blocking all traffic from the indicated attack source
+   to the target.  Call Home DOTS servers can also seek the consent of
+   DOTS server domain administrator to block the traffic from the
+   potentially compromised device to the target (see Section 3.3.1).
 
 6.  Privacy Considerations
 
@@ -1661,27 +1719,26 @@ Internet-Draft            DOTS Signal Call Home           September 2020
 
    The DOTS Call Home does not preclude the validation of mitigation
    requests received from a Call Home DOTS client.  For example, a
-   security service running on the CPE may require administrator's
+   security service running on the CPE may require an administrator's
    consent before the CPE acts upon the mitigation request indicated by
    the Call Home DOTS client.  How the consent is obtained is out of
    scope of this document.
 
-   Note that a Call Home DOTS server can seek for an administrator's
-   consent, validate the request by inspecting the traffic, or proceed
-   with both.
+   Note that a Call Home DOTS server can seek an administrator's
+   consent, validate the request by inspecting the relevant traffic for
+   attack signatures, or proceed with both courses of action.
 
    The DOTS Call Home is only advisory in nature.  Concretely, the DOTS
    Call Home does not impose any action to be enforced within the
-   network hosting an attack source; it is up to the Call Home DOTS
 
 
 
-
-Reddy, et al.            Expires March 18, 2021                [Page 30]
+Reddy, et al.            Expires April 16, 2021                [Page 31]
 
-Internet-Draft            DOTS Signal Call Home           September 2020
+Internet-Draft            DOTS Signal Call Home             October 2020
 
 
+   network hosting an attack source; it is up to the Call Home DOTS
    server (and/or network administrator) to decide whether and which
    actions are required.
 
@@ -1725,18 +1782,23 @@ Internet-Draft            DOTS Signal Call Home           September 2020
 
 9.1.  Normative References
 
+
+
+
+
+
+
+
+Reddy, et al.            Expires April 16, 2021                [Page 32]
+
+Internet-Draft            DOTS Signal Call Home             October 2020
+
+
    [I-D.ietf-dots-rfc8782-bis]
               Boucadair, M., Shallow, J., and T. Reddy.K, "Distributed
               Denial-of-Service Open Threat Signaling (DOTS) Signal
-              Channel Specification", draft-ietf-dots-rfc8782-bis-00
-              (work in progress), August 2020.
-
-
-
-Reddy, et al.            Expires March 18, 2021                [Page 31]
-
-Internet-Draft            DOTS Signal Call Home           September 2020
-
+              Channel Specification", draft-ietf-dots-rfc8782-bis-01
+              (work in progress), September 2020.
 
    [RFC2119]  Bradner, S., "Key words for use in RFCs to Indicate
               Requirement Levels", BCP 14, RFC 2119,
@@ -1778,27 +1840,27 @@ Internet-Draft            DOTS Signal Call Home           September 2020
               <https://www.iana.org/assignments/dots/dots.xhtml#dots-
               signal-channel-conflict-cause-codes>.
 
+
+
+
+
+
+Reddy, et al.            Expires April 16, 2021                [Page 33]
+
+Internet-Draft            DOTS Signal Call Home             October 2020
+
+
    [I-D.ietf-dots-multihoming]
               Boucadair, M., Reddy.K, T., and W. Pan, "Multi-homing
               Deployment Considerations for Distributed-Denial-of-
               Service Open Threat Signaling (DOTS)", draft-ietf-dots-
               multihoming-04 (work in progress), May 2020.
 
-
-
-
-
-
-Reddy, et al.            Expires March 18, 2021                [Page 32]
-
-Internet-Draft            DOTS Signal Call Home           September 2020
-
-
    [I-D.ietf-dots-server-discovery]
               Boucadair, M. and T. Reddy.K, "Distributed-Denial-of-
               Service Open Threat Signaling (DOTS) Agent Discovery",
-              draft-ietf-dots-server-discovery-10 (work in progress),
-              February 2020.
+              draft-ietf-dots-server-discovery-12 (work in progress),
+              October 2020.
 
    [I-D.ietf-dots-use-cases]
               Dobbins, R., Migault, D., Moskowitz, R., Teague, N., Xia,
@@ -1815,7 +1877,7 @@ Internet-Draft            DOTS Signal Call Home           September 2020
    [I-D.ietf-idr-flow-spec-v6]
               Loibl, C., Raszuk, R., and S. Hares, "Dissemination of
               Flow Specification Rules for IPv6", draft-ietf-idr-flow-
-              spec-v6-14 (work in progress), August 2020.
+              spec-v6-16 (work in progress), October 2020.
 
    [Key-Map]  IANA, "DOTS Signal Channel CBOR Key Values",
               <https://www.iana.org/assignments/dots/dots.xhtml#dots-
@@ -1836,19 +1898,18 @@ Internet-Draft            DOTS Signal Call Home           September 2020
               Plan", BCP 122, RFC 4632, DOI 10.17487/RFC4632, August
               2006, <https://www.rfc-editor.org/info/rfc4632>.
 
+
+
+
+Reddy, et al.            Expires April 16, 2021                [Page 34]
+
+Internet-Draft            DOTS Signal Call Home             October 2020
+
+
    [RFC4732]  Handley, M., Ed., Rescorla, E., Ed., and IAB, "Internet
               Denial-of-Service Considerations", RFC 4732,
               DOI 10.17487/RFC4732, December 2006,
               <https://www.rfc-editor.org/info/rfc4732>.
-
-
-
-
-
-Reddy, et al.            Expires March 18, 2021                [Page 33]
-
-Internet-Draft            DOTS Signal Call Home           September 2020
-
 
    [RFC4949]  Shirey, R., "Internet Security Glossary, Version 2",
               FYI 36, RFC 4949, DOI 10.17487/RFC4949, August 2007,
@@ -1892,19 +1953,20 @@ Internet-Draft            DOTS Signal Call Home           September 2020
               BCP 215, RFC 8340, DOI 10.17487/RFC8340, March 2018,
               <https://www.rfc-editor.org/info/rfc8340>.
 
+
+
+
+
+Reddy, et al.            Expires April 16, 2021                [Page 35]
+
+Internet-Draft            DOTS Signal Call Home             October 2020
+
+
    [RFC8512]  Boucadair, M., Ed., Sivakumar, S., Jacquenet, C.,
               Vinapamula, S., and Q. Wu, "A YANG Module for Network
               Address Translation (NAT) and Network Prefix Translation
               (NPT)", RFC 8512, DOI 10.17487/RFC8512, January 2019,
               <https://www.rfc-editor.org/info/rfc8512>.
-
-
-
-
-Reddy, et al.            Expires March 18, 2021                [Page 34]
-
-Internet-Draft            DOTS Signal Call Home           September 2020
-
 
    [RFC8513]  Boucadair, M., Jacquenet, C., and S. Sivakumar, "A YANG
               Data Model for Dual-Stack Lite (DS-Lite)", RFC 8513,
@@ -1938,7 +2000,7 @@ Internet-Draft            DOTS Signal Call Home           September 2020
               Registry", <https://www.iana.org/assignments/service-
               names-port-numbers/service-names-port-numbers.xhtml>.
 
-Appendix A.  Disambiguate Base DOTS Signal vs. DOTS Call Home
+Appendix A.  Disambiguating Base DOTS Signal vs. DOTS Call Home
 
    With the DOTS signal channel Call Home, there is a chance that two
    DOTS agents can simultaneously establish two DOTS signal channels
@@ -1947,6 +2009,15 @@ Appendix A.  Disambiguate Base DOTS Signal vs. DOTS Call Home
    Nevertheless, the outcome of the discussion is not specific to these
    networks, but applies to any DOTS Call Home scenario.
 
+
+
+
+
+Reddy, et al.            Expires April 16, 2021                [Page 36]
+
+Internet-Draft            DOTS Signal Call Home             October 2020
+
+
    In the Call Home scenario, the DOTS server in, for example, the home
    network can mitigate the DDoS attacks launched by the compromised
    device in its domain by receiving the mitigation request sent by the
@@ -1954,23 +2025,15 @@ Appendix A.  Disambiguate Base DOTS Signal vs. DOTS Call Home
    client in the home network can initiate a mitigation request to the
    DOTS server in the ISP environment to ask for help when the home
    network is under a DDoS attack.  Such DOTS server and DOTS client in
-
-
-
-Reddy, et al.            Expires March 18, 2021                [Page 35]
-
-Internet-Draft            DOTS Signal Call Home           September 2020
-
-
    the home network can co-locate in the same home network element
    (e.g., the Customer Premises Equipment).  In this case, with the same
    peer at the same time the home network element will have the base
-   DOTS signal channel and the DOTS signal channel Call Home defined in
-   this specification.  Thus, these two signal channels need to be
-   distinguished when they are both supported.  Two approaches have been
-   considered for distinguishing the two DOTS signal channels, but only
-   the one that using the dedicated port number has been chosen as the
-   best choice.
+   DOTS signal channel defined in [I-D.ietf-dots-rfc8782-bis] and the
+   DOTS signal channel Call Home defined in this specification.  Thus,
+   these two signal channels need to be distinguished when they are both
+   supported.  Two approaches have been considered for distinguishing
+   the two DOTS signal channels, but only the one that using the
+   dedicated port number has been chosen as the best choice.
 
    By using a dedicated port number for each, these two signal channels
    can be separated unambiguously and easily.  For example, the CPE uses
@@ -2003,20 +2066,18 @@ Internet-Draft            DOTS Signal Call Home           September 2020
    DOTS data channel may not work during attack time.  Even if changing
    the above example from using the DOTS data channel to the DOTS signal
    channel, the more procedures will still reduce the efficiency.  Using
+
+
+
+Reddy, et al.            Expires April 16, 2021                [Page 37]
+
+Internet-Draft            DOTS Signal Call Home             October 2020
+
+
    the dedicated port number is much easier and more concise compared to
    the second approach, and its cost that establishing two (D)TLS
    sessions is much less.  So, using a dedicated port number for the
    DOTS Call Home is chosen in this specification.
-
-
-
-
-
-
-Reddy, et al.            Expires March 18, 2021                [Page 36]
-
-Internet-Draft            DOTS Signal Call Home           September 2020
-
 
 Authors' Addresses
 
@@ -2064,9 +2125,4 @@ Authors' Addresses
 
 
 
-
-
-
-
-
-Reddy, et al.            Expires March 18, 2021                [Page 37]
+Reddy, et al.            Expires April 16, 2021                [Page 38]
