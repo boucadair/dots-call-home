@@ -147,8 +147,8 @@
         downside, there is a corresponding threat since most of these IoT
         devices are bought off-the-shelf and most manufacturers haven't
         considered security in the product design (e.g., <xref
-        target="Sec"></xref>). IoT devices deployed in home networks can be
-        easily compromised, they often do not have an easy mechanism to
+        target="Sec-by-design"></xref>). IoT devices deployed in home networks
+        can be easily compromised, they often do not have an easy mechanism to
         upgrade, and even when upgradable, IoT manufacturers may cease
         manufacture and/or discontinue patching vulnerabilities on IoT devices
         (Sections 5.4 and 5.5 of <xref target="RFC8576"></xref>). These
@@ -669,14 +669,18 @@ Outbound ||      |     ::     |       || Inbound
 
           <t><list style="hanging">
               <t hangText="alt-ch-client:">The FQDN of an alternate Call Home
-              DOTS client.<vspace blankLines="1" />This is a mandatory
+              DOTS client. <vspace blankLines="1" />This is a mandatory
               attribute for DOTS signal Call Home. It MUST NOT be used for
               base DOTS signal channel operations.</t>
 
               <t hangText="alt-ch-client-record:">List of records for the
-              alternate Call Home DOTS client. <vspace blankLines="1" />This
-              is an optional attribute for DOTS signal Call Home. It MUST NOT
-              be used for base DOTS signal channel operations.</t>
+              alternate Call Home DOTS client. If no 'alt-ch-client-record' is
+              provided, the Call Home DOTS server passes the 'alt-ch-client'
+              name to a name resolution library to retrieve one or more IP
+              addresses of the alternate Call Home DOTS client.<vspace
+              blankLines="1" />This is an optional attribute for DOTS signal
+              Call Home. It MUST NOT be used for base DOTS signal channel
+              operations.</t>
 
               <t hangText="ttl:">The Time to live (TTL) of the alternate Call
               Home DOTS client. That is, the time interval that the alternate
@@ -734,19 +738,19 @@ Outbound ||      |     ::     |       || Inbound
           in the CBOR body of the mitigation request:<list style="hanging">
               <t hangText="source-prefix:">A list of attacker IP prefixes used
               to attack the target. Prefixes are represented using Classless
-              Inter-Domain Routing (CIDR) notation <xref
-              target="RFC4632"></xref>. <vspace blankLines="1" />As a
-              reminder, the prefix length MUST be less than or equal to 32 (or
-              128) for IPv4 (or IPv6).<vspace blankLines="1" />The prefix list
-              MUST NOT include broadcast, loopback, or multicast addresses.
-              These addresses are considered as invalid values. In addition,
-              the Call Home DOTS client MUST validate that attacker prefixes
-              are within the scope of the Call Home DOTS server domain (e.g.,
-              prefixes assigned to the DOTS server domain or leaf networks it
-              services). This check is meant to avoid contacting Call Home
-              DOTS servers that are not entitled to enforce actions on
-              specific prefixes.<vspace blankLines="1" />This is an optional
-              attribute for the base DOTS signal channel operations.</t>
+              Inter-Domain Routing (CIDR) notation <xref target="RFC4632">BCP
+              122 </xref>. <vspace blankLines="1" />As a reminder, the prefix
+              length MUST be less than or equal to 32 (or 128) for IPv4 (or
+              IPv6).<vspace blankLines="1" />The prefix list MUST NOT include
+              broadcast, loopback, or multicast addresses. These addresses are
+              considered as invalid values. In addition, the Call Home DOTS
+              client MUST validate that attacker prefixes are within the scope
+              of the Call Home DOTS server domain (e.g., prefixes assigned to
+              the DOTS server domain or leaf networks it services). This check
+              is meant to avoid contacting Call Home DOTS servers that are not
+              entitled to enforce actions on specific prefixes.<vspace
+              blankLines="1" />This is an optional attribute for the base DOTS
+              signal channel operations.</t>
 
               <t hangText="source-port-range:">A list of port numbers used by
               the attack traffic flows. <vspace blankLines="1" />A port range
@@ -1065,7 +1069,7 @@ Outbound ||      |     ::     |       || Inbound
                     /dots-signal:redirected-signal:
     +-- (type)?
        +--:(call-home-only)
-          +-- alt-ch-client?          string
+          +-- alt-ch-client           string
           +-- alt-ch-client-record*   inet:ip-address
           +-- ttl?                    uint32
 ]]></artwork>
@@ -1127,7 +1131,7 @@ Outbound ||      |     ::     |       || Inbound
         <xref target="RFC8791"></xref>.</t>
 
         <t><figure>
-            <artwork><![CDATA[<CODE BEGINS> file "ietf-dots-call-home@2020-07-07.yang"
+            <artwork><![CDATA[<CODE BEGINS> file "ietf-dots-call-home@2020-10-15.yang"
 module ietf-dots-call-home {
   yang-version 1.1;
   namespace "urn:ietf:params:xml:ns:yang:ietf-dots-call-home";
@@ -1182,7 +1186,7 @@ module ietf-dots-call-home {
      This version of this YANG module is part of RFC XXXX; see
      the RFC itself for full legal notices.";
 
-  revision 2020-07-07 {
+  revision 2020-10-15 {
     description
       "Initial revision.";
     reference
@@ -1271,18 +1275,26 @@ module ietf-dots-call-home {
       case call-home-only {
         description
           "These attributes appear only in a call home signal
-           channel message from the Call Home DOTS client
-           to the Call Home DOTS server.";
+           channel message from a Call Home DOTS client
+           to a Call Home DOTS server.";
         leaf alt-ch-client {
           type string;
+          mandatory true;
           description
-            "FQDN of an alternate Call Home DOTS client.";
+            "FQDN of an alternate Call Home DOTS client. 
+
+             This name is also presented as reference 
+             identifier for authentication purposes.";
         }
         leaf-list alt-ch-client-record {
           type inet:ip-address;
           description
-            "List of records for the alternate Call Home
-             DOTS client.";
+            "List of IP addresses for the alternate Call 
+             Home DOTS client.
+
+             If this data node is not present, a Call Home
+             DOTS server resolves the alt-ch-client into 
+             one or more IP addresses.";
         }
         leaf ttl {
           type uint32;
@@ -1290,6 +1302,8 @@ module ietf-dots-call-home {
           description
             "The Time to live (TTL) of the alternate Call Home
              DOTS client.";
+          reference
+            "Section 4.6 of RFC YYYY";
         }
       }
     }
@@ -1479,7 +1493,12 @@ module ietf-dots-call-home {
       be used to ease surveillance. In particular, the Call Home DOTS server
       is not required to share information that is local to its network (e.g.,
       internal identifiers of an attack source) with the Call Home DOTS
-      client.</t>
+      client. Also, Call Home DOTS messages carry data that is visible on
+      packets sent from within a Call Home DOTS server. Moreover, Call Home
+      DOTS clients do not publicly reveal&nbsp;attack identification
+      information; that information is only shared with the domain to which
+      the IP address/prefix, from which an attack was issued, is assigned.
+      </t>
 
       <t>The DOTS Call Home does not preclude the validation of mitigation
       requests received from a Call Home DOTS client. For example, a security
@@ -1505,12 +1524,16 @@ module ietf-dots-call-home {
 
       <t>Triggers to send a DOTS mitigation request to a Call Home DOTS server
       are deployment-specific. For example, a Call Home DOTS client may rely
-      on the output of some DDoS detection systems deployed within the DOTS
-      client domain to detect potential outbound DDoS attacks or on abuse
-      claims received from remote victim networks. Such DDoS detection and
-      mitigation techniques are not meant to track the activity of users, but
-      to protect the Internet and avoid altering the IP reputation of the DOTS
-      client domain.</t>
+      on the output of some DDoS detection systems (DPI engines, flow exports,
+      or similar functions) deployed within the DOTS client domain to detect
+      potential outbound DDoS attacks or on abuse claims received from remote
+      victim networks. These systems may be misused to track users and infer
+      their activities. Such misuses are not required to achieve the
+      functionality defined in this document (that is, protect the Internet
+      and avoid altering the IP reputation of source networks). It is out of
+      the scope to identify privacy threats specific to a given attack
+      detection technology. The reader may refer, for example, to Section 11.8
+      of <xref target="RFC7011"></xref>. </t>
     </section>
 
     <section anchor="contr" title="Contributors">
@@ -1619,7 +1642,9 @@ module ietf-dots-call-home {
 
       <?rfc include='reference.RFC.4949'?>
 
-      <reference anchor="Sec"
+      <?rfc include='reference.RFC.7011'?>
+
+      <reference anchor="Sec-by-design"
                  target="https://www.gov.uk/government/publications/secure-by-design-report">
         <front>
           <title>Secure by Design: Improving the cyber security of consumer
@@ -1714,20 +1739,29 @@ module ietf-dots-call-home {
       Call Home.</t>
 
       <t>The other approach is signaling the role of each DOTS agent (e.g., by
-      using the DOTS data channel). For example, the DOTS agent in the home
-      network first initiates a DOTS data channel to the peer DOTS agent in
-      the ISP environment, at this time the DOTS agent in the home network is
-      the DOTS client and the peer DOTS agent in the ISP environment is the
-      DOTS server. After that, the DOTS agent in the home network retrieves
-      the DOTS Call Home capability of the peer DOTS agent. If the peer
-      supports the DOTS Call Home, the DOTS agent needs to subscribe to the
-      peer to use this extension. Then, the reversal of DOTS role can be
-      recognized as done by both DOTS agents. When the DOTS agent in the ISP
-      environment, which now is the DOTS client, wants to filter the
-      attackers' traffic, it requests the DOTS agent in the home network,
-      which now is the DOTS server, for help.</t>
+      using the DOTS data channel as depicted in <xref target="data"></xref>).
+      For example, the DOTS agent in the home network first initiates a DOTS
+      data channel to the peer DOTS agent in the ISP environment, at this time
+      the DOTS agent in the home network is the DOTS client and the peer DOTS
+      agent in the ISP environment is the DOTS server. After that, the DOTS
+      agent in the home network retrieves the DOTS Call Home capability of the
+      peer DOTS agent. If the peer supports the DOTS Call Home, the DOTS agent
+      needs to subscribe to the peer to use this extension. Then, the reversal
+      of DOTS role can be recognized as done by both DOTS agents. When the
+      DOTS agent in the ISP environment, which now is the DOTS client, wants
+      to filter the attackers' traffic, it requests the DOTS agent in the home
+      network, which now is the DOTS server, for help.</t>
 
-      <t>Signaling the role will complicate the DOTS protocol, and this
+      <t><figure align="center" anchor="data"
+          title="Example of DOTS Channel Augmentation">
+          <artwork><![CDATA[  augment /ietf-data:dots-data/ietf-data:capabilities:
+    +--ro call-home-support?   boolean
+  augment /ietf-data:dots-data/ietf-data:dots-client:
+    +--rw call-home-enable?   boolean
+]]></artwork>
+        </figure></t>
+
+      <t>Signaling the role will complicate the DOTS protocols, and this
       complexity is not required in context where the DOTS Call Home is not
       required or only when the DOTS Call Home is needed. Besides, the DOTS
       data channel may not work during attack time. Even if changing the above
