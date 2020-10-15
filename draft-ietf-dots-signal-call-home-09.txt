@@ -977,8 +977,8 @@ Internet-Draft            DOTS Signal Call Home             October 2020
       lower ICMP type (lower-type) and an upper ICMP type (upper-type).
       When only 'lower-type' is present, it represents a single ICMP
       type.  Both ICMP [RFC0792] and ICMPv6 [RFC4443] types are
-      supported.  The address family of the 'target-prefix' is used to
-      determine whether a type is about ICMP or ICMPv6.
+      supported.  Whether ICMP or ICMPv6 types are to be used is
+      determined by the address family of the 'target-prefix'.
 
       This is an optional attribute for the base DOTS signal channel
       operations.
@@ -1127,7 +1127,7 @@ Internet-Draft            DOTS Signal Call Home             October 2020
 
 3.3.2.  Address Sharing Considerations
 
-   Figure 10 depicted an example of a network provider that hosts a Call
+   Figure 10 depictes an example of a network provider that hosts a Call
    Home DOTS client and deploys a Carrier Grade NAT (CGN) between the
    DOTS client domain and DOTS server domain.  In such case,
    communicating an external IP address in a mitigation request by a
@@ -1223,9 +1223,9 @@ Internet-Draft            DOTS Signal Call Home             October 2020
    source IP address of the compromised device and blocks the traffic
    from the compromised device traffic to the attack target until the
    mitigation request is withdrawn.  The Call Home DOTS server proceeds
-   with the NAT mapping table lookup using the source attack information
-   as a key.  The lookup can be local (Figure 11) or via a dedicated
-   administration interface that is offered by the CPE (Figure 12).
+   with the NAT mapping table lookup using the attack information (or a
+   subset thereof) as a key.  The lookup can be local (Figure 11) or via
+   a dedicated administration interface that is offered by the CPE
 
 
 
@@ -1234,8 +1234,8 @@ Reddy, et al.            Expires April 18, 2021                [Page 22]
 Internet-Draft            DOTS Signal Call Home             October 2020
 
 
-   This identification allows the suspicious device to be isolated while
-   avoiding disturbances of other services.
+   (Figure 12).  This identification allows the suspicious device to be
+   isolated while avoiding disturbances of other services.
 
                             .-------------------.
                            (                     )-.
@@ -2247,7 +2247,7 @@ Internet-Draft            DOTS Signal Call Home             October 2020
      augment /ietf-data:dots-data/ietf-data:dots-client:
        +--rw call-home-enable?   boolean
 
-              Figure 13: Example of DOTS Channel Augmentation
+           Figure 13: Example of DOTS Data Channel Augmentation
 
    Signaling the role will complicate the DOTS protocols, and this
    complexity is not required in context where the DOTS Call Home is not

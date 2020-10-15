@@ -771,9 +771,9 @@ Outbound ||      |     ::     |       || Inbound
               type (upper-type). When only 'lower-type' is present, it
               represents a single ICMP type. Both ICMP <xref
               target="RFC0792"></xref> and ICMPv6 <xref
-              target="RFC4443"></xref> types are supported. The address family
-              of the 'target-prefix' is used to determine whether a type is
-              about ICMP or ICMPv6. <vspace blankLines="1" />This is an
+              target="RFC4443"></xref> types are supported. Whether ICMP or
+              ICMPv6 types are to be used is determined by the address family
+              of the 'target-prefix'. <vspace blankLines="1" />This is an
               optional attribute for the base DOTS signal channel
               operations.</t>
             </list></t>
@@ -904,7 +904,7 @@ Outbound ||      |     ::     |       || Inbound
         </section>
 
         <section anchor="nat" title="Address Sharing Considerations">
-          <t><xref target="ex1"></xref> depicted an example of a network
+          <t><xref target="ex1"></xref> depictes an example of a network
           provider that hosts a Call Home DOTS client and deploys a Carrier
           Grade NAT (CGN) between the DOTS client domain and DOTS server
           domain. In such case, communicating an external IP address in a
@@ -977,11 +977,12 @@ Outbound ||      |     ::     |       || Inbound
           device and blocks the traffic from the compromised device traffic to
           the attack target until the mitigation request is withdrawn. The
           Call Home DOTS server proceeds with the NAT mapping table lookup
-          using the source attack information as a key. The lookup can be
-          local (<xref target="ex2"></xref>) or via a dedicated administration
-          interface that is offered by the CPE (<xref target="ex2b"></xref>).
-          This identification allows the suspicious device to be isolated
-          while avoiding disturbances of other services. </t>
+          using the attack information (or a subset thereof) as a key. The
+          lookup can be local (<xref target="ex2"></xref>) or via a dedicated
+          administration interface that is offered by the CPE (<xref
+          target="ex2b"></xref>). This identification allows the suspicious
+          device to be isolated while avoiding disturbances of other services.
+          </t>
 
           <t><figure align="center" anchor="ex2"
               title="Example of a DOTS Server Domain with a NAT Embedded in a CPE">
@@ -1753,7 +1754,7 @@ module ietf-dots-call-home {
       network, which now is the DOTS server, for help.</t>
 
       <t><figure align="center" anchor="data"
-          title="Example of DOTS Channel Augmentation">
+          title="Example of DOTS Data Channel Augmentation">
           <artwork><![CDATA[  augment /ietf-data:dots-data/ietf-data:capabilities:
     +--ro call-home-support?   boolean
   augment /ietf-data:dots-data/ietf-data:dots-client:
