@@ -207,17 +207,17 @@
         <t>ISPs can detect some DDoS attacks originating from a home network
         (e.g., Section 2.6 of <xref target="RFC8517"></xref>), but the ISP
         usually does not have a mechanism to detect which device in the home
-        network is generating the DDoS attack traffic. The primary for this is
-        that devices in an IPv4 home network are typically behind a Network
-        Address Translation (NAT) border <xref target="RFC2663"></xref>. Even
-        in case of an IPv6 home network, although the ISP can identify the
-        infected device in the home network launching the DDoS traffic by
-        tracking its unique IPv6 address, the infected device can easily
-        change its IPv6 address to evade remediation. A security function on
-        the local home network is better positioned to track the compromised
-        device across IPv6 address (and potentially even MAC address) changes
-        and thus ensure that remediation remains in place across such
-        events.</t>
+        network is generating the DDoS attack traffic. The primary reason for
+        this is that devices in an IPv4 home network are typically behind a
+        Network Address Translation (NAT) border <xref
+        target="RFC2663"></xref>. Even in case of an IPv6 home network,
+        although the ISP can identify the infected device in the home network
+        launching the DDoS traffic by tracking its unique IPv6 address, the
+        infected device can easily change its IPv6 address to evade
+        remediation. A security function on the local home network is better
+        positioned to track the compromised device across IPv6 address (and
+        potentially even MAC address) changes and thus ensure that remediation
+        remains in place across such events.</t>
 
         <t>Existing approaches are still suffering from misused access network
         resources by abusive devices; the support of means for blocking such
@@ -553,8 +553,9 @@ Outbound ||      |     ::     |       || Inbound
         <t>Existing certificate chains and mutual authentication mechanisms
         between the DOTS agents are unaffected by the Call Home function. From
         a deployment standpoint, and given the scale of Call Home DOTS servers
-        that may be involved, enabling automated means for managing authorized
-        Call Home DOTS servers are encouraged. It is out of the scope of this
+        that may be involved, enabling means for automating the provisioning
+        of credentials on Call Home DOTS servers to authenticate to the Call
+        Home DOTS client are encouraged. It is out of the scope of this
         document to elaborate on these means.</t>
 
         <t><xref target="signalch"></xref> illustrates a sample DOTS Call Home
@@ -673,7 +674,7 @@ Outbound ||      |     ::     |       || Inbound
               attribute for DOTS signal Call Home. It MUST NOT be used for
               base DOTS signal channel operations.</t>
 
-              <t hangText="alt-ch-client-record:">List of records for the
+              <t hangText="alt-ch-client-record:">List of IP addresses for the
               alternate Call Home DOTS client. If no 'alt-ch-client-record' is
               provided, the Call Home DOTS server passes the 'alt-ch-client'
               name to a name resolution library to retrieve one or more IP
@@ -1540,16 +1541,16 @@ module ietf-dots-call-home {
 
       <t>Triggers to send a DOTS mitigation request to a Call Home DOTS server
       are deployment-specific. For example, a Call Home DOTS client may rely
-      on the output of some DDoS detection systems (DPI engines, flow exports,
-      or similar functions) deployed within the DOTS client domain to detect
-      potential outbound DDoS attacks or on abuse claims received from remote
-      victim networks. These systems may be misused to track users and infer
-      their activities. Such misuses are not required to achieve the
-      functionality defined in this document (that is, protect the Internet
-      and avoid altering the IP reputation of source networks). It is out of
-      the scope to identify privacy threats specific to a given attack
-      detection technology. The reader may refer, for example, to Section 11.8
-      of <xref target="RFC7011"></xref>.</t>
+      on the output of some DDoS detection systems (flow exports or similar
+      functions) deployed within the DOTS client domain to detect potential
+      outbound DDoS attacks or on abuse claims received from remote victim
+      networks. These systems may be misused to track users and infer their
+      activities. Such misuses are not required to achieve the functionality
+      defined in this document (that is, protect the Internet and avoid
+      altering the IP reputation of source networks). It is out of the scope
+      to identify privacy threats specific to a given attack detection
+      technology. The reader may refer, for example, to Section 11.8 of <xref
+      target="RFC7011"></xref>.</t>
     </section>
 
     <section anchor="contr" title="Contributors">
