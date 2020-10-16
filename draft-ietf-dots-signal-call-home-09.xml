@@ -90,11 +90,11 @@
 
     <abstract>
       <t>This document specifies the DOTS signal channel Call Home, which
-      enables a DOTS server to initiate a secure connection to a DOTS client,
-      and to receive attack traffic information from the DOTS client. The DOTS
-      server in turn uses the attack traffic information to identify
-      compromised devices launching outgoing DDoS attacks and take appropriate
-      mitigation action(s).</t>
+      enables a Call Home DOTS server to initiate a secure connection to a
+      Call Home DOTS client, and to receive attack traffic information from
+      the Call Home DOTS client. The Call Home DOTS server in turn uses the
+      attack traffic information to identify compromised devices launching
+      outgoing DDoS attacks and take appropriate mitigation action(s).</t>
 
       <t>The DOTS signal channel Call Home is not specific to home networks;
       the solution targets any deployment in which it is required to block
@@ -315,20 +315,46 @@
         <t>More information about the applicability scope of the DOTS signal
         channel Call Home is provided in <xref target="as"></xref>.</t>
       </section>
+    </section>
 
-      <section anchor="as" title="Applicability Scope">
-        <t>The aforementioned problems may be encountered in other deployments
-        than those discussed in <xref target="problem"></xref> (e.g., data
-        centers, enterprise networks). The solution specified in this document
-        can be used for those deployments to block DDoS attack traffic closer
-        to the source(s) of the attack.</t>
+    <section anchor="notation" title="Terminology">
+      <t>The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT",
+      "SHOULD", "SHOULD NOT", "RECOMMENDED", "NOT RECOMMENDED", "MAY", and
+      "OPTIONAL" in this document are to be interpreted as described in BCP 14
+      <xref target="RFC2119"></xref><xref target="RFC8174"></xref> when, and
+      only when, they appear in all capitals, as shown here.</t>
 
-        <t>An instantiation of the Call Home functional architecture is
-        depicted in <xref target="pb"></xref>.</t>
+      <t>The reader should be familiar with the terms defined in Section 1.2
+      of <xref target="RFC8612"></xref>.</t>
 
-        <t><figure align="center" anchor="pb"
-            title="DOTS Signal Channel Call Home Reference Architecture">
-            <artwork align="center"><![CDATA[                +-------------+
+      <t>DDoS Mitigation System (DMS) refers to a system that performs DDoS
+      mitigation.</t>
+
+      <t>'Base DOTS signal channel' refers to <xref
+      target="I-D.ietf-dots-rfc8782-bis"></xref>.</t>
+
+      <t>The meaning of the symbols in YANG tree diagrams are defined in <xref
+      target="RFC8340"></xref> and <xref target="RFC8791"></xref>.</t>
+
+      <t>(D)TLS is used for statements that apply to both Transport Layer
+      Security (TLS) <xref target="RFC8446"></xref> and Datagram Transport
+      Layer Security (DTLS) <xref target="RFC6347"></xref>. Specific terms are
+      used for any statement that applies to either protocol alone.</t>
+    </section>
+
+    <section anchor="as" title="Applicability Scope">
+      <t>The aforementioned problems may be encountered in other deployments
+      than those discussed in <xref target="problem"></xref> (e.g., data
+      centers, enterprise networks). The solution specified in this document
+      can be used for those deployments to block DDoS attack traffic closer to
+      the source(s) of the attack.</t>
+
+      <t>An instantiation of the Call Home functional architecture is depicted
+      in <xref target="pb"></xref>.</t>
+
+      <t><figure align="center" anchor="pb"
+          title="DOTS Signal Channel Call Home Reference Architecture">
+          <artwork align="center"><![CDATA[                +-------------+
                 |Attack Target|
                 +-----+-------+  
                       | /\      Target Network
@@ -361,28 +387,28 @@
                 |Attack Source|                           
                 +-------------+
 ]]></artwork>
-          </figure></t>
+        </figure></t>
 
-        <t>It is out of the scope of this document to identify an exhaustive
-        list of such deployments.</t>
-      </section>
+      <t>It is out of the scope of this document to identify an exhaustive
+      list of such deployments.</t>
+    </section>
 
-      <section anchor="coex"
-               title="Co-existence of Base DOTS Signal Channel &amp; DOTS Call Home">
-        <t>The DOTS signal channel Call Home does not require nor preclude the
-        activation of the base DOTS signal channel <xref
-        target="I-D.ietf-dots-rfc8782-bis"></xref>. Some sample deployment
-        schemes are discussed in this section for illustration purposes.</t>
+    <section anchor="coex"
+             title="Co-existence of Base DOTS Signal Channel &amp; DOTS Call Home">
+      <t>The DOTS signal channel Call Home does not require nor preclude the
+      activation of the base DOTS signal channel <xref
+      target="I-D.ietf-dots-rfc8782-bis"></xref>. Some sample deployment
+      schemes are discussed in this section for illustration purposes.</t>
 
-        <t>The network that hosts an attack source may also be subject to
-        inbound DDoS attacks. In that case, both the base DOTS signal channel
-        and DOTS signal channel Call Home may be enabled as shown in <xref
-        target="merged"></xref> (Same DMS provider) or <xref
-        target="merged1"></xref> (Distinct DMS providers).</t>
+      <t>The network that hosts an attack source may also be subject to
+      inbound DDoS attacks. In that case, both the base DOTS signal channel
+      and DOTS signal channel Call Home may be enabled as shown in <xref
+      target="merged"></xref> (Same DMS provider) or <xref
+      target="merged1"></xref> (Distinct DMS providers).</t>
 
-        <t><figure align="center" anchor="merged"
-            title="Activation of Base DOTS Signal Channel and Call Home (Same DMS Provider)">
-            <artwork align="center"><![CDATA[    DOTS Signal Channel      Base DOTS
+      <t><figure align="center" anchor="merged"
+          title="Activation of Base DOTS Signal Channel and Call Home (Same DMS Provider)">
+          <artwork align="center"><![CDATA[    DOTS Signal Channel      Base DOTS
         Call Home          Signal Channel  
    +-.-.-.-.-.-.-.-.-.-++-.-.-.-.-.-.-.-.-.-+
    :          +------+ :: +------+          :
@@ -402,17 +428,17 @@ Outbound ||      |     ::     |       || Inbound
    :          +------+ :: +------+          :
    +-.-.-.-.-.-.-.-.-.-++-.-.-.-.-.-.-.-.-.-+
                    Network #A]]></artwork>
-          </figure></t>
+        </figure></t>
 
-        <t>Note that a DMS provider may not be on the default forwarding path
-        of an inbound DDoS attack traffic targeting a network (e.g., Network
-        #B in <xref target="merged1"></xref>). Nevertheless, the DOTS signal
-        channel Call Home requires the DMS provider to be on the default
-        forwarding path of the outbound traffic from a given network.</t>
+      <t>Note that a DMS provider may not be on the default forwarding path of
+      an inbound DDoS attack traffic targeting a network (e.g., Network #B in
+      <xref target="merged1"></xref>). Nevertheless, the DOTS signal channel
+      Call Home requires the DMS provider to be on the default forwarding path
+      of the outbound traffic from a given network.</t>
 
-        <t><figure align="center" anchor="merged1"
-            title="Activation of Base DOTS Signal Channel and Call Home (Distinct DMS Providers)">
-            <artwork align="center"><![CDATA[    DOTS Signal Channel      Base DOTS
+      <t><figure align="center" anchor="merged1"
+          title="Activation of Base DOTS Signal Channel and Call Home (Distinct DMS Providers)">
+          <artwork align="center"><![CDATA[    DOTS Signal Channel      Base DOTS
         Call Home          Signal Channel  
    +-.-.-.-.-.-.-.-.-.-++-.-.-.-.-.-.-.-.-.-+
    : Network  +------+ :: +------+   Third  :
@@ -433,24 +459,23 @@ Outbound ||      |     ::     |       || Inbound
    +-.-.-.-.-.-.-.-.-.-++-.-.-.-.-.-.-.-.-.-+
                    Network #B
 ]]></artwork>
-          </figure></t>
+        </figure></t>
 
-        <t>Figures <xref format="counter" target="snode"></xref> and <xref
-        format="counter" target="snode2"></xref> depict examples where the
-        same node embeds both base DOTS and DOTS Call Home agents. For
-        example, a DOTS server and a Call Home DOTS client may be enabled on
-        the same device within the infrastructure of a DMS provider (e.g.,
-        Node #i in <xref target="snode"></xref>) or a DOTS client and a Call
-        Home DOTS server may be enabled on the same device within a source
-        network (e.g., Node #j with Network #D shown in <xref
-        target="snode2"></xref>) .</t>
+      <t>Figures <xref format="counter" target="snode"></xref> and <xref
+      format="counter" target="snode2"></xref> depict examples where the same
+      node embeds both base DOTS and DOTS Call Home agents. For example, a
+      DOTS server and a Call Home DOTS client may be enabled on the same
+      device within the infrastructure of a DMS provider (e.g., Node #i in
+      <xref target="snode"></xref>) or a DOTS client and a Call Home DOTS
+      server may be enabled on the same device within a source network (e.g.,
+      Node #j with Network #D shown in <xref target="snode2"></xref>) .</t>
 
-        <t>Whether the same or distinct nodes are used to host base DOTS and
-        DOTS Call Home agents is specific to each domain.</t>
+      <t>Whether the same or distinct nodes are used to host base DOTS and
+      DOTS Call Home agents is specific to each domain.</t>
 
-        <t><figure align="center" anchor="snode"
-            title="An Example of the Same Node Embedding both a Call Home DOTS Client and a DOTS Server at the Network Provider's Side">
-            <artwork align="center"><![CDATA[    DOTS Signal Channel      Base DOTS
+      <t><figure align="center" anchor="snode"
+          title="An Example of the Same Node Embedding both a Call Home DOTS Client and a DOTS Server at the Network Provider's Side">
+          <artwork align="center"><![CDATA[    DOTS Signal Channel      Base DOTS
         Call Home          Signal Channel  
    +-.-.-.-.-.-.-.-.-.-++-.-.-.-.-.-.-.-.-.-+ 
    :        +----------------------+        :                   
@@ -473,11 +498,11 @@ Outbound ||      |     ::     |       || Inbound
    +-.-.-.-.-.-.-.-.-.-++-.-.-.-.-.-.-.-.-.-+
                    Network #C
 ]]></artwork>
-          </figure></t>
+        </figure></t>
 
-        <t><figure align="center" anchor="snode2"
-            title="Another Example where the Same Node Embeds both a DOTS Client and a Call Home DOTS Server">
-            <artwork align="center"><![CDATA[    DOTS Signal Channel      Base DOTS
+      <t><figure align="center" anchor="snode2"
+          title="Another Example where the Same Node Embeds both a DOTS Client and a Call Home DOTS Server">
+          <artwork align="center"><![CDATA[    DOTS Signal Channel      Base DOTS
         Call Home          Signal Channel  
    +-.-.-.-.-.-.-.-.-.-++-.-.-.-.-.-.-.-.-.-+ 
    :        +----------------------+        :                   
@@ -502,35 +527,9 @@ Outbound ||      |     ::     |       || Inbound
    :        +----------------------+        :
    +-.-.-.-.-.-.-.-.-.-++-.-.-.-.-.-.-.-.-.-+
                    Network #D]]></artwork>
-          </figure><xref target="app"></xref> elaborates on the considerations
-        to unambiguously distinguish DOTS messages which belong to each of
-        these channels.</t>
-      </section>
-    </section>
-
-    <section anchor="notation" title="Terminology">
-      <t>The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT",
-      "SHOULD", "SHOULD NOT", "RECOMMENDED", "NOT RECOMMENDED", "MAY", and
-      "OPTIONAL" in this document are to be interpreted as described in BCP 14
-      <xref target="RFC2119"></xref><xref target="RFC8174"></xref> when, and
-      only when, they appear in all capitals, as shown here.</t>
-
-      <t>The reader should be familiar with the terms defined in Section 1.2
-      of <xref target="RFC8612"></xref>.</t>
-
-      <t>DDoS Mitigation System (DMS) refers to a system that performs DDoS
-      mitigation.</t>
-
-      <t>'Base DOTS signal channel' refers to <xref
-      target="I-D.ietf-dots-rfc8782-bis"></xref>.</t>
-
-      <t>The meaning of the symbols in YANG tree diagrams are defined in <xref
-      target="RFC8340"></xref> and <xref target="RFC8791"></xref>.</t>
-
-      <t>(D)TLS is used for statements that apply to both Transport Layer
-      Security (TLS) <xref target="RFC8446"></xref> and Datagram Transport
-      Layer Security (DTLS) <xref target="RFC6347"></xref>. Specific terms are
-      used for any statement that applies to either protocol alone.</t>
+        </figure><xref target="app"></xref> elaborates on the considerations
+      to unambiguously distinguish DOTS messages which belong to each of these
+      channels.</t>
     </section>
 
     <section anchor="spec" title="DOTS Signal Channel Call Home">
@@ -549,8 +548,9 @@ Outbound ||      |     ::     |       || Inbound
         <t>For example, a home network element (e.g., home router) co-located
         with a Call Home DOTS server is the (D)TLS client. That is, the Call
         Home DOTS server assumes the role of the (D)TLS client, but the
-        network element's role as a DOTS server remains the same. Furthermore,
-        existing certificate chains and mutual authentication mechanisms
+        network element's role as a DOTS server remains the same. </t>
+
+        <t>Existing certificate chains and mutual authentication mechanisms
         between the DOTS agents are unaffected by the Call Home function. From
         a deployment standpoint, and given the scale of Call Home DOTS servers
         that may be involved, enabling automated means for managing authorized
