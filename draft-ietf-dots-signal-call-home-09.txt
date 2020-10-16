@@ -126,13 +126,13 @@ Internet-Draft            DOTS Signal Call Home             October 2020
      5.3.  New DOTS Conflict Cause . . . . . . . . . . . . . . . . .  31
      5.4.  DOTS Signal Call Home YANG Module . . . . . . . . . . . .  32
    6.  Security Considerations . . . . . . . . . . . . . . . . . . .  32
-   7.  Privacy Considerations  . . . . . . . . . . . . . . . . . . .  33
-   8.  Contributors  . . . . . . . . . . . . . . . . . . . . . . . .  34
+   7.  Privacy Considerations  . . . . . . . . . . . . . . . . . . .  34
+   8.  Contributors  . . . . . . . . . . . . . . . . . . . . . . . .  35
    9.  Acknowledgements  . . . . . . . . . . . . . . . . . . . . . .  35
    10. References  . . . . . . . . . . . . . . . . . . . . . . . . .  35
      10.1.  Normative References . . . . . . . . . . . . . . . . . .  35
-     10.2.  Informative References . . . . . . . . . . . . . . . . .  36
-   Appendix A.  Disambiguating Base DOTS Signal vs. DOTS Call Home .  39
+     10.2.  Informative References . . . . . . . . . . . . . . . . .  37
+   Appendix A.  Disambiguating Base DOTS Signal vs. DOTS Call Home .  40
    Authors' Addresses  . . . . . . . . . . . . . . . . . . . . . . .  41
 
 1.  Introduction
@@ -1835,13 +1835,13 @@ Internet-Draft            DOTS Signal Call Home             October 2020
    server domain administrator to block the traffic from the potentially
    compromised device to the target (see Section 3.3.1).
 
-7.  Privacy Considerations
+   Call Home DOTS agents may interact with on-path address sharing
+   functions to retrieve an internal IP addresss/external IP address
+   mapping (Section 3.3.2) identifying an attack source.  Blocking
+   access or manipulating the mapping information will complicate DDoS
+   attack mitigation close to an attack source.  Additional security
+   considerations are specific to the actual mechanism used to access
 
-   The considerations discussed in [RFC6973] were taken into account to
-   assess whether the DOTS Call Home introduces privacy threats.
-
-   Concretely, the protocol does not leak any new information that can
-   be used to ease surveillance.  In particular, the Call Home DOTS
 
 
 
@@ -1850,6 +1850,16 @@ Reddy, et al.            Expires April 18, 2021                [Page 33]
 Internet-Draft            DOTS Signal Call Home             October 2020
 
 
+   that mapping (refer, e.g., to Section 4 of [RFC8512] or Section 4 of
+   [RFC8513]).
+
+7.  Privacy Considerations
+
+   The considerations discussed in [RFC6973] were taken into account to
+   assess whether the DOTS Call Home introduces privacy threats.
+
+   Concretely, the protocol does not leak any new information that can
+   be used to ease surveillance.  In particular, the Call Home DOTS
    server is not required to share information that is local to its
    network (e.g., internal identifiers of an attack source) with the
    Call Home DOTS client.  Also, Call Home DOTS messages carry data that
@@ -1888,6 +1898,14 @@ Internet-Draft            DOTS Signal Call Home             October 2020
    from remote victim networks.  These systems may be misused to track
    users and infer their activities.  Such misuses are not required to
    achieve the functionality defined in this document (that is, protect
+
+
+
+Reddy, et al.            Expires April 18, 2021                [Page 34]
+
+Internet-Draft            DOTS Signal Call Home             October 2020
+
+
    the Internet and avoid altering the IP reputation of source
    networks).  It is out of the scope to identify privacy threats
    specific to a given attack detection technology.  The reader may
@@ -1896,15 +1914,6 @@ Internet-Draft            DOTS Signal Call Home             October 2020
 8.  Contributors
 
    The following individuals have contributed to this document:
-
-
-
-
-
-Reddy, et al.            Expires April 18, 2021                [Page 34]
-
-Internet-Draft            DOTS Signal Call Home             October 2020
-
 
       Joshi Harsha
       McAfee, Inc.
@@ -1942,15 +1951,6 @@ Internet-Draft            DOTS Signal Call Home             October 2020
               RFC 792, DOI 10.17487/RFC0792, September 1981,
               <https://www.rfc-editor.org/info/rfc792>.
 
-   [RFC2119]  Bradner, S., "Key words for use in RFCs to Indicate
-              Requirement Levels", BCP 14, RFC 2119,
-              DOI 10.17487/RFC2119, March 1997,
-              <https://www.rfc-editor.org/info/rfc2119>.
-
-   [RFC3688]  Mealling, M., "The IETF XML Registry", BCP 81, RFC 3688,
-              DOI 10.17487/RFC3688, January 2004,
-              <https://www.rfc-editor.org/info/rfc3688>.
-
 
 
 
@@ -1961,6 +1961,15 @@ Reddy, et al.            Expires April 18, 2021                [Page 35]
 
 Internet-Draft            DOTS Signal Call Home             October 2020
 
+
+   [RFC2119]  Bradner, S., "Key words for use in RFCs to Indicate
+              Requirement Levels", BCP 14, RFC 2119,
+              DOI 10.17487/RFC2119, March 1997,
+              <https://www.rfc-editor.org/info/rfc2119>.
+
+   [RFC3688]  Mealling, M., "The IETF XML Registry", BCP 81, RFC 3688,
+              DOI 10.17487/RFC3688, January 2004,
+              <https://www.rfc-editor.org/info/rfc3688>.
 
    [RFC4443]  Conta, A., Deering, S., and M. Gupta, Ed., "Internet
               Control Message Protocol (ICMPv6) for the Internet
@@ -1999,15 +2008,6 @@ Internet-Draft            DOTS Signal Call Home             October 2020
               Version 1.3", RFC 8446, DOI 10.17487/RFC8446, August 2018,
               <https://www.rfc-editor.org/info/rfc8446>.
 
-   [RFC8791]  Bierman, A., Bjoerklund, M., and K. Watsen, "YANG Data
-              Structure Extensions", RFC 8791, DOI 10.17487/RFC8791,
-              June 2020, <https://www.rfc-editor.org/info/rfc8791>.
-
-10.2.  Informative References
-
-   [Cause]    IANA, "DOTS Signal Channel Conflict Cause Codes",
-              <https://www.iana.org/assignments/dots/dots.xhtml#dots-
-              signal-channel-conflict-cause-codes>.
 
 
 
@@ -2017,6 +2017,16 @@ Reddy, et al.            Expires April 18, 2021                [Page 36]
 
 Internet-Draft            DOTS Signal Call Home             October 2020
 
+
+   [RFC8791]  Bierman, A., Bjoerklund, M., and K. Watsen, "YANG Data
+              Structure Extensions", RFC 8791, DOI 10.17487/RFC8791,
+              June 2020, <https://www.rfc-editor.org/info/rfc8791>.
+
+10.2.  Informative References
+
+   [Cause]    IANA, "DOTS Signal Channel Conflict Cause Codes",
+              <https://www.iana.org/assignments/dots/dots.xhtml#dots-
+              signal-channel-conflict-cause-codes>.
 
    [I-D.ietf-dots-multihoming]
               Boucadair, M., Reddy.K, T., and W. Pan, "Multi-homing
@@ -2056,6 +2066,14 @@ Internet-Draft            DOTS Signal Call Home             October 2020
               RFC 2663, DOI 10.17487/RFC2663, August 1999,
               <https://www.rfc-editor.org/info/rfc2663>.
 
+
+
+
+Reddy, et al.            Expires April 18, 2021                [Page 37]
+
+Internet-Draft            DOTS Signal Call Home             October 2020
+
+
    [RFC4340]  Kohler, E., Handley, M., and S. Floyd, "Datagram
               Congestion Control Protocol (DCCP)", RFC 4340,
               DOI 10.17487/RFC4340, March 2006,
@@ -2065,14 +2083,6 @@ Internet-Draft            DOTS Signal Call Home             October 2020
               (CIDR): The Internet Address Assignment and Aggregation
               Plan", BCP 122, RFC 4632, DOI 10.17487/RFC4632, August
               2006, <https://www.rfc-editor.org/info/rfc4632>.
-
-
-
-
-Reddy, et al.            Expires April 18, 2021                [Page 37]
-
-Internet-Draft            DOTS Signal Call Home             October 2020
-
 
    [RFC4732]  Handley, M., Ed., Rescorla, E., Ed., and IAB, "Internet
               Denial-of-Service Considerations", RFC 4732,
@@ -2113,6 +2123,13 @@ Internet-Draft            DOTS Signal Call Home             October 2020
               Stack Lite Architecture", RFC 7596, DOI 10.17487/RFC7596,
               July 2015, <https://www.rfc-editor.org/info/rfc7596>.
 
+
+
+Reddy, et al.            Expires April 18, 2021                [Page 38]
+
+Internet-Draft            DOTS Signal Call Home             October 2020
+
+
    [RFC7597]  Troan, O., Ed., Dec, W., Li, X., Bao, C., Matsushima, S.,
               Murakami, T., and T. Taylor, Ed., "Mapping of Address and
               Port with Encapsulation (MAP-E)", RFC 7597,
@@ -2122,13 +2139,6 @@ Internet-Draft            DOTS Signal Call Home             October 2020
    [RFC8071]  Watsen, K., "NETCONF Call Home and RESTCONF Call Home",
               RFC 8071, DOI 10.17487/RFC8071, February 2017,
               <https://www.rfc-editor.org/info/rfc8071>.
-
-
-
-Reddy, et al.            Expires April 18, 2021                [Page 38]
-
-Internet-Draft            DOTS Signal Call Home             October 2020
-
 
    [RFC8340]  Bjorklund, M. and L. Berger, Ed., "YANG Tree Diagrams",
               BCP 215, RFC 8340, DOI 10.17487/RFC8340, March 2018,
@@ -2168,6 +2178,14 @@ Internet-Draft            DOTS Signal Call Home             October 2020
               <https://www.gov.uk/government/publications/secure-by-
               design-report>.
 
+
+
+
+Reddy, et al.            Expires April 18, 2021                [Page 39]
+
+Internet-Draft            DOTS Signal Call Home             October 2020
+
+
    [ServicePorts]
               IANA, "Service Name and Transport Protocol Port Number
               Registry", <https://www.iana.org/assignments/service-
@@ -2178,14 +2196,6 @@ Appendix A.  Disambiguating Base DOTS Signal vs. DOTS Call Home
    With the DOTS signal channel Call Home, there is a chance that two
    DOTS agents can simultaneously establish two DOTS signal channels
    with different directions (base DOTS signal channel and DOTS signal
-
-
-
-Reddy, et al.            Expires April 18, 2021                [Page 39]
-
-Internet-Draft            DOTS Signal Call Home             October 2020
-
-
    channel Call Home).  Here is one example drawn from the home network.
    Nevertheless, the outcome of the discussion is not specific to these
    networks, but applies to any DOTS Call Home scenario.
@@ -2224,6 +2234,14 @@ Internet-Draft            DOTS Signal Call Home             October 2020
    channel to the peer DOTS agent in the ISP environment, at this time
    the DOTS agent in the home network is the DOTS client and the peer
    DOTS agent in the ISP environment is the DOTS server.  After that,
+
+
+
+Reddy, et al.            Expires April 18, 2021                [Page 40]
+
+Internet-Draft            DOTS Signal Call Home             October 2020
+
+
    the DOTS agent in the home network retrieves the DOTS Call Home
    capability of the peer DOTS agent.  If the peer supports the DOTS
    Call Home, the DOTS agent needs to subscribe to the peer to use this
@@ -2232,15 +2250,6 @@ Internet-Draft            DOTS Signal Call Home             October 2020
    which now is the DOTS client, wants to filter the attackers' traffic,
    it requests the DOTS agent in the home network, which now is the DOTS
    server, for help.
-
-
-
-
-
-Reddy, et al.            Expires April 18, 2021                [Page 40]
-
-Internet-Draft            DOTS Signal Call Home             October 2020
-
 
      augment /ietf-data:dots-data/ietf-data:capabilities:
        +--ro call-home-support?   boolean
@@ -2279,6 +2288,16 @@ Authors' Addresses
    Email: mohamed.boucadair@orange.com
 
 
+
+
+
+
+
+Reddy, et al.            Expires April 18, 2021                [Page 41]
+
+Internet-Draft            DOTS Signal Call Home             October 2020
+
+
    Jon Shallow
    UK
 
@@ -2293,4 +2312,41 @@ Authors' Addresses
 
 
 
-Reddy, et al.            Expires April 18, 2021                [Page 41]
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Reddy, et al.            Expires April 18, 2021                [Page 42]

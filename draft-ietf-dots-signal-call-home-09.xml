@@ -790,7 +790,7 @@ Outbound ||      |     ::     |       || Inbound
           'alias-name' is unlikely to be conveyed in a Call Home mitigation
           request given that a target may be any IP resource and that there is
           no incentive for a Call Home DOTS server (embedded, for example, in
-          a CPE) to maintain aliases. </t>
+          a CPE) to maintain aliases.</t>
 
           <t>In order to help attack source identification by a Call Home DOTS
           server, the Call Home DOTS client SHOULD include in its mitigation
@@ -855,7 +855,7 @@ Outbound ||      |     ::     |       || Inbound
           required to block the traffic from the compromised device to the
           attack target. An implementation MAY have a configuration knob to
           block the traffic from the compromised device to the attack target
-          with or without DOTS server domain administrator consent. </t>
+          with or without DOTS server domain administrator consent.</t>
 
           <t>If a consent from the Call Home DOTS server domain administrator
           is required, the Call Home DOTS server replies with 2.01 (Created)
@@ -925,7 +925,7 @@ Outbound ||      |     ::     |       || Inbound
           an external IP address and port number. For the particular case of
           NAT64 <xref target="RFC6146"></xref>, if the target prefix is an
           IPv4 address, the IPv4-converted IPv6 address of this target prefix
-          <xref target="RFC6052"></xref> SHOULD be used. </t>
+          <xref target="RFC6052"></xref> SHOULD be used.</t>
 
           <t><figure align="center" anchor="ex1"
               title="Example of a CGN between DOTS Domains">
@@ -981,8 +981,8 @@ Outbound ||      |     ::     |       || Inbound
           lookup can be local (<xref target="ex2"></xref>) or via a dedicated
           administration interface that is offered by the CPE (<xref
           target="ex2b"></xref>). This identification allows the suspicious
-          device to be isolated while avoiding disturbances of other services.
-          </t>
+          device to be isolated while avoiding disturbances of other
+          services.</t>
 
           <t><figure align="center" anchor="ex2"
               title="Example of a DOTS Server Domain with a NAT Embedded in a CPE">
@@ -1082,7 +1082,7 @@ Outbound ||      |     ::     |       || Inbound
         1.<list style="symbols">
             <t>Note: Implementers must check that the mapping output provided
             by their YANG-to-CBOR encoding schemes is aligned with the content
-            of Table 1. </t>
+            of Table 1.</t>
           </list></t>
 
         <t><figure align="center">
@@ -1483,6 +1483,15 @@ module ietf-dots-call-home {
       DOTS servers can also seek the consent of DOTS server domain
       administrator to block the traffic from the potentially compromised
       device to the target (see <xref target="mitigation"></xref>).</t>
+
+      <t>Call Home DOTS agents may interact with on-path address sharing
+      functions to retrieve an internal IP addresss/external IP address
+      mapping (<xref target="nat"></xref>) identifying an attack source.
+      Blocking access or manipulating the mapping information will complicate
+      DDoS attack mitigation close to an attack source. Additional security
+      considerations are specific to the actual mechanism used to access that
+      mapping (refer, e.g., to Section 4 of <xref target="RFC8512"></xref> or
+      Section 4 of <xref target="RFC8513"></xref>). </t>
     </section>
 
     <section title="Privacy Considerations">
@@ -1498,8 +1507,7 @@ module ietf-dots-call-home {
       packets sent from within a Call Home DOTS server. Moreover, Call Home
       DOTS clients do not publicly reveal&nbsp;attack identification
       information; that information is only shared with the domain to which
-      the IP address/prefix, from which an attack was issued, is assigned.
-      </t>
+      the IP address/prefix, from which an attack was issued, is assigned.</t>
 
       <t>The DOTS Call Home does not preclude the validation of mitigation
       requests received from a Call Home DOTS client. For example, a security
@@ -1534,7 +1542,7 @@ module ietf-dots-call-home {
       and avoid altering the IP reputation of source networks). It is out of
       the scope to identify privacy threats specific to a given attack
       detection technology. The reader may refer, for example, to Section 11.8
-      of <xref target="RFC7011"></xref>. </t>
+      of <xref target="RFC7011"></xref>.</t>
     </section>
 
     <section anchor="contr" title="Contributors">
@@ -1563,7 +1571,7 @@ module ietf-dots-call-home {
       Gavrichenkov, Daniel Migault, and Valery Smyslov for the comments.</t>
 
       <t>Benjamin Kaduk 's AD review is valuable. Many thanks to him for the
-      detailed review. </t>
+      detailed review.</t>
     </section>
   </middle>
 
