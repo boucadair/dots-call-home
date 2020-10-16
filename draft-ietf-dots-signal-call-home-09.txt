@@ -1091,9 +1091,9 @@ Internet-Draft            DOTS Signal Call Home             October 2020
    SHOULD rely on mechanisms, such as [RFC8512] or [RFC8513], to
    retrieve the internal IP address and port number which are mapped to
    an external IP address and port number.  For the particular case of
-   NAT64 [RFC6146], if the target prefix is an IPv4 address, the
-   IPv4-converted IPv6 address of this target prefix [RFC6052] SHOULD be
-   used.
+   NAT64 [RFC6146], if the target address is an IPv4 address, the
+   IPv4-converted IPv6 address of this target address [RFC6052] SHOULD
+   be used.
 
 
 
@@ -1167,7 +1167,7 @@ Internet-Draft            DOTS Signal Call Home             October 2020
    source IP address of the compromised device and blocks the traffic
    from the compromised device traffic to the attack target until the
    mitigation request is withdrawn.  The Call Home DOTS server proceeds
-   with the NAT mapping table lookup using the attack information (or a
+   with a NAT mapping table lookup using the attack information (or a
    subset thereof) as a key.  The lookup can be local (Figure 11) or via
    a dedicated administration interface that is offered by the CPE
 
@@ -1264,6 +1264,12 @@ Internet-Draft            DOTS Signal Call Home             October 2020
    Figure 12: Example of a Call Home DOTS Server and a NAT Embedded in a
                                     CPE
 
+   If for any reason address sharing is deployed in both source and
+   provider networks, both Call Home DOTS agents have to proceed with
+   address mapping lookups following the behavior specified in reference
+   to Figure 10 (network provider) and Figures 11 and 12 (source
+   network).
+
 6.  DOTS Signal Call Home YANG Module
 
 6.1.  Tree Structure
@@ -1273,12 +1279,6 @@ Internet-Draft            DOTS Signal Call Home             October 2020
    signaling the attack traffic information.  This document defines the
    YANG module "ietf-dots-call-home", which has the following tree
    structure:
-
-
-
-
-
-
 
 
 

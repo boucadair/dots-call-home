@@ -923,8 +923,8 @@ Outbound ||      |     ::     |       || Inbound
           target="RFC8512"></xref> or <xref target="RFC8513"></xref>, to
           retrieve the internal IP address and port number which are mapped to
           an external IP address and port number. For the particular case of
-          NAT64 <xref target="RFC6146"></xref>, if the target prefix is an
-          IPv4 address, the IPv4-converted IPv6 address of this target prefix
+          NAT64 <xref target="RFC6146"></xref>, if the target address is an
+          IPv4 address, the IPv4-converted IPv6 address of this target address
           <xref target="RFC6052"></xref> SHOULD be used.</t>
 
           <t><figure align="center" anchor="ex1"
@@ -976,9 +976,9 @@ Outbound ||      |     ::     |       || Inbound
           request to find the internal source IP address of the compromised
           device and blocks the traffic from the compromised device traffic to
           the attack target until the mitigation request is withdrawn. The
-          Call Home DOTS server proceeds with the NAT mapping table lookup
-          using the attack information (or a subset thereof) as a key. The
-          lookup can be local (<xref target="ex2"></xref>) or via a dedicated
+          Call Home DOTS server proceeds with a NAT mapping table lookup using
+          the attack information (or a subset thereof) as a key. The lookup
+          can be local (<xref target="ex2"></xref>) or via a dedicated
           administration interface that is offered by the CPE (<xref
           target="ex2b"></xref>). This identification allows the suspicious
           device to be isolated while avoiding disturbances of other
@@ -1044,6 +1044,13 @@ Outbound ||      |     ::     |       || Inbound
                  +-------------+
 ]]></artwork>
             </figure></t>
+
+          <t>If for any reason address sharing is deployed in both source and
+          provider networks, both Call Home DOTS agents have to proceed with
+          address mapping lookups following the behavior specified in
+          reference to <xref target="ex1"></xref> (network provider) and
+          Figures <xref format="counter" target="ex2"></xref> and <xref
+          format="counter" target="ex2b"></xref> (source network).</t>
         </section>
       </section>
     </section>
