@@ -1807,12 +1807,12 @@ Internet-Draft            DOTS Signal Call Home             October 2020
    server is not required to share information that is local to its
    network (e.g., internal identifiers of an attack source) with the
    Call Home DOTS client.  Also, the recommended data to be included in
-   Call Home DOTS messages is the visible on packets sent from within a
-   Call Home DOTS server (i.e., Layers 3 and 4 information).
-   Furthermore, Call Home DOTS clients do not publicly reveal attack
-   identification information; that information is only shared with an
-   authorized entity in the domain to which the IP address/prefix is
-   assigned, from which an attack was issued.
+   Call Home DOTS messages is non-encrypted and publicly available on
+   packets sent from within a Call Home DOTS server (i.e., Layers 3 and
+   4 information).  Furthermore, Call Home DOTS clients do not publicly
+   reveal attack identification information; that information is only
+   shared with an authorized entity in the domain to which the IP
+   address/prefix is assigned, from which an attack was issued.
 
    The DOTS Call Home does not preclude the validation of mitigation
    requests received from a Call Home DOTS client.  For example, a
