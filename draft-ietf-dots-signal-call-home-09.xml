@@ -747,11 +747,11 @@ Outbound ||      |     ::     |       || Inbound
               considered as invalid values. In addition, the Call Home DOTS
               client MUST validate that attacker prefixes are within the scope
               of the Call Home DOTS server domain (e.g., prefixes assigned to
-              the Call Home DOTS server domain or leaf networks it services).
-              This check is meant to avoid contacting Call Home DOTS servers
-              that are not entitled to enforce actions on specific
-              prefixes.<vspace blankLines="1" />This is an optional attribute
-              for the base DOTS signal channel operations.</t>
+              the Call Home DOTS server domain or networks it services). This
+              check is meant to avoid contacting Call Home DOTS servers that
+              are not entitled to enforce actions on specific prefixes.<vspace
+              blankLines="1" />This is an optional attribute for the base DOTS
+              signal channel operations.</t>
 
               <t hangText="source-port-range:">A list of port numbers used by
               the attack traffic flows. <vspace blankLines="1" />A port range
@@ -1511,12 +1511,13 @@ module ietf-dots-call-home {
       be used to ease surveillance. In particular, the Call Home DOTS server
       is not required to share information that is local to its network (e.g.,
       internal identifiers of an attack source) with the Call Home DOTS
-      client. Also, Call Home DOTS messages carry data that is visible on
-      packets sent from within a Call Home DOTS server (i.e., Layers 3 and 4
-      information). Moreover, Call Home DOTS clients do not publicly
-      reveal&nbsp;attack identification information; that information is only
-      shared with the domain to which the IP address/prefix, from which an
-      attack was issued, is assigned.</t>
+      client. Also, the recommended data to be included in Call Home DOTS
+      messages is the visible on packets sent from within a Call Home DOTS
+      server (i.e., Layers 3 and 4 information). Furthermore, Call Home DOTS
+      clients do not publicly reveal attack identification information; that
+      information is only shared with an authorized entity in the domain to
+      which the IP address/prefix is assigned, from which an attack was
+      issued. </t>
 
       <t>The DOTS Call Home does not preclude the validation of mitigation
       requests received from a Call Home DOTS client. For example, a security
