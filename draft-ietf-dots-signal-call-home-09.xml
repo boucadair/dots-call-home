@@ -548,7 +548,7 @@ Outbound ||      |     ::     |       || Inbound
         <t>For example, a home network element (e.g., home router) co-located
         with a Call Home DOTS server is the (D)TLS client. That is, the Call
         Home DOTS server assumes the role of the (D)TLS client, but the
-        network element's role as a DOTS server remains the same. </t>
+        network element's role as a DOTS server remains the same.</t>
 
         <t>Existing certificate chains and mutual authentication mechanisms
         between the DOTS agents are unaffected by the Call Home function. From
@@ -747,11 +747,11 @@ Outbound ||      |     ::     |       || Inbound
               considered as invalid values. In addition, the Call Home DOTS
               client MUST validate that attacker prefixes are within the scope
               of the Call Home DOTS server domain (e.g., prefixes assigned to
-              the DOTS server domain or leaf networks it services). This check
-              is meant to avoid contacting Call Home DOTS servers that are not
-              entitled to enforce actions on specific prefixes.<vspace
-              blankLines="1" />This is an optional attribute for the base DOTS
-              signal channel operations.</t>
+              the Call Home DOTS server domain or leaf networks it services).
+              This check is meant to avoid contacting Call Home DOTS servers
+              that are not entitled to enforce actions on specific
+              prefixes.<vspace blankLines="1" />This is an optional attribute
+              for the base DOTS signal channel operations.</t>
 
               <t hangText="source-port-range:">A list of port numbers used by
               the attack traffic flows. <vspace blankLines="1" />A port range
@@ -914,11 +914,11 @@ Outbound ||      |     ::     |       || Inbound
           address is not visible locally to the Call Home DOTS server (<xref
           target="ex1"></xref>). The Call Home DOTS server is only aware of
           the internal IP addresses/prefixes bound to its domain (i.e., those
-          used in the Internal Real shown in <xref target="ex1"></xref>).
+          used in the Internal Realm shown in <xref target="ex1"></xref>).
           Thus, Call Home DOTS clients that are aware of the presence of
           on-path CGNs MUST NOT include the external IP address and/or port
           number identifying the suspect attack source (i.e., those used in
-          the External Real shown in <xref target="ex1"></xref>), but MUST
+          the External Realm shown in <xref target="ex1"></xref>), but MUST
           include the internal IP address and/or port number. To that aim, the
           Call Home DOTS client SHOULD rely on mechanisms, such as <xref
           target="RFC8512"></xref> or <xref target="RFC8513"></xref>, to
@@ -1499,7 +1499,7 @@ module ietf-dots-call-home {
       DDoS attack mitigation close to an attack source. Additional security
       considerations are specific to the actual mechanism used to access that
       mapping (refer, e.g., to Section 4 of <xref target="RFC8512"></xref> or
-      Section 4 of <xref target="RFC8513"></xref>). </t>
+      Section 4 of <xref target="RFC8513"></xref>).</t>
     </section>
 
     <section title="Privacy Considerations">
@@ -1512,10 +1512,11 @@ module ietf-dots-call-home {
       is not required to share information that is local to its network (e.g.,
       internal identifiers of an attack source) with the Call Home DOTS
       client. Also, Call Home DOTS messages carry data that is visible on
-      packets sent from within a Call Home DOTS server. Moreover, Call Home
-      DOTS clients do not publicly reveal&nbsp;attack identification
-      information; that information is only shared with the domain to which
-      the IP address/prefix, from which an attack was issued, is assigned.</t>
+      packets sent from within a Call Home DOTS server (i.e., Layers 3 and 4
+      information). Moreover, Call Home DOTS clients do not publicly
+      reveal&nbsp;attack identification information; that information is only
+      shared with the domain to which the IP address/prefix, from which an
+      attack was issued, is assigned.</t>
 
       <t>The DOTS Call Home does not preclude the validation of mitigation
       requests received from a Call Home DOTS client. For example, a security
@@ -1726,16 +1727,17 @@ module ietf-dots-call-home {
       Nevertheless, the outcome of the discussion is not specific to these
       networks, but applies to any DOTS Call Home scenario.</t>
 
-      <t>In the Call Home scenario, the DOTS server in, for example, the home
-      network can mitigate the DDoS attacks launched by the compromised device
-      in its domain by receiving the mitigation request sent by the Call Home
-      DOTS client in the ISP environment. In addition, the DOTS client in the
-      home network can initiate a mitigation request to the DOTS server in the
-      ISP environment to ask for help when the home network is under a DDoS
-      attack. Such DOTS server and DOTS client in the home network can
-      co-locate in the same home network element (e.g., the Customer Premises
-      Equipment). In this case, with the same peer at the same time the home
-      network element will have the base DOTS signal channel defined in <xref
+      <t>In the Call Home scenario, the Call Home DOTS server in, for example,
+      the home network can mitigate the DDoS attacks launched by the
+      compromised device in its domain by receiving the mitigation request
+      sent by the Call Home DOTS client in the ISP environment. In addition,
+      the DOTS client in the home network can initiate a mitigation request to
+      the DOTS server in the ISP environment to ask for help when the home
+      network is under a DDoS attack. Such Call Home DOTS server and DOTS
+      client in the home network can co-locate in the same home network
+      element (e.g., the Customer Premises Equipment). In this case, with the
+      same peer at the same time the home network element will have the base
+      DOTS signal channel defined in <xref
       target="I-D.ietf-dots-rfc8782-bis"></xref> and the DOTS signal channel
       Call Home defined in this specification. Thus, these two signal channels
       need to be distinguished when they are both supported. Two approaches
