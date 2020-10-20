@@ -5,9 +5,9 @@
 DOTS                                                            T. Reddy
 Internet-Draft                                                    McAfee
 Intended status: Standards Track                            M. Boucadair
-Expires: April 22, 2021                                           Orange
+Expires: April 23, 2021                                           Orange
                                                               J. Shallow
-                                                        October 19, 2020
+                                                        October 20, 2020
 
 
    Distributed Denial-of-Service Open Threat Signaling (DOTS) Signal
@@ -53,7 +53,7 @@ Editorial Note (To be removed by RFC Editor)
 
 
 
-Reddy, et al.            Expires April 22, 2021                 [Page 1]
+Reddy, et al.            Expires April 23, 2021                 [Page 1]
 
 Internet-Draft            DOTS Signal Call Home             October 2020
 
@@ -78,7 +78,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on April 22, 2021.
+   This Internet-Draft will expire on April 23, 2021.
 
 Copyright Notice
 
@@ -109,7 +109,7 @@ Table of Contents
 
 
 
-Reddy, et al.            Expires April 22, 2021                 [Page 2]
+Reddy, et al.            Expires April 23, 2021                 [Page 2]
 
 Internet-Draft            DOTS Signal Call Home             October 2020
 
@@ -165,7 +165,7 @@ Internet-Draft            DOTS Signal Call Home             October 2020
 
 
 
-Reddy, et al.            Expires April 22, 2021                 [Page 3]
+Reddy, et al.            Expires April 23, 2021                 [Page 3]
 
 Internet-Draft            DOTS Signal Call Home             October 2020
 
@@ -221,7 +221,7 @@ Internet-Draft            DOTS Signal Call Home             October 2020
 
 
 
-Reddy, et al.            Expires April 22, 2021                 [Page 4]
+Reddy, et al.            Expires April 23, 2021                 [Page 4]
 
 Internet-Draft            DOTS Signal Call Home             October 2020
 
@@ -277,7 +277,7 @@ Internet-Draft            DOTS Signal Call Home             October 2020
 
 
 
-Reddy, et al.            Expires April 22, 2021                 [Page 5]
+Reddy, et al.            Expires April 23, 2021                 [Page 5]
 
 Internet-Draft            DOTS Signal Call Home             October 2020
 
@@ -333,7 +333,7 @@ Internet-Draft            DOTS Signal Call Home             October 2020
 
 
 
-Reddy, et al.            Expires April 22, 2021                 [Page 6]
+Reddy, et al.            Expires April 23, 2021                 [Page 6]
 
 Internet-Draft            DOTS Signal Call Home             October 2020
 
@@ -389,7 +389,7 @@ Internet-Draft            DOTS Signal Call Home             October 2020
 
 
 
-Reddy, et al.            Expires April 22, 2021                 [Page 7]
+Reddy, et al.            Expires April 23, 2021                 [Page 7]
 
 Internet-Draft            DOTS Signal Call Home             October 2020
 
@@ -445,7 +445,7 @@ Internet-Draft            DOTS Signal Call Home             October 2020
 
 
 
-Reddy, et al.            Expires April 22, 2021                 [Page 8]
+Reddy, et al.            Expires April 23, 2021                 [Page 8]
 
 Internet-Draft            DOTS Signal Call Home             October 2020
 
@@ -501,7 +501,7 @@ Internet-Draft            DOTS Signal Call Home             October 2020
 
 
 
-Reddy, et al.            Expires April 22, 2021                 [Page 9]
+Reddy, et al.            Expires April 23, 2021                 [Page 9]
 
 Internet-Draft            DOTS Signal Call Home             October 2020
 
@@ -557,7 +557,7 @@ Internet-Draft            DOTS Signal Call Home             October 2020
 
 
 
-Reddy, et al.            Expires April 22, 2021                [Page 10]
+Reddy, et al.            Expires April 23, 2021                [Page 10]
 
 Internet-Draft            DOTS Signal Call Home             October 2020
 
@@ -613,7 +613,7 @@ Internet-Draft            DOTS Signal Call Home             October 2020
 
 
 
-Reddy, et al.            Expires April 22, 2021                [Page 11]
+Reddy, et al.            Expires April 23, 2021                [Page 11]
 
 Internet-Draft            DOTS Signal Call Home             October 2020
 
@@ -669,7 +669,7 @@ Internet-Draft            DOTS Signal Call Home             October 2020
 
 
 
-Reddy, et al.            Expires April 22, 2021                [Page 12]
+Reddy, et al.            Expires April 23, 2021                [Page 12]
 
 Internet-Draft            DOTS Signal Call Home             October 2020
 
@@ -725,7 +725,7 @@ Internet-Draft            DOTS Signal Call Home             October 2020
 
 
 
-Reddy, et al.            Expires April 22, 2021                [Page 13]
+Reddy, et al.            Expires April 23, 2021                [Page 13]
 
 Internet-Draft            DOTS Signal Call Home             October 2020
 
@@ -781,7 +781,7 @@ Internet-Draft            DOTS Signal Call Home             October 2020
 
 
 
-Reddy, et al.            Expires April 22, 2021                [Page 14]
+Reddy, et al.            Expires April 23, 2021                [Page 14]
 
 Internet-Draft            DOTS Signal Call Home             October 2020
 
@@ -837,7 +837,7 @@ Internet-Draft            DOTS Signal Call Home             October 2020
 
 
 
-Reddy, et al.            Expires April 22, 2021                [Page 15]
+Reddy, et al.            Expires April 23, 2021                [Page 15]
 
 Internet-Draft            DOTS Signal Call Home             October 2020
 
@@ -893,7 +893,7 @@ Internet-Draft            DOTS Signal Call Home             October 2020
 
 
 
-Reddy, et al.            Expires April 22, 2021                [Page 16]
+Reddy, et al.            Expires April 23, 2021                [Page 16]
 
 Internet-Draft            DOTS Signal Call Home             October 2020
 
@@ -949,7 +949,7 @@ Internet-Draft            DOTS Signal Call Home             October 2020
 
 
 
-Reddy, et al.            Expires April 22, 2021                [Page 17]
+Reddy, et al.            Expires April 23, 2021                [Page 17]
 
 Internet-Draft            DOTS Signal Call Home             October 2020
 
@@ -1005,7 +1005,7 @@ Internet-Draft            DOTS Signal Call Home             October 2020
 
 
 
-Reddy, et al.            Expires April 22, 2021                [Page 18]
+Reddy, et al.            Expires April 23, 2021                [Page 18]
 
 Internet-Draft            DOTS Signal Call Home             October 2020
 
@@ -1061,7 +1061,7 @@ Internet-Draft            DOTS Signal Call Home             October 2020
 
 
 
-Reddy, et al.            Expires April 22, 2021                [Page 19]
+Reddy, et al.            Expires April 23, 2021                [Page 19]
 
 Internet-Draft            DOTS Signal Call Home             October 2020
 
@@ -1117,7 +1117,7 @@ Internet-Draft            DOTS Signal Call Home             October 2020
 
 
 
-Reddy, et al.            Expires April 22, 2021                [Page 20]
+Reddy, et al.            Expires April 23, 2021                [Page 20]
 
 Internet-Draft            DOTS Signal Call Home             October 2020
 
@@ -1173,7 +1173,7 @@ Internet-Draft            DOTS Signal Call Home             October 2020
 
 
 
-Reddy, et al.            Expires April 22, 2021                [Page 21]
+Reddy, et al.            Expires April 23, 2021                [Page 21]
 
 Internet-Draft            DOTS Signal Call Home             October 2020
 
@@ -1229,7 +1229,7 @@ Internet-Draft            DOTS Signal Call Home             October 2020
 
 
 
-Reddy, et al.            Expires April 22, 2021                [Page 22]
+Reddy, et al.            Expires April 23, 2021                [Page 22]
 
 Internet-Draft            DOTS Signal Call Home             October 2020
 
@@ -1285,7 +1285,7 @@ Internet-Draft            DOTS Signal Call Home             October 2020
 
 
 
-Reddy, et al.            Expires April 22, 2021                [Page 23]
+Reddy, et al.            Expires April 23, 2021                [Page 23]
 
 Internet-Draft            DOTS Signal Call Home             October 2020
 
@@ -1341,7 +1341,7 @@ Internet-Draft            DOTS Signal Call Home             October 2020
 
 
 
-Reddy, et al.            Expires April 22, 2021                [Page 24]
+Reddy, et al.            Expires April 23, 2021                [Page 24]
 
 Internet-Draft            DOTS Signal Call Home             October 2020
 
@@ -1397,7 +1397,7 @@ Internet-Draft            DOTS Signal Call Home             October 2020
 
 
 
-Reddy, et al.            Expires April 22, 2021                [Page 25]
+Reddy, et al.            Expires April 23, 2021                [Page 25]
 
 Internet-Draft            DOTS Signal Call Home             October 2020
 
@@ -1453,7 +1453,7 @@ Internet-Draft            DOTS Signal Call Home             October 2020
 
 
 
-Reddy, et al.            Expires April 22, 2021                [Page 26]
+Reddy, et al.            Expires April 23, 2021                [Page 26]
 
 Internet-Draft            DOTS Signal Call Home             October 2020
 
@@ -1509,7 +1509,7 @@ Internet-Draft            DOTS Signal Call Home             October 2020
 
 
 
-Reddy, et al.            Expires April 22, 2021                [Page 27]
+Reddy, et al.            Expires April 23, 2021                [Page 27]
 
 Internet-Draft            DOTS Signal Call Home             October 2020
 
@@ -1565,7 +1565,7 @@ Internet-Draft            DOTS Signal Call Home             October 2020
 
 
 
-Reddy, et al.            Expires April 22, 2021                [Page 28]
+Reddy, et al.            Expires April 23, 2021                [Page 28]
 
 Internet-Draft            DOTS Signal Call Home             October 2020
 
@@ -1621,7 +1621,7 @@ Internet-Draft            DOTS Signal Call Home             October 2020
 
 
 
-Reddy, et al.            Expires April 22, 2021                [Page 29]
+Reddy, et al.            Expires April 23, 2021                [Page 29]
 
 Internet-Draft            DOTS Signal Call Home             October 2020
 
@@ -1677,7 +1677,7 @@ Internet-Draft            DOTS Signal Call Home             October 2020
 
 
 
-Reddy, et al.            Expires April 22, 2021                [Page 30]
+Reddy, et al.            Expires April 23, 2021                [Page 30]
 
 Internet-Draft            DOTS Signal Call Home             October 2020
 
@@ -1733,7 +1733,7 @@ Internet-Draft            DOTS Signal Call Home             October 2020
 
 
 
-Reddy, et al.            Expires April 22, 2021                [Page 31]
+Reddy, et al.            Expires April 23, 2021                [Page 31]
 
 Internet-Draft            DOTS Signal Call Home             October 2020
 
@@ -1789,7 +1789,7 @@ Internet-Draft            DOTS Signal Call Home             October 2020
 
 
 
-Reddy, et al.            Expires April 22, 2021                [Page 32]
+Reddy, et al.            Expires April 23, 2021                [Page 32]
 
 Internet-Draft            DOTS Signal Call Home             October 2020
 
@@ -1807,12 +1807,13 @@ Internet-Draft            DOTS Signal Call Home             October 2020
    server is not required to share information that is local to its
    network (e.g., internal identifiers of an attack source) with the
    Call Home DOTS client.  Also, the recommended data to be included in
-   Call Home DOTS messages is non-encrypted and publicly available on
-   packets sent from within a Call Home DOTS server (i.e., Layers 3 and
-   4 information).  Furthermore, Call Home DOTS clients do not publicly
-   reveal attack identification information; that information is only
-   shared with an authorized entity in the domain to which the IP
-   address/prefix is assigned, from which an attack was issued.
+   Call Home DOTS messages is a subset of the Layer 3/Layer 4
+   information that can be learnt from the overall traffic flows that
+   exit the Call Home DOTS server domain.  Furthermore, Call Home DOTS
+   clients do not publicly reveal attack identification information;
+   that information is encrypted and only shared with an authorized
+   entity in the domain to which the IP address/prefix is assigned, from
+   which an attack was issued.
 
    The DOTS Call Home does not preclude the validation of mitigation
    requests received from a Call Home DOTS client.  For example, a
@@ -1841,15 +1842,15 @@ Internet-Draft            DOTS Signal Call Home             October 2020
    similar functions) deployed within the DOTS client domain to detect
    potential outbound DDoS attacks or on abuse claims received from
    remote victim networks.  These systems may be misused to track users
-   and infer their activities.  Such misuses are not required to achieve
 
 
 
-Reddy, et al.            Expires April 22, 2021                [Page 33]
+Reddy, et al.            Expires April 23, 2021                [Page 33]
 
 Internet-Draft            DOTS Signal Call Home             October 2020
 
 
+   and infer their activities.  Such misuses are not required to achieve
    the functionality defined in this document (that is, protect the
    Internet and avoid altering the IP reputation of source networks).
    It is out of the scope to identify privacy threats specific to a
@@ -1900,8 +1901,7 @@ Internet-Draft            DOTS Signal Call Home             October 2020
 
 
 
-
-Reddy, et al.            Expires April 22, 2021                [Page 34]
+Reddy, et al.            Expires April 23, 2021                [Page 34]
 
 Internet-Draft            DOTS Signal Call Home             October 2020
 
@@ -1957,7 +1957,7 @@ Internet-Draft            DOTS Signal Call Home             October 2020
 
 
 
-Reddy, et al.            Expires April 22, 2021                [Page 35]
+Reddy, et al.            Expires April 23, 2021                [Page 35]
 
 Internet-Draft            DOTS Signal Call Home             October 2020
 
@@ -2013,7 +2013,7 @@ Internet-Draft            DOTS Signal Call Home             October 2020
 
 
 
-Reddy, et al.            Expires April 22, 2021                [Page 36]
+Reddy, et al.            Expires April 23, 2021                [Page 36]
 
 Internet-Draft            DOTS Signal Call Home             October 2020
 
@@ -2069,7 +2069,7 @@ Internet-Draft            DOTS Signal Call Home             October 2020
 
 
 
-Reddy, et al.            Expires April 22, 2021                [Page 37]
+Reddy, et al.            Expires April 23, 2021                [Page 37]
 
 Internet-Draft            DOTS Signal Call Home             October 2020
 
@@ -2125,7 +2125,7 @@ Internet-Draft            DOTS Signal Call Home             October 2020
 
 
 
-Reddy, et al.            Expires April 22, 2021                [Page 38]
+Reddy, et al.            Expires April 23, 2021                [Page 38]
 
 Internet-Draft            DOTS Signal Call Home             October 2020
 
@@ -2181,7 +2181,7 @@ Appendix A.  Disambiguating Base DOTS Signal vs. DOTS Call Home
 
 
 
-Reddy, et al.            Expires April 22, 2021                [Page 39]
+Reddy, et al.            Expires April 23, 2021                [Page 39]
 
 Internet-Draft            DOTS Signal Call Home             October 2020
 
@@ -2237,7 +2237,7 @@ Authors' Addresses
 
 
 
-Reddy, et al.            Expires April 22, 2021                [Page 40]
+Reddy, et al.            Expires April 23, 2021                [Page 40]
 
 Internet-Draft            DOTS Signal Call Home             October 2020
 
@@ -2293,4 +2293,4 @@ Internet-Draft            DOTS Signal Call Home             October 2020
 
 
 
-Reddy, et al.            Expires April 22, 2021                [Page 41]
+Reddy, et al.            Expires April 23, 2021                [Page 41]
