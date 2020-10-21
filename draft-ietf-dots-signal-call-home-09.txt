@@ -1880,7 +1880,7 @@ Internet-Draft            DOTS Signal Call Home             October 2020
    Thanks to Wei Pei, Xia Liang, Roman Danyliw, Dan Wing, Toema
    Gavrichenkov, Daniel Migault, and Valery Smyslov for the comments.
 
-   Benjamin Kaduk 's AD review is valuable.  Many thanks to him for the
+   Benjamin Kaduk's AD review is valuable.  Many thanks to him for the
    detailed review.
 
 12.  References
