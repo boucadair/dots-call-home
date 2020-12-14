@@ -2,4 +2,4 @@
 Distributed Denial-of-Service Open Threat Signaling (DOTS) Signal Channel Call Home
 The public version is available [here](https://datatracker.ietf.org/doc/draft-ietf-dots-signal-call-home/)
 
-# [diff with published version](https://www.ietf.org/rfcdiff?url1=draft-ietf-dots-signal-call-home&url2=https://raw.githubusercontent.com/boucadair/dots-call-home/master/draft-ietf-dots-signal-call-home.txt)
+# [diff with published version](https://www.ietf.org/rfcdiff?url1=draft-ietf-dots-signal-call-home&url2=https://raw.githubusercontent.com/boucadair/dots-call-home/master/draft-ietf-dots-signal-call-home.txt): https://tinyurl.com/dots-call-home-latest
