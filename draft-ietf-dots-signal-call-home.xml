@@ -10,7 +10,7 @@
 <?rfc inline="yes"?>
 <?rfc compact="yes"?>
 <?rfc subcompact="no"?>
-<rfc category="std" docName="draft-ietf-dots-signal-call-home-11"
+<rfc category="std" docName="draft-ietf-dots-signal-call-home-12"
      ipr="trust200902">
   <front>
     <title abbrev="DOTS Signal Call Home">Distributed Denial-of-Service Open
@@ -131,7 +131,8 @@
   <middle>
     <section anchor="introduction" title="Introduction">
       <section anchor="problem" title="The Problem">
-        <t>The DOTS signal channel protocol <xref
+        <t>The Distributed Denial-of-Service Open Threat Signaling (DOTS)
+        signal channel protocol <xref
         target="I-D.ietf-dots-rfc8782-bis"></xref> is used to carry
         information about a network resource or a network (or a part thereof)
         that is under a Distributed Denial of Service (DDoS) attack <xref
@@ -181,17 +182,17 @@
         provider to filter, block, or rate-limit DDoS attack traffic
         originating from the ISP's subscribers to a downstream target.</t>
 
-        <t>Some of the DDoS attacks like spoofed RST or FIN packets,
-        Slowloris, and Transport Layer Security (TLS) renegotiation are
-        difficult to detect on a home network device without adversely
-        affecting its performance. The reason is that typically home devices
-        such as home routers have fast path to boost the throughput. For every
-        new TCP/UDP flow, only the first few packets are punted through the
-        slow path. Hence, it is not possible to detect various DDoS attacks in
-        the slow path, since the attack payload is sent to the target server
-        after the flow is switched to fast path. The reader may refer to
-        Section 2 of <xref target="RFC6398"></xref> for a brief definition of
-        slow and fast paths.</t>
+        <t>Some of the DDoS attacks like spoofed RST or FIN packets, Slowloris
+        <xref target="RS"></xref>, and Transport Layer Security (TLS)
+        renegotiation are difficult to detect on a home network device without
+        adversely affecting its performance. The reason is that typically home
+        devices such as home routers have fast path to boost the throughput.
+        For every new TCP/UDP flow, only the first few packets are punted
+        through the slow path. Hence, it is not possible to detect various
+        DDoS attacks in the slow path, since the attack payload is sent to the
+        target server after the flow is switched to fast path. The reader may
+        refer to Section 2 of <xref target="RFC6398"></xref> for a brief
+        definition of slow and fast paths.</t>
 
         <t>Deep Packet Inspection (DPI) of all the packets of a flow would be
         able to detect some of the attacks. However, a full-fledged DPI to
@@ -670,9 +671,10 @@ Outbound ||      |     ::     |       || Inbound
 
           <t><list style="hanging">
               <t hangText="alt-ch-client:">The FQDN of an alternate Call Home
-              DOTS client. <vspace blankLines="1" />This is a mandatory
-              attribute for DOTS signal Call Home. It MUST NOT be used for
-              base DOTS signal channel operations.</t>
+              DOTS client. It is also presented as reference identifier for
+              authentication purposes.<vspace blankLines="1" />This is a
+              mandatory attribute for DOTS signal Call Home. It MUST NOT be
+              used for base DOTS signal channel operations.</t>
 
               <t hangText="alt-ch-client-record:">List of IP addresses for the
               alternate Call Home DOTS client. If no 'alt-ch-client-record' is
@@ -831,7 +833,7 @@ Outbound ||      |     ::     |       || Inbound
              "2001:db8:c000::/128"
            ],
           "ietf-dots-call-home:source-prefix": [
-             "2001:db8:123::/128"
+             "2001:db8:123::1/128"
            ],
           "lifetime": 3600
         }
@@ -901,7 +903,7 @@ Outbound ||      |     ::     |       || Inbound
         </section>
 
         <section anchor="nat" title="Address Sharing Considerations">
-          <t><xref target="ex1"></xref> depictes an example of a network
+          <t><xref target="ex1"></xref> depicts an example of a network
           provider that hosts a Call Home DOTS client and deploys a Carrier
           Grade NAT (CGN) between the DOTS client domain and DOTS server
           domain. In such cases, communicating an external IP address in a
@@ -1074,7 +1076,7 @@ Outbound ||      |     ::     |       || Inbound
                     /dots-signal:redirected-signal:
     +-- (type)?
        +--:(call-home-only)
-          +-- alt-ch-client           string
+          +-- alt-ch-client           inet:domain-name
           +-- alt-ch-client-record*   inet:ip-address
           +-- ttl?                    uint32
 ]]></artwork>
@@ -1110,8 +1112,8 @@ Outbound ||      |     ::     |       || Inbound
 +--------------------+------------+------+---------------+--------+
 | upper-type         | uint8      | TBA5 | 0 unsigned    | Number |
 +--------------------+------------+------+---------------+--------+
-|ietf-dots-call-home:|            |      |               |        |
-| alt-ch-client      | string     | TBA6 | 3 text string | String |
+|ietf-dots-call-home:| inet:      |      |               |        |
+| alt-ch-client      | domain-name| TBA6 | 3 text string | String |
 +--------------------+------------+------+---------------+--------+
 |ietf-dots-call-home:| leaf-list  | TBA7 | 4 array       | Array  |
 | alt-ch-client-     | inet:      |      |               |        |
@@ -1136,7 +1138,7 @@ Outbound ||      |     ::     |       || Inbound
         <xref target="RFC8791"></xref>.</t>
 
         <t><figure>
-            <artwork><![CDATA[<CODE BEGINS> file "ietf-dots-call-home@2020-10-15.yang"
+            <artwork><![CDATA[<CODE BEGINS> file "ietf-dots-call-home@2020-12-02.yang"
 module ietf-dots-call-home {
   yang-version 1.1;
   namespace "urn:ietf:params:xml:ns:yang:ietf-dots-call-home";
@@ -1191,7 +1193,7 @@ module ietf-dots-call-home {
      This version of this YANG module is part of RFC XXXX; see
      the RFC itself for full legal notices.";
 
-  revision 2020-10-15 {
+  revision 2020-12-02 {
     description
       "Initial revision.";
     reference
@@ -1216,7 +1218,6 @@ module ietf-dots-call-home {
          present, it represents a single port number.";
       leaf lower-port {
         type inet:port-number;
-        mandatory true;
         description
           "Lower port number of the port range.";
       }
@@ -1241,7 +1242,6 @@ module ietf-dots-call-home {
          to determine whether ICMP or ICMPv6 are used.";
       leaf lower-type {
         type uint8;
-        mandatory true;
         description
           "Lower ICMP/ICMPv6 type of the ICMP type range.";
         reference
@@ -1283,7 +1283,7 @@ module ietf-dots-call-home {
            channel message from a Call Home DOTS client
            to a Call Home DOTS server.";
         leaf alt-ch-client {
-          type string;
+          type inet:domain-name;
           mandatory true;
           description
             "FQDN of an alternate Call Home DOTS client. 
@@ -1466,16 +1466,16 @@ module ietf-dots-call-home {
       recommended, such as temporarily adding to a drop-list the source
       address after a set number of unsuccessful authentication attempts.</t>
 
-      <t>The DOTS Call Home can be misused by a misbehaving Call Home DOTS
-      client by arbitrarily signalling legitimate traffic as being attack
-      traffic or falsifying mitigation signals so that some sources are
-      disconnected or some traffic is rate-limited. Such misbehaving Call Home
-      DOTS clients may include sources identified by IP addresses that are
-      used for internal use only (that is, these addresses are not visible
-      outside a Call Home DOTS server domain). Absent explicit policy (e.g.,
-      the Call Home DOTS client and server are managed by the same
-      administrative entity), such requests should be discarded by the Call
-      Home DOTS server. More generally, Call Home DOTS servers should not
+      <t>The DOTS Call Home signal channel can be misused by a misbehaving
+      Call Home DOTS client by arbitrarily signalling legitimate traffic as
+      being attack traffic or falsifying mitigation signals so that some
+      sources are disconnected or some traffic is rate-limited. Such
+      misbehaving Call Home DOTS clients may include sources identified by IP
+      addresses that are used for internal use only (that is, these addresses
+      are not visible outside a Call Home DOTS server domain). Absent explicit
+      policy (e.g., the Call Home DOTS client and server are managed by the
+      same administrative entity), such requests should be discarded by the
+      Call Home DOTS server. More generally, Call Home DOTS servers should not
       blindly trust mitigation requests from Call Home DOTS clients. For
       example, Call Home DOTS servers could use the attack flow information
       contained in a mitigation request to enable a full-fledged packet
@@ -1578,6 +1578,13 @@ module ietf-dots-call-home {
 
       <t>Benjamin Kaduk's AD review is valuable. Many thanks to him for the
       detailed review.</t>
+
+      <t>Thanks to Radia Perlman and David Schinazi for the directorate
+      reviews.</t>
+
+      <t>Thanks to Ebben Aries for the yangdoctors review.</t>
+
+      <t>Thanks to Eric Vynck&eacute; for the IESG review. </t>
     </section>
   </middle>
 
@@ -1707,6 +1714,19 @@ module ietf-dots-call-home {
           Registry</title>
 
           <author fullname="IANA">
+            <organization></organization>
+          </author>
+
+          <date />
+        </front>
+      </reference>
+
+      <reference anchor="RS"
+                 target="https://web.archive.org/web/20150315054838/http://ha.ckers.org/slowloris/">
+        <front>
+          <title>Slowloris HTTP DoS</title>
+
+          <author fullname="RSnake" surname="RSnake">
             <organization></organization>
           </author>
 
