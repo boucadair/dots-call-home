@@ -1888,12 +1888,12 @@ Internet-Draft            DOTS Signal Call Home            December 2020
 
    Thanks to Ebben Aries for the yangdoctors review.
 
-   Thanks to Eric Vyncke, Barry Leiba, and XXX for the IESG review.
+   Thanks to Eric Vyncke, Roman Danyliw, and Barry Leiba for the IESG
+   review.
 
 12.  References
 
 12.1.  Normative References
-
 
 
 

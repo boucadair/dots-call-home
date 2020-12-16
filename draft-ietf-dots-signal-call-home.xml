@@ -1584,7 +1584,8 @@ module ietf-dots-call-home {
 
       <t>Thanks to Ebben Aries for the yangdoctors review.</t>
 
-      <t>Thanks to Eric Vyncke, Barry Leiba, and XXX for the IESG review.</t>
+      <t>Thanks to Eric Vyncke, Roman Danyliw, and Barry Leiba for the IESG
+      review.</t>
     </section>
   </middle>
 
