@@ -161,9 +161,9 @@
         the home network is not aware about such misbehaviors. Similar to
         other DDoS attacks, the victim in this attack can be an application
         server, a host, a router, a firewall, or an entire network. Such
-        misbehaviors will have both a collateral damage that affects end
-        users, and can harm the reputation of an Internet Service Provider
-        (ISP) for being a source of attack traffic.</t>
+        misbehaviors can cause collateral damage that will affect end users,
+        and can also harm the reputation of an Internet Service Provider (ISP)
+        for being a source of attack traffic. </t>
 
         <t>Nowadays, network devices in a home network can offer network
         security functions (e.g., firewall <xref target="RFC4949"></xref> or
@@ -556,7 +556,7 @@ Outbound ||      |     ::     |       || Inbound
         a deployment standpoint, and given the scale of Call Home DOTS servers
         that may be involved, enabling means for automating the provisioning
         of credentials on Call Home DOTS servers to authenticate to the Call
-        Home DOTS client are encouraged. It is out of the scope of this
+        Home DOTS client is encouraged. It is out of the scope of this
         document to elaborate on these means.</t>
 
         <t><xref target="signalch"></xref> illustrates a sample DOTS Call Home
@@ -1339,8 +1339,8 @@ module ietf-dots-call-home {
                            and "_dots-call-home._tcp" for discovering
                            Call Home DOTS clients used to establish
                            DOTS signal channel call home.
-   Assignee:               IESG <iesg@ietf.org>
-   Contact:                IETF Chair <chair@ietf.org>
+   Assignee:               IETF <iesg@ietf.org>
+   Contact:                IETF <iesg@ietf.org>
    Reference:              [RFCXXXX][I-D.ietf-dots-server-discovery]]]></artwork>
           </figure></t>
 
@@ -1426,7 +1426,7 @@ module ietf-dots-call-home {
         "ns" subregistry within the "IETF XML Registry" <xref
         target="RFC3688"></xref>: <figure>
             <artwork><![CDATA[         URI: urn:ietf:params:xml:ns:yang:ietf-dots-call-home
-         Registrant Contact: The IESG.
+         Registrant Contact: The IETF.
          XML: N/A; the requested URI is an XML namespace.
 ]]></artwork>
           </figure>This document requests IANA to register the following YANG
@@ -1584,7 +1584,7 @@ module ietf-dots-call-home {
 
       <t>Thanks to Ebben Aries for the yangdoctors review.</t>
 
-      <t>Thanks to Eric Vynck&eacute; for the IESG review. </t>
+      <t>Thanks to Eric Vyncke, Barry Leiba, and XXX for the IESG review.</t>
     </section>
   </middle>
 
