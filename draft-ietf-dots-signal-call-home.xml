@@ -220,12 +220,13 @@
         potentially even MAC address) changes and thus ensure that remediation
         remains in place across such events.</t>
 
-        <t>Existing approaches are still suffering from misused access network
-        resources by abusive devices; the support of means for blocking such
-        attacks close to the sources are missing. In particular, the DOTS
-        signal protocol does not discuss cooperative DDoS mitigation between
-        the network hosting an attack source and the ISP to the suppress the
-        outbound DDoS attack traffic originating from that network.</t>
+        <t>Existing approaches discussed above suffer from misused access
+        network resources by abusive devices; the support of means for
+        blocking such attacks close to the sources are missing. In particular,
+        the DOTS signal protocol does not discuss cooperative DDoS mitigation
+        between the network hosting an attack source and the ISP to the
+        suppress the outbound DDoS attack traffic originating from that
+        network.</t>
       </section>
 
       <section anchor="sol" title="The Call Home Solution">
@@ -1584,8 +1585,8 @@ module ietf-dots-call-home {
 
       <t>Thanks to Ebben Aries for the yangdoctors review.</t>
 
-      <t>Thanks to Eric Vyncke, Roman Danyliw, and Barry Leiba for the IESG
-      review.</t>
+      <t>Thanks to &Eacute;ric Vyncke, Roman Danyliw, and Barry Leiba for the
+      IESG review.</t>
     </section>
   </middle>
 
