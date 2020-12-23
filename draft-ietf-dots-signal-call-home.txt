@@ -131,7 +131,7 @@ Internet-Draft            DOTS Signal Call Home            December 2020
    10. Contributors  . . . . . . . . . . . . . . . . . . . . . . . .  34
    11. Acknowledgements  . . . . . . . . . . . . . . . . . . . . . .  34
    12. References  . . . . . . . . . . . . . . . . . . . . . . . . .  34
-     12.1.  Normative References . . . . . . . . . . . . . . . . . .  34
+     12.1.  Normative References . . . . . . . . . . . . . . . . . .  35
      12.2.  Informative References . . . . . . . . . . . . . . . . .  36
    Appendix A.  Some Home Network Issues . . . . . . . . . . . . . .  39
    Appendix B.  Disambiguating Base DOTS Signal vs. DOTS Call Home .  41
@@ -400,10 +400,10 @@ Internet-Draft            DOTS Signal Call Home            December 2020
    Call Home DOTS agent relationships are similar to those discussed in
    Section 2.3 of [RFC8811].  For example, multiple Call Home DOTS
    servers of the same domain can be associated with the same Call Home
-   DOTS client.  A Call Home DOTS client may contact these Call Home
-   DOTS servers sequentially, fork a mitigation request to all of them,
-   or select one Call Home DOTS server to place a mitigation request.
-   Such decision is implementation-specific.
+   DOTS client.  A Call Home DOTS client may decide to contact these
+   Call Home DOTS servers sequentially, fork a mitigation request to all
+   of them, or select one Call Home DOTS server to place a mitigation
+   request.  Such decision is implementation-specific.
 
    For some mitigations, a feedback may be required from an
    administrator to confirm a filtering action.  Means to seek for an
@@ -1746,7 +1746,9 @@ Internet-Draft            DOTS Signal Call Home            December 2020
    filters (e.g., access control lists) can be installed on the Call
    Home DOTS server and network between the Call Home DOTS agents so
    that only communications from a trusted Call Home DOTS client to the
-   Call Home DOTS server are allowed.
+   Call Home DOTS server are allowed.  These filters can be
+   automatically installed by a Call Home DOTS server based on the
+   configured or discovered peer Call Home DOTS client(s).
 
    An attacker may launch a DoS attack on the DOTS client by having it
    perform computationally expensive operations, before deducing that
@@ -1784,8 +1786,6 @@ Internet-Draft            DOTS Signal Call Home            December 2020
    functions to retrieve an internal IP addresss/external IP address
    mapping (Section 5.3.2) identifying an attack source.  Blocking
    access or manipulating the mapping information will complicate DDoS
-   attack mitigation close to an attack source.  Additional security
-   considerations are specific to the actual mechanism used to access
 
 
 
@@ -1794,6 +1794,8 @@ Reddy, et al.             Expires June 26, 2021                [Page 32]
 Internet-Draft            DOTS Signal Call Home            December 2020
 
 
+   attack mitigation close to an attack source.  Additional security
+   considerations are specific to the actual mechanism used to access
    that mapping (refer, e.g., to Section 4 of [RFC8512] or Section 4 of
    [RFC8513]).
 
@@ -1840,8 +1842,6 @@ Internet-Draft            DOTS Signal Call Home            December 2020
    are deployment-specific.  For example, a Call Home DOTS client may
    rely on the output of some DDoS detection systems (flow exports or
    similar functions) deployed within the DOTS client domain to detect
-   potential outbound DDoS attacks or on abuse claims received from
-   remote victim networks.  These systems may be misused to track users
 
 
 
@@ -1850,6 +1850,8 @@ Reddy, et al.             Expires June 26, 2021                [Page 33]
 Internet-Draft            DOTS Signal Call Home            December 2020
 
 
+   potential outbound DDoS attacks or on abuse claims received from
+   remote victim networks.  These systems may be misused to track users
    and infer their activities.  Such misuses are not required to achieve
    the functionality defined in this document (that is, protect the
    Internet and avoid altering the IP reputation of source networks).
@@ -1893,8 +1895,6 @@ Internet-Draft            DOTS Signal Call Home            December 2020
 
 12.  References
 
-12.1.  Normative References
-
 
 
 
@@ -1905,6 +1905,8 @@ Reddy, et al.             Expires June 26, 2021                [Page 34]
 
 Internet-Draft            DOTS Signal Call Home            December 2020
 
+
+12.1.  Normative References
 
    [I-D.ietf-dots-rfc8782-bis]
               Boucadair, M., Shallow, J., and T. Reddy.K, "Distributed
@@ -1950,9 +1952,7 @@ Internet-Draft            DOTS Signal Call Home            December 2020
               Security Version 1.2", RFC 6347, DOI 10.17487/RFC6347,
               January 2012, <https://www.rfc-editor.org/info/rfc6347>.
 
-   [RFC6991]  Schoenwaelder, J., Ed., "Common YANG Data Types",
-              RFC 6991, DOI 10.17487/RFC6991, July 2013,
-              <https://www.rfc-editor.org/info/rfc6991>.
+
 
 
 
@@ -1961,6 +1961,10 @@ Reddy, et al.             Expires June 26, 2021                [Page 35]
 
 Internet-Draft            DOTS Signal Call Home            December 2020
 
+
+   [RFC6991]  Schoenwaelder, J., Ed., "Common YANG Data Types",
+              RFC 6991, DOI 10.17487/RFC6991, July 2013,
+              <https://www.rfc-editor.org/info/rfc6991>.
 
    [RFC8174]  Leiba, B., "Ambiguity of Uppercase vs Lowercase in RFC
               2119 Key Words", BCP 14, RFC 8174, DOI 10.17487/RFC8174,
@@ -2004,10 +2008,6 @@ Internet-Draft            DOTS Signal Call Home            December 2020
               Terminology", draft-ietf-i2nsf-terminology-08 (work in
               progress), July 2019.
 
-   [I-D.ietf-idr-flow-spec-v6]
-              Loibl, C., Raszuk, R., and S. Hares, "Dissemination of
-              Flow Specification Rules for IPv6", draft-ietf-idr-flow-
-              spec-v6-22 (work in progress), December 2020.
 
 
 
@@ -2017,6 +2017,11 @@ Reddy, et al.             Expires June 26, 2021                [Page 36]
 
 Internet-Draft            DOTS Signal Call Home            December 2020
 
+
+   [I-D.ietf-idr-flow-spec-v6]
+              Loibl, C., Raszuk, R., and S. Hares, "Dissemination of
+              Flow Specification Rules for IPv6", draft-ietf-idr-flow-
+              spec-v6-22 (work in progress), December 2020.
 
    [Key-Map]  IANA, "DOTS Signal Channel CBOR Key Values",
               <https://www.iana.org/assignments/dots/dots.xhtml#dots-
@@ -2059,11 +2064,6 @@ Internet-Draft            DOTS Signal Call Home            December 2020
               Usage", BCP 168, RFC 6398, DOI 10.17487/RFC6398, October
               2011, <https://www.rfc-editor.org/info/rfc6398>.
 
-   [RFC6973]  Cooper, A., Tschofenig, H., Aboba, B., Peterson, J.,
-              Morris, J., Hansen, M., and R. Smith, "Privacy
-              Considerations for Internet Protocols", RFC 6973,
-              DOI 10.17487/RFC6973, July 2013,
-              <https://www.rfc-editor.org/info/rfc6973>.
 
 
 
@@ -2073,6 +2073,12 @@ Reddy, et al.             Expires June 26, 2021                [Page 37]
 
 Internet-Draft            DOTS Signal Call Home            December 2020
 
+
+   [RFC6973]  Cooper, A., Tschofenig, H., Aboba, B., Peterson, J.,
+              Morris, J., Hansen, M., and R. Smith, "Privacy
+              Considerations for Internet Protocols", RFC 6973,
+              DOI 10.17487/RFC6973, July 2013,
+              <https://www.rfc-editor.org/info/rfc6973>.
 
    [RFC7011]  Claise, B., Ed., Trammell, B., Ed., and P. Aitken,
               "Specification of the IP Flow Information Export (IPFIX)
@@ -2116,12 +2122,6 @@ Internet-Draft            DOTS Signal Call Home            December 2020
               RFC 8517, DOI 10.17487/RFC8517, February 2019,
               <https://www.rfc-editor.org/info/rfc8517>.
 
-   [RFC8576]  Garcia-Morchon, O., Kumar, S., and M. Sethi, "Internet of
-              Things (IoT) Security: State of the Art and Challenges",
-              RFC 8576, DOI 10.17487/RFC8576, April 2019,
-              <https://www.rfc-editor.org/info/rfc8576>.
-
-
 
 
 
@@ -2129,6 +2129,11 @@ Reddy, et al.             Expires June 26, 2021                [Page 38]
 
 Internet-Draft            DOTS Signal Call Home            December 2020
 
+
+   [RFC8576]  Garcia-Morchon, O., Kumar, S., and M. Sethi, "Internet of
+              Things (IoT) Security: State of the Art and Challenges",
+              RFC 8576, DOI 10.17487/RFC8576, April 2019,
+              <https://www.rfc-editor.org/info/rfc8576>.
 
    [RFC8612]  Mortensen, A., Reddy, T., and R. Moskowitz, "DDoS Open
               Threat Signaling (DOTS) Requirements", RFC 8612,
@@ -2173,11 +2178,6 @@ Appendix A.  Some Home Network Issues
    continue to be used for a long period of time in the home, and the
    end-user does not know that IoT devices in his/her home are
    compromised.  The compromised IoT devices are typically used for
-   launching DDoS attacks (Section 3 of [RFC8576]) on victims while the
-   owner/administrator of the home network is not aware about such
-   misbehaviors.  Similar to other DDoS attacks, the victim in this
-   attack can be an application server, a host, a router, a firewall, or
-   an entire network.  Such misbehaviors can cause collateral damage
 
 
 
@@ -2186,6 +2186,11 @@ Reddy, et al.             Expires June 26, 2021                [Page 39]
 Internet-Draft            DOTS Signal Call Home            December 2020
 
 
+   launching DDoS attacks (Section 3 of [RFC8576]) on victims while the
+   owner/administrator of the home network is not aware about such
+   misbehaviors.  Similar to other DDoS attacks, the victim in this
+   attack can be an application server, a host, a router, a firewall, or
+   an entire network.  Such misbehaviors can cause collateral damage
    that will affect end users, and can also harm the reputation of an
    Internet Service Provider (ISP) for being a source of attack traffic.
 
@@ -2229,11 +2234,6 @@ Internet-Draft            DOTS Signal Call Home            December 2020
 
    ISPs can detect some DDoS attacks originating from a home network
    (e.g., Section 2.6 of [RFC8517]), but the ISP usually does not have a
-   mechanism to detect which device in the home network is generating
-   the DDoS attack traffic.  The primary reason for this is that devices
-   in an IPv4 home network are typically behind a Network Address
-   Translation (NAT) border [RFC2663].  Even in case of an IPv6 home
-   network, although the ISP can identify the infected device in the
 
 
 
@@ -2242,6 +2242,11 @@ Reddy, et al.             Expires June 26, 2021                [Page 40]
 Internet-Draft            DOTS Signal Call Home            December 2020
 
 
+   mechanism to detect which device in the home network is generating
+   the DDoS attack traffic.  The primary reason for this is that devices
+   in an IPv4 home network are typically behind a Network Address
+   Translation (NAT) border [RFC2663].  Even in case of an IPv6 home
+   network, although the ISP can identify the infected device in the
    home network launching the DDoS traffic by tracking its unique IPv6
    address, the infected device can easily change its IPv6 address to
    evade remediation.  A security function on the local home network is
@@ -2284,12 +2289,7 @@ Appendix B.  Disambiguating Base DOTS Signal vs. DOTS Call Home
    Call Home.  Based on the different port numbers, the ISP can directly
    decide which kind of procedures should follow immediately after it
    receives the DOTS messages.  This approach just requires two (D)TLS
-   sessions to be established respectively for the basic signal channel
-   and signal channel Call Home.
 
-   The other approach is signaling the role of each DOTS agent (e.g., by
-   using the DOTS data channel as depicted in Figure 14).  For example,
-   the DOTS agent in the home network first initiates a DOTS data
 
 
 
@@ -2298,6 +2298,12 @@ Reddy, et al.             Expires June 26, 2021                [Page 41]
 Internet-Draft            DOTS Signal Call Home            December 2020
 
 
+   sessions to be established respectively for the basic signal channel
+   and signal channel Call Home.
+
+   The other approach is signaling the role of each DOTS agent (e.g., by
+   using the DOTS data channel as depicted in Figure 14).  For example,
+   the DOTS agent in the home network first initiates a DOTS data
    channel to the peer DOTS agent in the ISP environment, at this time
    the DOTS agent in the home network is the DOTS client and the peer
    DOTS agent in the ISP environment is the DOTS server.  After that,
@@ -2339,12 +2345,6 @@ Authors' Addresses
    Email: kondtir@gmail.com
 
 
-   Mohamed Boucadair
-   Orange
-   Rennes  35000
-   France
-
-   Email: mohamed.boucadair@orange.com
 
 
 
@@ -2354,18 +2354,18 @@ Reddy, et al.             Expires June 26, 2021                [Page 42]
 Internet-Draft            DOTS Signal Call Home            December 2020
 
 
+   Mohamed Boucadair
+   Orange
+   Rennes  35000
+   France
+
+   Email: mohamed.boucadair@orange.com
+
+
    Jon Shallow
    UK
 
    Email: supjps-ietf@jpshallow.com
-
-
-
-
-
-
-
-
 
 
 
