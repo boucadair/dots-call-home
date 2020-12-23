@@ -217,7 +217,7 @@
       scenario (<xref target="fa"></xref>). DOTS Call Home agents may (or not)
       be co-located with DOTS agents that are compliant with <xref
       target="I-D.ietf-dots-rfc8782-bis"></xref> (see <xref
-      target="coex"></xref> for more details).</t>
+      target="coex"></xref> for more details). </t>
 
       <t>A Call Home DOTS client relies upon a variety of triggers to make use
       of the Call Home function (e.g., scrubbing the traffic from the attack
@@ -236,7 +236,7 @@
       target="I-D.ietf-dots-use-cases"></xref>, a Call Home DOTS server
       maintains a single DOTS signal channel session for each DOTS-capable
       upstream provisioning domain <xref target="I-D.ietf-dots-multihoming">
-      </xref>.</t>
+      </xref>. </t>
 
       <t>For instance, the Call Home DOTS server in the home network initiates
       the signal channel Call Home in 'idle' time and then subsequently the
@@ -341,6 +341,14 @@
 
       <t>It is out of the scope of this document to identify an exhaustive
       list of such deployments.</t>
+
+      <t>Call Home DOTS agent relationships are similar to those discussed in
+      Section 2.3 of <xref target="RFC8811"></xref>. For example, multiple
+      Call Home DOTS servers of the same domain can be associated with the
+      same Call Home DOTS client. A Call Home DOTS client may contact these
+      Call Home DOTS servers sequentially, fork a mitigation request to all of
+      them, or select one Call Home DOTS server to place a mitigation request.
+      Such decision is implementation-specific. </t>
 
       <t>For some mitigations, a feedback may be required from an
       administrator to confirm a filtering action. Means to seek for an
