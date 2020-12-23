@@ -138,7 +138,7 @@
       DOTS client to one or multiple DOTS servers so that appropriate
       mitigation actions are undertaken on traffic deemed suspicious. Various
       use cases are discussed in <xref
-      target="I-D.ietf-dots-use-cases"></xref>. </t>
+      target="I-D.ietf-dots-use-cases"></xref>.</t>
 
       <t>However, <xref target="I-D.ietf-dots-rfc8782-bis"></xref> only covers
       how to mitigate when being attacked (i.e., protect a network from
@@ -149,19 +149,19 @@
       attack source and the Internet Service Provider (ISP) to suppress the
       outbound DDoS attack traffic originating from that network. As a
       reminder, the base basic DOTS architecture is depicted in <xref
-      target="basea"></xref> (Section 2 of <xref target="RFC8811"></xref>).
-      </t>
+      target="basea"></xref> (Section 2 of <xref
+      target="RFC8811"></xref>).</t>
 
       <t><figure align="center" anchor="basea" title="Basic DOTS Architecture">
-          <artwork><![CDATA[       +-----------+            +-------------+
-       | Mitigator | ~~~~~~~~~~ | DOTS Server |
-       +-----------+            +-------------+
-                                       |
-                                       |
-                                       |
-       +---------------+        +-------------+
-       | Attack Target | ~~~~~~ | DOTS Client |
-       +---------------+        +-------------+
+          <artwork align="center"><![CDATA[+-----------+            +-------------+
+| Mitigator | ~~~~~~~~~~ | DOTS Server |
++-----------+            +-------------+
+                                |
+                                |
+                                |
++---------------+        +-------------+
+| Attack Target | ~~~~~~ | DOTS Client |
++---------------+        +-------------+
 ]]></artwork>
         </figure></t>
 
@@ -349,18 +349,20 @@
       DOTS deployment: push notifications using a dedicated application,
       Syslog, etc. It is out of the scope of this document to make
       recommendations about how such interactions are implemented (see <xref
-      target="fa"></xref>). </t>
+      target="fa"></xref>).</t>
 
       <t>The Call Home DOTS server can be enabled on a border router or a
       dedicated appliance. For the particular case of home networks, the Call
       Home DOTS server functionality can be enabled on a managed CPE or be
       bundled with a CPE management application that is provided by an ISP to
       its subscribers. These managed services are likely to be designed to
-      hide the complexity of managing and configuring the CPE. For example,
-      managed CPEs support means to notify the user when a new device is
-      detected in order to seek a confirmation whether access should be
+      hide the complexity of managing (including configuring) the CPE. For
+      example, managed CPEs support means to notify the user when a new device
+      is detected in order to seek a confirmation whether access should be
       granted or not to the device. These means can be upgraded to interface
-      with the Call Home DOTS server. </t>
+      with the Call Home DOTS server. Customized settings can be configured by
+      users to control the notifications (e.g., triggers, type) and default
+      actions. </t>
     </section>
 
     <section anchor="coex"
@@ -1457,7 +1459,7 @@ module ietf-dots-call-home {
       DOTS servers can also seek the consent of DOTS server domain
       administrator to block the traffic from the potentially compromised
       device to the target (see <xref target="mitigation"></xref>). Means to
-      seek the consent are implementation-specific. </t>
+      seek the consent are implementation-specific.</t>
 
       <t>Call Home DOTS agents may interact with on-path address sharing
       functions to retrieve an internal IP addresss/external IP address
@@ -1743,7 +1745,7 @@ module ietf-dots-call-home {
       devices as well, and over the years several techniques have been
       identified to detect DDoS attacks; some of these techniques can be
       enabled on home network devices but most of them are used within the
-      ISP's network. </t>
+      ISP's network.</t>
 
       <t>Some of the DDoS attacks like spoofed RST or FIN packets, Slowloris
       <xref target="RS"></xref>, and Transport Layer Security (TLS)

@@ -170,15 +170,15 @@ Reddy, et al.             Expires June 25, 2021                 [Page 3]
 Internet-Draft            DOTS Signal Call Home            December 2020
 
 
-          +-----------+            +-------------+
-          | Mitigator | ~~~~~~~~~~ | DOTS Server |
-          +-----------+            +-------------+
-                                          |
-                                          |
-                                          |
-          +---------------+        +-------------+
-          | Attack Target | ~~~~~~ | DOTS Client |
-          +---------------+        +-------------+
+                 +-----------+            +-------------+
+                 | Mitigator | ~~~~~~~~~~ | DOTS Server |
+                 +-----------+            +-------------+
+                                                 |
+                                                 |
+                                                 |
+                 +---------------+        +-------------+
+                 | Attack Target | ~~~~~~ | DOTS Client |
+                 +---------------+        +-------------+
 
                      Figure 1: Basic DOTS Architecture
 
@@ -411,11 +411,13 @@ Internet-Draft            DOTS Signal Call Home            December 2020
    Call Home DOTS server functionality can be enabled on a managed CPE
    or be bundled with a CPE management application that is provided by
    an ISP to its subscribers.  These managed services are likely to be
-   designed to hide the complexity of managing and configuring the CPE.
-   For example, managed CPEs support means to notify the user when a new
-   device is detected in order to seek a confirmation whether access
-   should be granted or not to the device.  These means can be upgraded
-   to interface with the Call Home DOTS server.
+   designed to hide the complexity of managing (including configuring)
+   the CPE.  For example, managed CPEs support means to notify the user
+   when a new device is detected in order to seek a confirmation whether
+   access should be granted or not to the device.  These means can be
+   upgraded to interface with the Call Home DOTS server.  Customized
+   settings can be configured by users to control the notifications
+   (e.g., triggers, type) and default actions.
 
 4.  Co-existence of Base DOTS Signal Channel and DOTS Call Home
 
@@ -428,8 +430,6 @@ Internet-Draft            DOTS Signal Call Home            December 2020
    inbound DDoS attacks.  In that case, both the base DOTS signal
    channel and DOTS signal channel Call Home may be enabled as shown in
    Figure 4 (Same DMS provider) or Figure 5 (Distinct DMS providers).
-
-
 
 
 
