@@ -2213,13 +2213,19 @@ Internet-Draft            DOTS Signal Call Home            December 2020
    Deep Packet Inspection (DPI) of all the packets of a flow would be
    able to detect some of the attacks.  However, a full-fledged DPI to
    detect these type of DDoS attacks is functionally or operationally
-   not possible for all the devices attached to the home network owing
-   to the memory and CPU limitations of the home routers.  Furthermore,
+   not possible for all the devices attached to the home network because
+   of the memory and CPU limitations of the home routers.  Furthermore,
    for certain DDoS attacks the logic needed to distinguish legitimate
    traffic from attack traffic on a per-packet basis is complex.  This
-   complexity is due to the fact that the packet itself may look
-   "legitimate" and no attack signature can be identified.  The anomaly
-   can be identified only after detailed statistical analysis.
+   complexity is because that the packet itself may look "legitimate"
+   and no attack signature can be identified.  The anomaly can be
+   identified only after detailed statistical analysis.  In addition,
+   network security services in home networks may not be able to detect
+   all types of DDoS attacks using DPI.  ISPs offering DDoS mitigation
+   services have a DDoS detection capability that relies upon anomaly
+   detection to identify zero day DDoS attacks and to detect DDoS
+   attacks that cannot be detected using signatures and rate-limit
+   techniques.
 
    ISPs can detect some DDoS attacks originating from a home network
    (e.g., Section 2.6 of [RFC8517]), but the ISP usually does not have a
@@ -2228,12 +2234,6 @@ Internet-Draft            DOTS Signal Call Home            December 2020
    in an IPv4 home network are typically behind a Network Address
    Translation (NAT) border [RFC2663].  Even in case of an IPv6 home
    network, although the ISP can identify the infected device in the
-   home network launching the DDoS traffic by tracking its unique IPv6
-   address, the infected device can easily change its IPv6 address to
-   evade remediation.  A security function on the local home network is
-   better positioned to track the compromised device across IPv6 address
-   (and potentially even MAC address) changes and thus ensure that
-   remediation remains in place across such events.
 
 
 
@@ -2241,6 +2241,13 @@ Reddy, et al.             Expires June 26, 2021                [Page 40]
 
 Internet-Draft            DOTS Signal Call Home            December 2020
 
+
+   home network launching the DDoS traffic by tracking its unique IPv6
+   address, the infected device can easily change its IPv6 address to
+   evade remediation.  A security function on the local home network is
+   better positioned to track the compromised device across IPv6 address
+   (and potentially even MAC address) changes and thus ensure that
+   remediation remains in place across such events.
 
 Appendix B.  Disambiguating Base DOTS Signal vs. DOTS Call Home
 
@@ -2283,13 +2290,6 @@ Appendix B.  Disambiguating Base DOTS Signal vs. DOTS Call Home
    The other approach is signaling the role of each DOTS agent (e.g., by
    using the DOTS data channel as depicted in Figure 14).  For example,
    the DOTS agent in the home network first initiates a DOTS data
-   channel to the peer DOTS agent in the ISP environment, at this time
-   the DOTS agent in the home network is the DOTS client and the peer
-   DOTS agent in the ISP environment is the DOTS server.  After that,
-   the DOTS agent in the home network retrieves the DOTS Call Home
-   capability of the peer DOTS agent.  If the peer supports the DOTS
-   Call Home, the DOTS agent needs to subscribe to the peer to use this
-   extension.  Then, the reversal of DOTS role can be recognized as done
 
 
 
@@ -2298,6 +2298,13 @@ Reddy, et al.             Expires June 26, 2021                [Page 41]
 Internet-Draft            DOTS Signal Call Home            December 2020
 
 
+   channel to the peer DOTS agent in the ISP environment, at this time
+   the DOTS agent in the home network is the DOTS client and the peer
+   DOTS agent in the ISP environment is the DOTS server.  After that,
+   the DOTS agent in the home network retrieves the DOTS Call Home
+   capability of the peer DOTS agent.  If the peer supports the DOTS
+   Call Home, the DOTS agent needs to subscribe to the peer to use this
+   extension.  Then, the reversal of DOTS role can be recognized as done
    by both DOTS agents.  When the DOTS agent in the ISP environment,
    which now is the DOTS client, wants to filter the attackers' traffic,
    it requests the DOTS agent in the home network, which now is the DOTS
@@ -2340,6 +2347,13 @@ Authors' Addresses
    Email: mohamed.boucadair@orange.com
 
 
+
+
+Reddy, et al.             Expires June 26, 2021                [Page 42]
+
+Internet-Draft            DOTS Signal Call Home            December 2020
+
+
    Jon Shallow
    UK
 
@@ -2349,4 +2363,46 @@ Authors' Addresses
 
 
 
-Reddy, et al.             Expires June 26, 2021                [Page 42]
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Reddy, et al.             Expires June 26, 2021                [Page 43]

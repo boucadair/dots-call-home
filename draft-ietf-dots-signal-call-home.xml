@@ -1770,13 +1770,18 @@ module ietf-dots-call-home {
       <t>Deep Packet Inspection (DPI) of all the packets of a flow would be
       able to detect some of the attacks. However, a full-fledged DPI to
       detect these type of DDoS attacks is functionally or operationally not
-      possible for all the devices attached to the home network owing to the
+      possible for all the devices attached to the home network because of the
       memory and CPU limitations of the home routers. Furthermore, for certain
       DDoS attacks the logic needed to distinguish legitimate traffic from
-      attack traffic on a per-packet basis is complex. This complexity is due
-      to the fact that the packet itself may look "legitimate" and no attack
+      attack traffic on a per-packet basis is complex. This complexity is
+      because that the packet itself may look "legitimate" and no attack
       signature can be identified. The anomaly can be identified only after
-      detailed statistical analysis.</t>
+      detailed statistical analysis. In addition, network security services in
+      home networks may not be able to detect all types of DDoS attacks using
+      DPI. ISPs offering DDoS mitigation services have a DDoS detection
+      capability that relies upon anomaly detection to identify zero day DDoS
+      attacks and to detect DDoS attacks that cannot be detected using
+      signatures and rate-limit techniques.</t>
 
       <t>ISPs can detect some DDoS attacks originating from a home network
       (e.g., Section 2.6 of <xref target="RFC8517"></xref>), but the ISP
@@ -1790,7 +1795,7 @@ module ietf-dots-call-home {
       its IPv6 address to evade remediation. A security function on the local
       home network is better positioned to track the compromised device across
       IPv6 address (and potentially even MAC address) changes and thus ensure
-      that remediation remains in place across such events.</t>
+      that remediation remains in place across such events. </t>
     </section>
 
     <section anchor="app"
