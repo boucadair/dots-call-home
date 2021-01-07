@@ -209,15 +209,15 @@ Internet-Draft            DOTS Signal Call Home             January 2021
       channel to handle both inbound and outbound attacks complicates
       both the heartbeat and redirection mechanisms that are executed as
       a function of the attack direction (see Sections 5.2.1 and 5.2.2).
-      Also, the DOTS server will be subject to fingerprinting via
-      scanning tools and DoS attacks can be launched against DOTS
-      servers, for example, by having it perform computationally
-      expensive operations.  Various management and deployment
-      considerations that motivate the Call Home functionality are
-      listed in Section 1.1 of [RFC8071].
+      Also, the DOTS server will be subject to fingerprinting (e.g.,
+      using scanning tools) and DoS attacks (e.g., by having the DOTS
+      server to perform computationally expensive operations).  Various
+      management and deployment considerations that motivate the Call
+      Home functionality are listed in Section 1.1 of [RFC8071].
 
    'DOTS signal channel Call Home' (or DOTS Call Home, for short) refers
    to a DOTS signal channel established at the initiative of a DOTS
+   server thanks to a role reversal at the (D)TLS layer (Section 5.1).
 
 
 
@@ -226,7 +226,6 @@ Reddy, et al.             Expires July 11, 2021                 [Page 4]
 Internet-Draft            DOTS Signal Call Home             January 2021
 
 
-   server thanks to a role reversal at the (D)TLS layer (Section 5.1).
    That is, the DOTS server initiates a secure connection to a DOTS
    client, and uses that connection to receive the attack traffic
    information (e.g., attack sources) from the DOTS client.
@@ -274,6 +273,7 @@ Internet-Draft            DOTS Signal Call Home             January 2021
    by an ISP-managed CPE or a managed security service subscribed by the
    user.  Unlike classic DOTS deployments [I-D.ietf-dots-use-cases], a
    Call Home DOTS server maintains a single DOTS signal channel session
+
 
 
 
