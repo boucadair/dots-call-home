@@ -192,8 +192,9 @@
           and firewalls. Moreover, the use of the same signal channel to
           handle both inbound and outbound attacks complicates both the
           heartbeat and redirection mechanisms that are executed as a function
-          of the attack direction (see Sections <xref target="hb"></xref> and
-          <xref target="redirect"></xref>). Various management and deployment
+          of the attack direction (see Sections <xref format="counter"
+          target="hb"></xref> and <xref format="counter"
+          target="redirect"></xref>). Various management and deployment
           considerations that motivate the Call Home functionality are listed
           in Section 1.1 of <xref target="RFC8071"></xref>. </t>
         </list></t>

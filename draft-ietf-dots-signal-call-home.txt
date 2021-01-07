@@ -208,16 +208,16 @@ Internet-Draft            DOTS Signal Call Home             January 2021
       translators and firewalls.  Moreover, the use of the same signal
       channel to handle both inbound and outbound attacks complicates
       both the heartbeat and redirection mechanisms that are executed as
-      a function of the attack direction (see Sections Section 5.2.1 and
-      Section 5.2.2).  Various management and deployment considerations
-      that motivate the Call Home functionality are listed in
-      Section 1.1 of [RFC8071].
+      a function of the attack direction (see Sections 5.2.1 and 5.2.2).
+      Various management and deployment considerations that motivate the
+      Call Home functionality are listed in Section 1.1 of [RFC8071].
 
    'DOTS signal channel Call Home' (or DOTS Call Home, for short) refers
    to a DOTS signal channel established at the initiative of a DOTS
    server thanks to a role reversal at the (D)TLS layer (Section 5.1).
    That is, the DOTS server initiates a secure connection to a DOTS
-
+   client, and uses that connection to receive the attack traffic
+   information (e.g., attack sources) from the DOTS client.
 
 
 
@@ -225,9 +225,6 @@ Reddy, et al.             Expires July 11, 2021                 [Page 4]
 
 Internet-Draft            DOTS Signal Call Home             January 2021
 
-
-   client, and uses that connection to receive the attack traffic
-   information (e.g., attack sources) from the DOTS client.
 
    A high-level DOTS Call Home functional architecture is shown in
    Figure 2.  Attack source(s) are within the DOTS server domain.
@@ -275,6 +272,9 @@ Internet-Draft            DOTS Signal Call Home             January 2021
    for each DOTS-capable upstream provisioning domain
    [I-D.ietf-dots-multihoming].
 
+   For instance, the Call Home DOTS server in the home network initiates
+   the signal channel Call Home in 'idle' time and then subsequently the
+
 
 
 Reddy, et al.             Expires July 11, 2021                 [Page 5]
@@ -282,8 +282,6 @@ Reddy, et al.             Expires July 11, 2021                 [Page 5]
 Internet-Draft            DOTS Signal Call Home             January 2021
 
 
-   For instance, the Call Home DOTS server in the home network initiates
-   the signal channel Call Home in 'idle' time and then subsequently the
    Call Home DOTS client in the ISP environment can initiate a
    mitigation request whenever the ISP detects there is an attack from a
    compromised device in the DOTS server domain (i.e., from within the
@@ -329,6 +327,8 @@ Internet-Draft            DOTS Signal Call Home             January 2021
    Security (TLS) [RFC8446] and Datagram Transport Layer Security (DTLS)
    [RFC6347].  Specific terms are used for any statement that applies to
    either protocol alone.
+
+
 
 
 
