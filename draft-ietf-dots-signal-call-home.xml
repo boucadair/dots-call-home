@@ -10,7 +10,7 @@
 <?rfc inline="yes"?>
 <?rfc compact="yes"?>
 <?rfc subcompact="no"?>
-<rfc category="std" docName="draft-ietf-dots-signal-call-home-12"
+<rfc category="std" docName="draft-ietf-dots-signal-call-home-latest"
      ipr="trust200902">
   <front>
     <title abbrev="DOTS Signal Call Home">Distributed Denial-of-Service Open
@@ -36,7 +36,8 @@
       </address>
     </author>
 
-    <author fullname="Mohamed Boucadair" initials="M." surname="Boucadair">
+    <author fullname="Mohamed Boucadair" initials="M." role="editor"
+            surname="Boucadair">
       <organization>Orange</organization>
 
       <address>
@@ -173,14 +174,14 @@
       enterprise networks, data centers, etc. The ISP offering a DDoS
       mitigation service can detect outgoing DDoS attack traffic originating
       from its subscribers or the ISP may receive filtering rules (e.g., using
-      BGP Flowspec <xref target="RFC5575"></xref><xref
-      target="I-D.ietf-idr-flow-spec-v6"></xref>) from a transit provider to
-      filter, block, or rate-limit DDoS attack traffic originating from the
-      ISP's subscribers to a downstream target. Nevertheless, the DOTS signal
-      channel does not provide means for the ISP to request blocking such
-      attacks close to the sources without altering legitimate traffic. This
-      document fills that void by specifying an extension to the DOTS signal
-      channel: DOTS signal channel Call Home.<list style="empty">
+      BGP Flowspec <xref target="RFC8955"></xref><xref
+      target="RFC8956"></xref>) from a transit provider to filter, block, or
+      rate-limit DDoS attack traffic originating from the ISP's subscribers to
+      a downstream target. Nevertheless, the DOTS signal channel does not
+      provide means for the ISP to request blocking such attacks close to the
+      sources without altering legitimate traffic. This document fills that
+      void by specifying an extension to the DOTS signal channel: DOTS signal
+      channel Call Home.<list style="empty">
           <t>Note: Another design approach would be to extend the DOTS signal
           channel with a new attribute to explicitly indicate whether a
           mitigation request is about an outbound DDoS attack. In such an
@@ -199,7 +200,7 @@
           by having the DOTS server to perform computationally expensive
           operations). Various management and deployment considerations that
           motivate the Call Home functionality are listed in Section 1.1 of
-          <xref target="RFC8071"></xref>. </t>
+          <xref target="RFC8071"></xref>.</t>
         </list></t>
 
       <t>'DOTS signal channel Call Home' (or DOTS Call Home, for short) refers
@@ -277,8 +278,8 @@
       <t>This document assumes that Call Home DOTS servers are provisioned
       with a way to know how to reach the upstream Call Home DOTS client(s),
       which could occur by a variety of means (e.g., <xref
-      target="I-D.ietf-dots-server-discovery"></xref>). The specification of
-      such means are out of scope of this document.</t>
+      target="RFC8973"></xref>). The specification of such means are out of
+      scope of this document.</t>
 
       <t>More information about the applicability scope of the DOTS signal
       channel Call Home is provided in <xref target="as"></xref>.</t>
@@ -586,14 +587,9 @@ Outbound ||      |     ::     |       || Inbound
             by initiating a TCP connection to the Call Home DOTS client. Once
             connected, the Call Home DOTS server continues to initiate a TLS
             connection to the Call Home DOTS client.<vspace
-            blankLines="1" />In some cases, peer DOTS agents may have mutual
-            agreement to use a specific port number, such as by explicit
-            configuration or dynamic discovery <xref
-            target="I-D.ietf-dots-server-discovery"></xref>. Absent such
-            mutual agreement, the DOTS signal channel Call Home MUST run over
-            port number TBD (that is, Call Home DOTS clients must support
-            accepting DTLS (or TCP) connections on TBD) as defined in <xref
-            target="port"></xref>, for both UDP and TCP. The interaction
+            blankLines="1" />Peer DOTS agents may have mutual agreement to use
+            a specific port number, such as by explicit configuration or
+            dynamic discovery <xref target="RFC8973"></xref>. The interaction
             between the base DOTS signal channel and the Call Home is
             discussed in <xref target="app"></xref>.<vspace
             blankLines="1" />The Happy Eyeballs mechanism explained in Section
@@ -1179,7 +1175,7 @@ module ietf-dots-call-home {
      messages exchanged between a DOTS client and a DOTS server
      for the Call Home deployment scenario.
 
-     Copyright (c) 2020 IETF Trust and the persons identified as
+     Copyright (c) 2021 IETF Trust and the persons identified as
      authors of the code.  All rights reserved.
 
      Redistribution and use in source and binary forms, with or
@@ -1320,32 +1316,6 @@ module ietf-dots-call-home {
 
     <section anchor="IANA" title="IANA Considerations">
       <t></t>
-
-      <section anchor="port"
-               title="DOTS Signal Channel Call Home UDP and TCP Port Number">
-        <t>IANA is requested to assign the port number TBD to the DOTS signal
-        channel Call Home protocol for both UDP and TCP and update the
-        following entry from the "Service Name and Transport Protocol Port
-        Number Registry" <xref target="ServicePorts"></xref>.</t>
-
-        <t><figure>
-            <artwork><![CDATA[   Service Name:           dots-call-home
-   Port Number:            TBD
-   Transport Protocol(s):  TCP/UDP
-   Description:            DOTS Signal Channel Call Home Protocol.
-                           The service name is used to construct the
-                           SRV service names "_dots-call-home._udp"
-                           and "_dots-call-home._tcp" for discovering
-                           Call Home DOTS clients used to establish
-                           DOTS signal channel call home.
-   Assignee:               IETF <iesg@ietf.org>
-   Contact:                IETF <iesg@ietf.org>
-   Reference:              [RFCXXXX][I-D.ietf-dots-server-discovery]]]></artwork>
-          </figure></t>
-
-        <t>The assignment of port number 4647 is strongly suggested (DOTS
-        signal channel uses port number 4646).</t>
-      </section>
 
       <section anchor="map" title="DOTS Signal Channel CBOR Mappings Registry">
         <t>This specification registers the following comprehension-optional
@@ -1633,7 +1603,7 @@ module ietf-dots-call-home {
 
       <?rfc include="reference.RFC.4340"?>
 
-      <?rfc include="reference.RFC.5575"?>
+      <?rfc include="reference.RFC.8955"?>
 
       <?rfc include='reference.I-D.ietf-dots-multihoming'?>
 
@@ -1641,9 +1611,9 @@ module ietf-dots-call-home {
 
       <?rfc include='reference.I-D.ietf-dots-use-cases'?>
 
-      <?rfc include='reference.I-D.ietf-dots-server-discovery'?>
+      <?rfc include='reference.RFC.8973'?>
 
-      <?rfc include='reference.I-D.ietf-idr-flow-spec-v6'?>
+      <?rfc include='reference.RFC.8956'?>
 
       <?rfc include='reference.RFC.8512'?>
 
@@ -1703,20 +1673,6 @@ module ietf-dots-call-home {
                  target="https://www.iana.org/assignments/dots/dots.xhtml#dots-signal-channel-conflict-cause-codes">
         <front>
           <title>DOTS Signal Channel Conflict Cause Codes</title>
-
-          <author fullname="IANA">
-            <organization></organization>
-          </author>
-
-          <date />
-        </front>
-      </reference>
-
-      <reference anchor="ServicePorts"
-                 target="https://www.iana.org/assignments/service-names-port-numbers/service-names-port-numbers.xhtml">
-        <front>
-          <title>Service Name and Transport Protocol Port Number
-          Registry</title>
 
           <author fullname="IANA">
             <organization></organization>
@@ -1850,8 +1806,8 @@ module ietf-dots-call-home {
       can be separated unambiguously and easily. For example, the CPE uses the
       port number 4646 allocated in <xref
       target="I-D.ietf-dots-rfc8782-bis"></xref> to initiate the basic signal
-      channel to the ISP when it acts as the DOTS client, and uses the port
-      number TBD to initiate the signal channel Call Home. Based on the
+      channel to the ISP when it acts as the DOTS client, and uses another
+      port number to initiate the signal channel Call Home. Based on the
       different port numbers, the ISP can directly decide which kind of
       procedures should follow immediately after it receives the DOTS
       messages. This approach just requires two (D)TLS sessions to be
@@ -1889,8 +1845,10 @@ module ietf-dots-call-home {
       more procedures will still reduce the efficiency. Using the dedicated
       port number is much easier and more concise compared to the second
       approach, and its cost that establishing two (D)TLS sessions is much
-      less. So, using a dedicated port number for the DOTS Call Home is chosen
-      in this specification.</t>
+      less. So, using a dedicated port number for the DOTS Call Home is
+      recommended in this specification. The dedicated port number can be
+      configured locally or discovered using means such as <xref
+      target="RFC8973"></xref>.</t>
     </section>
   </back>
 </rfc>
